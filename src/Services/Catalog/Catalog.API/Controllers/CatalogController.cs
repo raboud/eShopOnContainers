@@ -54,7 +54,7 @@ namespace Microsoft.eShopOnContainers.Services.Catalog.API.Controllers
         [HttpGet]
         [Route("[action]")]
         [ProducesResponseType(typeof(PaginatedItemsViewModel<CatalogItem>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Items([FromQuery]string name, [FromQuery]int? catalogTypeId, [FromQuery]int? catalogBrandId, [FromQuery]int pageSize = 10, [FromQuery]int pageIndex = 0)
+        public async Task<IActionResult> Items([FromQuery]string name, [FromQuery]int? type, [FromQuery]int? brand, [FromQuery]int pageSize = 10, [FromQuery]int pageIndex = 0)
         {
             var root = (IQueryable<CatalogItem>)_catalogContext.CatalogItems;
 
@@ -63,14 +63,14 @@ namespace Microsoft.eShopOnContainers.Services.Catalog.API.Controllers
 				root = root.Where(c => c.Name.StartsWith(name));
 			}
 
-            if (catalogTypeId.HasValue)
+            if (type.HasValue)
             {
-                root = root.Where(ci => ci.CatalogTypeId == catalogTypeId);
+                root = root.Where(ci => ci.CatalogTypeId == type);
             }
 
-            if (catalogBrandId.HasValue)
+            if (brand.HasValue)
             {
-                root = root.Where(ci => ci.CatalogBrandId == catalogBrandId);
+                root = root.Where(ci => ci.CatalogBrandId == brand);
             }
 
             var totalItems = await root
