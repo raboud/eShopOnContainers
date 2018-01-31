@@ -30,30 +30,6 @@ namespace Microsoft.eShopOnContainers.Services.Catalog.API.Controllers
             ((DbContext)context).ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
-        // GET api/v1/[controller]/items[?pageSize=3&pageIndex=10]
-        [HttpGet]
-        [Route("[action]")]
-        [ProducesResponseType(typeof(PaginatedItemsViewModel<CatalogItem>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Items([FromQuery]int pageSize = 10, [FromQuery]int pageIndex = 0)
-
-        {
-            var totalItems = await _catalogContext.CatalogItems
-                .LongCountAsync();
-
-            var itemsOnPage = await _catalogContext.CatalogItems
-                .OrderBy(c => c.Name)
-                .Skip(pageSize * pageIndex)
-                .Take(pageSize)
-                .ToListAsync();
-
-            itemsOnPage = ChangeUriPlaceholder(itemsOnPage);
-
-            var model = new PaginatedItemsViewModel<CatalogItem>(
-                pageIndex, pageSize, totalItems, itemsOnPage);
-
-            return Ok(model);
-        }
-
         [HttpGet]
         [Route("items/{id:int}")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
@@ -74,38 +50,18 @@ namespace Microsoft.eShopOnContainers.Services.Catalog.API.Controllers
             return NotFound();
         }
 
-        // GET api/v1/[controller]/items/withname/samplename[?pageSize=3&pageIndex=10]
+        // GET api/v1/[controller]/items[?type=1&brand=null&pageSize=3&pageIndex=10]
         [HttpGet]
-        [Route("[action]/withname/{name:minlength(1)}")]
+        [Route("[action]")]
         [ProducesResponseType(typeof(PaginatedItemsViewModel<CatalogItem>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Items(string name, [FromQuery]int pageSize = 10, [FromQuery]int pageIndex = 0)
-        {
-
-            var totalItems = await _catalogContext.CatalogItems
-                .Where(c => c.Name.StartsWith(name))
-                .LongCountAsync();
-
-            var itemsOnPage = await _catalogContext.CatalogItems
-                .Where(c => c.Name.StartsWith(name))
-                .Skip(pageSize * pageIndex)
-                .Take(pageSize)
-                .ToListAsync();
-
-            itemsOnPage = ChangeUriPlaceholder(itemsOnPage);
-
-            var model = new PaginatedItemsViewModel<CatalogItem>(
-                pageIndex, pageSize, totalItems, itemsOnPage);
-
-            return Ok(model);
-        }
-
-        // GET api/v1/[controller]/items/type/1/brand/null[?pageSize=3&pageIndex=10]
-        [HttpGet]
-        [Route("[action]/type/{catalogTypeId}/brand/{catalogBrandId}")]
-        [ProducesResponseType(typeof(PaginatedItemsViewModel<CatalogItem>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Items(int? catalogTypeId, int? catalogBrandId, [FromQuery]int pageSize = 10, [FromQuery]int pageIndex = 0)
+        public async Task<IActionResult> Items([FromQuery]string name, [FromQuery]int? catalogTypeId, [FromQuery]int? catalogBrandId, [FromQuery]int pageSize = 10, [FromQuery]int pageIndex = 0)
         {
             var root = (IQueryable<CatalogItem>)_catalogContext.CatalogItems;
+
+			if (!string.IsNullOrEmpty(name))
+			{
+				root = root.Where(c => c.Name.StartsWith(name));
+			}
 
             if (catalogTypeId.HasValue)
             {

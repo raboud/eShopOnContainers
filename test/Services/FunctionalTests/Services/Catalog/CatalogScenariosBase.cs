@@ -45,7 +45,7 @@ namespace FunctionalTests.Services.Catalog
 
             public static string ProductByName(string name)
             {
-                return $"api/v1/catalog/items/withname/{name}";
+                return $"api/v1/catalog/items?name/{name}";
             }
         }
 

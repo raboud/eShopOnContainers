@@ -23,7 +23,7 @@ namespace eShopOnContainers.Core.Services.Catalog
         public async Task<ObservableCollection<CatalogItem>> FilterAsync(int catalogBrandId, int catalogTypeId)
         {
             UriBuilder builder = new UriBuilder(GlobalSetting.Instance.CatalogEndpoint);
-            builder.Path = string.Format("api/v1/catalog/items/type/{0}/brand/{1}", catalogTypeId, catalogBrandId);
+            builder.Path = string.Format("api/v1/catalog/items?type={0}&brand={1}", catalogTypeId, catalogBrandId);
             string uri = builder.ToString();
 
             CatalogRoot catalog = await _requestProvider.GetAsync<CatalogRoot>(uri);

@@ -28,12 +28,12 @@ export class CatalogService {
     }
 
     getCatalog(pageIndex: number, pageSize: number, brand: number, type: number): Observable<ICatalog> {
-        let url = this.catalogUrl;
+        let url = this.catalogUrl + '?';
         if (brand || type) {
-            url = this.catalogUrl + '/type/' + ((type) ? type.toString() : 'null') + '/brand/' + ((brand) ? brand.toString() : 'null');
+            url = this.catalogUrl + 'type=' + ((type) ? type.toString() : 'null') + '&brand=' + ((brand) ? brand.toString() : 'null') + '&';
         }
 
-        url = url + '?pageIndex=' + pageIndex + '&pageSize=' + pageSize;
+        url = url + 'pageIndex=' + pageIndex + '&pageSize=' + pageSize;
 
         return this.service.get(url).map((response: Response) => {
             return response.json();
