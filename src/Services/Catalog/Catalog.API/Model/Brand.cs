@@ -1,9 +1,13 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Catalog.API.Model
-{
-    public class CatalogBrand
-    {
-        public int Id { get; set; }
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
-        public string Brand { get; set; }
+namespace HMS.Catalog.API.Model
+{
+	public class Brand
+    {
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int Id { get; set; }
+
+        public string Name { get; set; }
+		public bool InActive { get; set; }
     }
 }

@@ -1,25 +1,28 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.eShopOnContainers.Services.Catalog.API.Model;
+using HMS.Catalog.API.Model;
 
-namespace Microsoft.eShopOnContainers.Services.Catalog.API.Infrastructure.EntityConfigurations
+namespace HMS.Catalog.API.Infrastructure.EntityConfigurations
 {
-    class CatalogTypeEntityTypeConfiguration
-        : IEntityTypeConfiguration<CatalogType>
+    class CategoryEntityTypeConfiguration
+        : IEntityTypeConfiguration<Category>
     {
-        public void Configure(EntityTypeBuilder<CatalogType> builder)
+        public void Configure(EntityTypeBuilder<Category> builder)
         {
-            builder.ToTable("CatalogType");
+            builder.ToTable("Category");
 
             builder.HasKey(ci => ci.Id);
 
             builder.Property(ci => ci.Id)
-               .ForSqlServerUseSequenceHiLo("catalog_type_hilo")
+               .ForSqlServerUseSequenceHiLo("catalog_category_hilo")
                .IsRequired();
 
-            builder.Property(cb => cb.Type)
+            builder.Property(cb => cb.Name)
                 .IsRequired()
                 .HasMaxLength(100);
-        }
-    }
+
+			builder.HasIndex(v => v.Name)
+				.IsUnique();
+		}
+	}
 }

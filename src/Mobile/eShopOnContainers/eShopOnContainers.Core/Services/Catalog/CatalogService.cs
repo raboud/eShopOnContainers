@@ -23,7 +23,7 @@ namespace eShopOnContainers.Core.Services.Catalog
         public async Task<ObservableCollection<CatalogItem>> FilterAsync(int catalogBrandId, int catalogTypeId)
         {
             UriBuilder builder = new UriBuilder(GlobalSetting.Instance.CatalogEndpoint);
-            builder.Path = string.Format("api/v1/catalog/items?type={0}&brand={1}", catalogTypeId, catalogBrandId);
+            builder.Path = string.Format("api/v1/products/page?typeId={0}&brandId={1}", catalogTypeId, catalogBrandId);
             string uri = builder.ToString();
 
             CatalogRoot catalog = await _requestProvider.GetAsync<CatalogRoot>(uri);
@@ -37,7 +37,7 @@ namespace eShopOnContainers.Core.Services.Catalog
         public async Task<ObservableCollection<CatalogItem>> GetCatalogAsync()
         {
             UriBuilder builder = new UriBuilder(GlobalSetting.Instance.CatalogEndpoint);
-            builder.Path = "api/v1/catalog/items";
+            builder.Path = "api/v1/products/page";
             string uri = builder.ToString();
 
             CatalogRoot catalog = await _requestProvider.GetAsync<CatalogRoot>(uri);
@@ -54,7 +54,7 @@ namespace eShopOnContainers.Core.Services.Catalog
         public async Task<ObservableCollection<CatalogBrand>> GetCatalogBrandAsync()
         {
             UriBuilder builder = new UriBuilder(GlobalSetting.Instance.CatalogEndpoint);
-            builder.Path = "api/v1/catalog/catalogbrands";
+            builder.Path = "api/v1/brands";
             string uri = builder.ToString();
 
             IEnumerable<CatalogBrand> brands = await _requestProvider.GetAsync<IEnumerable<CatalogBrand>>(uri);
@@ -68,7 +68,7 @@ namespace eShopOnContainers.Core.Services.Catalog
         public async Task<ObservableCollection<CatalogType>> GetCatalogTypeAsync()
         {
             UriBuilder builder = new UriBuilder(GlobalSetting.Instance.CatalogEndpoint);
-            builder.Path = "api/v1/catalog/catalogtypes";
+            builder.Path = "api/v1/categories";
             string uri = builder.ToString();
 
             IEnumerable<CatalogType> types = await _requestProvider.GetAsync<IEnumerable<CatalogType>>(uri);

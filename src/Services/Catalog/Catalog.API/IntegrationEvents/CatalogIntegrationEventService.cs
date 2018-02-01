@@ -4,12 +4,12 @@ using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
 using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Events;
 using Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF.Services;
 using Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF.Utilities;
-using Microsoft.eShopOnContainers.Services.Catalog.API.Infrastructure;
+using HMS.Catalog.API.Infrastructure;
 using System;
 using System.Data.Common;
 using System.Threading.Tasks;
 
-namespace Catalog.API.IntegrationEvents
+namespace HMS.Catalog.API.IntegrationEvents
 {
     public class CatalogIntegrationEventService : ICatalogIntegrationEventService
     {

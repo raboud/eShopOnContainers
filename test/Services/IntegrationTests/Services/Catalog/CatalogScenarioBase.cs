@@ -4,8 +4,8 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.TestHost;
     using Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF;
-    using Microsoft.eShopOnContainers.Services.Catalog.API;
-    using Microsoft.eShopOnContainers.Services.Catalog.API.Infrastructure;
+    using HMS.Catalog.API;
+    using HMS.Catalog.API.Infrastructure;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
@@ -42,33 +42,33 @@
             private const int PageIndex = 0;
             private const int PageCount = 4;
 
-			public static string Types = "api/v1/catalog/catalogtypes";
-			public static string Brands = "api/v1/catalog/catalogbrands";
+			public static string Types = "api/v1/categories";
+			public static string Brands = "api/v1/brands";
 
 			public static string Items(bool paginated = false)
             {
                 return paginated 
-                    ? "api/v1/catalog/items?" + Paginated(PageIndex, PageCount)
-                    : "api/v1/catalog/items";
+                    ? "api/v1/products/page?" + Paginated(PageIndex, PageCount)
+                    : "api/v1/products";
             }
 
             public static string ItemById(int id)
             {
-                return $"api/v1/catalog/items/{id}";
+                return $"api/v1/products/{id}";
             }
 
             public static string ItemByName(string name, bool paginated = false)
             {
                 return paginated
-                    ? $"api/v1/catalog/items?{name}&" + Paginated(PageIndex, PageCount)
-                    : $"api/v1/catalog/items?{name}";
+                    ? $"api/v1/products/page?name={name}&" + Paginated(PageIndex, PageCount)
+                    : $"api/v1/products?name={name}";
             }
 
             public static string Filtered(int catalogTypeId, int catalogBrandId, bool paginated = false)
             {
                 return paginated
-                    ? $"api/v1/catalog/items/?type={catalogTypeId}&brand={catalogBrandId}&" + Paginated(PageIndex, PageCount)
-                    : $"api/v1/catalog/items/?type={catalogTypeId}&brand={catalogBrandId}";
+                    ? $"api/v1/products/page/?typeId={catalogTypeId}&brandId={catalogBrandId}&" + Paginated(PageIndex, PageCount)
+                    : $"api/v1/products?typeId={catalogTypeId}&brandId={catalogBrandId}";
             }
 
             private static string Paginated(int pageIndex, int pageCount)

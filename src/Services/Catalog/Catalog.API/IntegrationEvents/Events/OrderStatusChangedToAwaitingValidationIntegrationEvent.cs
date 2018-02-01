@@ -1,8 +1,8 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Catalog.API.IntegrationEvents.Events
-{
-    using BuildingBlocks.EventBus.Events;
-    using System.Collections.Generic;
+﻿using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Events;
+using System.Collections.Generic;
 
+namespace HMS.Catalog.API.IntegrationEvents.Events
+{
     public class OrderStatusChangedToAwaitingValidationIntegrationEvent : IntegrationEvent
     {
         public int OrderId { get; }

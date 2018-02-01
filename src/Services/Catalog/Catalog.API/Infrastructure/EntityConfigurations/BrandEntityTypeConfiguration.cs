@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.eShopOnContainers.Services.Catalog.API.Model;
+using HMS.Catalog.API.Model;
 
-namespace Microsoft.eShopOnContainers.Services.Catalog.API.Infrastructure.EntityConfigurations
+namespace HMS.Catalog.API.Infrastructure.EntityConfigurations
 {
-    class CatalogBrandEntityTypeConfiguration
-        : IEntityTypeConfiguration<CatalogBrand>
+	class BrandEntityTypeConfiguration
+        : IEntityTypeConfiguration<Brand>
     {
-        public void Configure(EntityTypeBuilder<CatalogBrand> builder)
+        public void Configure(EntityTypeBuilder<Brand> builder)
         {
-            builder.ToTable("CatalogBrand");
+            builder.ToTable("Brand");
 
             builder.HasKey(ci => ci.Id);
 
@@ -17,9 +17,13 @@ namespace Microsoft.eShopOnContainers.Services.Catalog.API.Infrastructure.Entity
                .ForSqlServerUseSequenceHiLo("catalog_brand_hilo")
                .IsRequired();
 
-            builder.Property(cb => cb.Brand)
+            builder.Property(cb => cb.Name)
                 .IsRequired()
                 .HasMaxLength(100);
-        }
+
+			builder.HasIndex(v => v.Name)
+				.IsUnique();
+		}
     }
+
 }

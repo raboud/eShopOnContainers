@@ -1,18 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.eShopOnContainers.Services.Catalog.API.Model;
+using HMS.Catalog.API.Model;
 
-namespace Microsoft.eShopOnContainers.Services.Catalog.API.Infrastructure.EntityConfigurations
+namespace HMS.Catalog.API.Infrastructure.EntityConfigurations
 {
-    class CatalogItemEntityTypeConfiguration
-        : IEntityTypeConfiguration<CatalogItem>
+    class ProductEntityTypeConfiguration
+        : IEntityTypeConfiguration<Product>
     {
-        public void Configure(EntityTypeBuilder<CatalogItem> builder)
+        public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.ToTable("Catalog");
+            builder.ToTable("Product");
 
             builder.Property(ci => ci.Id)
-                .ForSqlServerUseSequenceHiLo("catalog_hilo")
+                .ForSqlServerUseSequenceHiLo("catalog_product_hilo")
                 .IsRequired();
 
             builder.Property(ci => ci.Name)
@@ -27,13 +27,24 @@ namespace Microsoft.eShopOnContainers.Services.Catalog.API.Infrastructure.Entity
 
             builder.Ignore(ci => ci.PictureUri);
 
-            builder.HasOne(ci => ci.CatalogBrand)
+            builder.HasOne(ci => ci.Brand)
                 .WithMany()
-                .HasForeignKey(ci => ci.CatalogBrandId);
+                .HasForeignKey(ci => ci.BrandId);
 
-            builder.HasOne(ci => ci.CatalogType)
-                .WithMany()
-                .HasForeignKey(ci => ci.CatalogTypeId);
-        }
-    }
+			builder.HasOne(ci => ci.Vendor)
+				.WithMany()
+				.HasForeignKey(ci => ci.VendorId);
+
+			builder.HasOne(ci => ci.Unit)
+				.WithMany()
+				.HasForeignKey(ci => ci.UnitId);
+
+			builder.HasIndex(p => new { p.Name, p.Count, p.UnitId })
+				.IsUnique();
+
+			//            builder.HasOne(ci => ci.CatalogTypes)
+			//                .WithMany()
+			//                .HasForeignKey(ci => ci.CatalogTypeId);
+		}
+	}
 }

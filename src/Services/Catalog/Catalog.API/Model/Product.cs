@@ -1,9 +1,13 @@
-﻿using Catalog.API.Infrastructure.Exceptions;
+﻿using HMS.Catalog.API.Infrastructure.Exceptions;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
-namespace Microsoft.eShopOnContainers.Services.Catalog.API.Model
+namespace HMS.Catalog.API.Model
 {
-    public class CatalogItem
+    public class Product
     {
         public int Id { get; set; }
 
@@ -12,18 +16,30 @@ namespace Microsoft.eShopOnContainers.Services.Catalog.API.Model
         public string Description { get; set; }
 
         public decimal Price { get; set; }
+		public decimal Cost { get; set; }
+		public decimal SuggestPrice { get; set; }
+
+		public int UnitId { get; set; }
+		public Unit Unit { get; set; }
+		public int Count { get; set; }
+
+		public int VendorId { get; set; }
+		public Vendor Vendor { get; set; }
 
         public string PictureFileName { get; set; }
 
         public string PictureUri { get; set; }
 
-        public int CatalogTypeId { get; set; }
+		public List<ProductCategory> ProductCategories { get; set; }
 
-        public CatalogType CatalogType { get; set; }
+		[NotMapped]
+		public IEnumerable<string> Types => ProductCategories?.Select(e => e.Category.Name);
 
-        public int CatalogBrandId { get; set; }
+		[NotMapped]
+		public List<string> Types2 { get; set; }
 
-        public CatalogBrand CatalogBrand { get; set; }
+		public int BrandId { get; set; }
+        public Brand Brand { get; set; }
 
         // Quantity in stock
         public int AvailableStock { get; set; }
@@ -40,7 +56,10 @@ namespace Microsoft.eShopOnContainers.Services.Catalog.API.Model
         /// </summary>
         public bool OnReorder { get; set; }
 
-        public CatalogItem() { }
+		public bool InActive { get; set; }
+
+
+		public Product() { }
 
 
         /// <summary>

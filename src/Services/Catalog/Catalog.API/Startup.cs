@@ -1,7 +1,10 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Catalog.API.Infrastructure.Exceptions;
-using Catalog.API.IntegrationEvents;
+using HMS.Catalog.API.Infrastructure;
+using HMS.Catalog.API.Infrastructure.Exceptions;
+using HMS.Catalog.API.IntegrationEvents;
+using HMS.Catalog.API.IntegrationEvents.EventHandling;
+using HMS.Catalog.API.IntegrationEvents.Events;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.ServiceFabric;
 using Microsoft.AspNetCore.Builder;
@@ -16,20 +19,18 @@ using Microsoft.eShopOnContainers.BuildingBlocks.EventBusServiceBus;
 using Microsoft.eShopOnContainers.BuildingBlocks.Infrastructure.Filters;
 using Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF;
 using Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF.Services;
-using Microsoft.eShopOnContainers.Services.Catalog.API.Infrastructure;
-using Microsoft.eShopOnContainers.Services.Catalog.API.IntegrationEvents.EventHandling;
-using Microsoft.eShopOnContainers.Services.Catalog.API.IntegrationEvents.Events;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.HealthChecks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Serialization;
 using RabbitMQ.Client;
 using System;
 using System.Data.Common;
 using System.Reflection;
 
-namespace Microsoft.eShopOnContainers.Services.Catalog.API
+namespace HMS.Catalog.API
 {
     public class Startup
     {
@@ -66,9 +67,16 @@ namespace Microsoft.eShopOnContainers.Services.Catalog.API
             services.AddMvc(options =>
             {
                 options.Filters.Add(typeof(HttpGlobalExceptionFilter<CatalogDomainException>));
-            }).AddControllersAsServices();
+            })
+			.AddControllersAsServices()
+			.AddJsonOptions(
+				options => {
+					options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+					options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+				}
+			);
 
-            services.AddDbContext<CatalogContext>(options =>
+			services.AddDbContext<CatalogContext>(options =>
             {
                 options.UseSqlServer(Configuration["ConnectionString"],
                                      sqlServerOptionsAction: sqlOptions =>

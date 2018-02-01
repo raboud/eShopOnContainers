@@ -65,20 +65,20 @@ namespace WebMVC.Infrastructure
                 {
                     var brandQs = (brand.HasValue) ? brand.Value.ToString() : "null";
                     var typeQs = (type.HasValue) ? type.Value.ToString() : "null";
-                    filterQs = $"type={typeQs}&brand={brandQs}&";
+                    filterQs = $"typeId={typeQs}&brandId={brandQs}&";
                 }
 
-                return $"{baseUri}items?{filterQs}pageIndex={page}&pageSize={take}";
+                return $"{baseUri}Products/items/Page?{filterQs}pageIndex={page}&pageSize={take}";
             }
 
             public static string GetAllBrands(string baseUri)
             {
-                return $"{baseUri}catalogBrands";
+                return $"{baseUri}Brands";
             }
 
             public static string GetAllTypes(string baseUri)
             {
-                return $"{baseUri}catalogTypes";
+                return $"{baseUri}Categories";
             }
         }
 

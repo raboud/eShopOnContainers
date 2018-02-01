@@ -28,7 +28,7 @@
         public MarketingContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<MarketingContext>()
-                .UseSqlServer("Server=.;Initial Catalog=Microsoft.eShopOnContainers.Services.MarketingDb;Integrated Security=true");
+                .UseSqlServer("Server=.;Initial Catalog=MarketingDb;Integrated Security=true");
 
             return new MarketingContext(optionsBuilder.Options);
         }

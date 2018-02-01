@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Net;
+using HMS.Catalog.API.Model;
+using HMS.Catalog.API.ViewModel;
+using Microsoft.AspNetCore.TestHost;
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace IntegrationTests.Services.Catalog
 {
-    using System.Threading.Tasks;
-    using Xunit;
 
     public class CatalogScenarios
         : CatalogScenarioBase
@@ -14,22 +19,34 @@ namespace IntegrationTests.Services.Catalog
         {
             using (var server = CreateServer())
             {
-                var response = await server.CreateClient()
-                    .GetAsync(Get.Items());
-
-                response.EnsureSuccessStatusCode();
+				Product[] catalog = await this.GetCatalogAsync(server);
             }
         }
 
-        [Fact]
+		private async Task<Product[]> GetCatalogAsync(TestServer server)
+		{
+			var response = await server.CreateClient().GetAsync(Get.Items());
+			response.EnsureSuccessStatusCode();
+			string content = await response.Content.ReadAsStringAsync();
+			return await ReadAsAsync<Product[]>(response);
+		}
+
+		private async Task<T> ReadAsAsync<T>(HttpResponseMessage response)
+		{
+			string content = await response.Content.ReadAsStringAsync();
+			return JsonConvert.DeserializeObject<T>(content);
+		}
+
+		[Fact]
         public async Task Get_get_catalogitem_by_id_and_response_ok_status_code()
         {
             using (var server = CreateServer())
             {
-                var response = await server.CreateClient()
-                    .GetAsync(Get.ItemById(1));
+				Product[] catalog = await this.GetCatalogAsync(server);
 
+				var response = await server.CreateClient().GetAsync(Get.ItemById(catalog[0].Id));
                 response.EnsureSuccessStatusCode();
+				Product p = await ReadAsAsync<Product>(response);
             }
         }
 

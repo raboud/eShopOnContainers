@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF;
-using Microsoft.eShopOnContainers.Services.Catalog.API;
-using Microsoft.eShopOnContainers.Services.Catalog.API.Infrastructure;
+using HMS.Catalog.API;
+using HMS.Catalog.API.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -41,17 +41,17 @@ namespace FunctionalTests.Services.Catalog
         {
             public static string Orders = "api/v1/orders";
 
-            public static string Items = "api/v1/catalog/items";
+            public static string Items = "api/v1/Products/page";
 
             public static string ProductByName(string name)
             {
-                return $"api/v1/catalog/items?name/{name}";
+                return $"api/v1/products/items?name/{name}";
             }
         }
 
         public static class Put
         {
-            public static string UpdateCatalogProduct = "api/v1/catalog/items";
+            public static string UpdateCatalogProduct = "api/v1/products/";
         }
     }
 }

@@ -1,10 +1,10 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Catalog.API.IntegrationEvents.EventHandling
-{
-    using BuildingBlocks.EventBus.Abstractions;
-    using System.Threading.Tasks;
-    using Infrastructure;
-    using Microsoft.eShopOnContainers.Services.Catalog.API.IntegrationEvents.Events;
+﻿using System.Threading.Tasks;
+using HMS.Catalog.API.IntegrationEvents.Events;
+using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
+using HMS.Catalog.API.Infrastructure;
 
+namespace HMS.Catalog.API.IntegrationEvents.EventHandling
+{
     public class OrderStatusChangedToPaidIntegrationEventHandler : 
         IIntegrationEventHandler<OrderStatusChangedToPaidIntegrationEvent>
     {
@@ -20,7 +20,7 @@
             //we're not blocking stock/inventory
             foreach (var orderStockItem in command.OrderStockItems)
             {
-                var catalogItem = _catalogContext.CatalogItems.Find(orderStockItem.ProductId);
+                var catalogItem = _catalogContext.Products.Find(orderStockItem.ProductId);
 
                 catalogItem.RemoveStock(orderStockItem.Units);
             }

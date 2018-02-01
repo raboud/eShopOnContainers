@@ -26,9 +26,16 @@ namespace Ordering.API.Infrastructure.Behaviors
                 throw new OrderingDomainException(
                     $"Command Validation Errors for type {typeof(TRequest).Name}", new ValidationException("Validation exception", failures));
             }
+			try
+			{
+				TResponse response = await next();
+				return response;
+			}
+			catch (Exception e)
+			{
+				throw e;
+			}
 
-            var response = await next();
-            return response;
-        }
-    }
+		}
+	}
 }

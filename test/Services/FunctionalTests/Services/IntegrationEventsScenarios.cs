@@ -1,7 +1,7 @@
 ﻿using FunctionalTests.Services.Basket;
 using FunctionalTests.Services.Catalog;
 using Microsoft.eShopOnContainers.Services.Basket.API.Model;
-using Microsoft.eShopOnContainers.Services.Catalog.API.Model;
+using HMS.Catalog.API.Model;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
@@ -12,6 +12,7 @@ using Xunit;
 using System.Net.Http;
 using System.Threading;
 using Microsoft.eShopOnContainers.Services.Common.API;
+using HMS.Catalog.API.Model;
 
 namespace FunctionalTests.Services
 {
@@ -43,8 +44,8 @@ namespace FunctionalTests.Services
                 var itemToModify = basket.Items[2];
                 var oldPrice = itemToModify.UnitPrice;
                 var newPrice = oldPrice + priceModification;
-                var pRes = await catalogClient.PutAsync(CatalogScenariosBase.Put.UpdateCatalogProduct, new StringContent(ChangePrice(itemToModify, newPrice, originalCatalogProducts), UTF8Encoding.UTF8, "application/json"));
-                                
+                var pRes = await catalogClient.PutAsync(CatalogScenariosBase.Put.UpdateCatalogProduct + itemToModify.ProductId.ToString(), new StringContent(ChangePrice(itemToModify, newPrice, originalCatalogProducts), UTF8Encoding.UTF8, "application/json"));
+				string t = await pRes.Content.ReadAsStringAsync();                                
                 var modifiedCatalogProducts = await GetCatalogAsync(catalogClient);               
 
                 var itemUpdated = await GetUpdatedBasketItem(newPrice, itemToModify.ProductId, userId, basketClient);
@@ -93,21 +94,23 @@ namespace FunctionalTests.Services
             return itemUpdated;
         }
 
-        private async  Task<PaginatedItemsViewModel<CatalogItem>> GetCatalogAsync(HttpClient catalogClient)
+        private async  Task<PaginatedItemsViewModel<Product>> GetCatalogAsync(HttpClient catalogClient)
         {
             var response = await catalogClient.GetAsync(CatalogScenariosBase.Get.Items);
             var items = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<PaginatedItemsViewModel<CatalogItem>>(items);
+            return JsonConvert.DeserializeObject<PaginatedItemsViewModel<Product>>(items);
         }
 
-        private string ChangePrice(BasketItem itemToModify, decimal newPrice, PaginatedItemsViewModel<CatalogItem> catalogProducts)
+        private string ChangePrice(BasketItem itemToModify, decimal newPrice, PaginatedItemsViewModel<Product> catalogProducts)
         {
             var catalogProduct = catalogProducts.Data.Single(pr => pr.Id == int.Parse(itemToModify.ProductId));
             catalogProduct.Price = newPrice;
-            return JsonConvert.SerializeObject(catalogProduct);
+
+			string output = JsonConvert.SerializeObject(catalogProduct);
+			return output;
         }
 
-        private CustomerBasket ComposeBasket(string customerId, IEnumerable<CatalogItem> items)
+        private CustomerBasket ComposeBasket(string customerId, IEnumerable<Product> items)
         {
             var basket = new CustomerBasket(customerId);
             foreach (var item in items)

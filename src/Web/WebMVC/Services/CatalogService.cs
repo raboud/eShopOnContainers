@@ -26,7 +26,7 @@ namespace Microsoft.eShopOnContainers.WebMVC.Services
             _apiClient = httpClient;
             _logger = logger;
 
-            _remoteServiceBaseUrl = $"{_settings.Value.CatalogUrl}/api/v1/catalog/";
+            _remoteServiceBaseUrl = $"{_settings.Value.CatalogUrl}/api/v1/";
         }
 
         public async Task<PaginatedItemsViewModel<CatalogItem>> GetCatalogItems(int page, int take, int? brand, int? type)
@@ -56,7 +56,7 @@ namespace Microsoft.eShopOnContainers.WebMVC.Services
                 items.Add(new SelectListItem()
                 {
                     Value = brand.Value<string>("id"),
-                    Text = brand.Value<string>("brand")
+                    Text = brand.Value<string>("name")
                 });
             }
 
@@ -78,7 +78,7 @@ namespace Microsoft.eShopOnContainers.WebMVC.Services
                 items.Add(new SelectListItem()
                 {
                     Value = brand.Value<string>("id"),
-                    Text = brand.Value<string>("type")
+                    Text = brand.Value<string>("name")
                 });
             }
             return items;

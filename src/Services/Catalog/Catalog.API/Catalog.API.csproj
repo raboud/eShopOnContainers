@@ -8,6 +8,7 @@
     <PackageId>Catalog.API</PackageId>
     <UserSecretsId>aspnet-Catalog.API-20161122013618</UserSecretsId>
     <DockerComposeProjectPath>..\..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
+    <RootNamespace>HMS.Catalog.API</RootNamespace>
   </PropertyGroup>
 
 
@@ -24,8 +25,8 @@
     <Content Include="Setup\**\*;">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Remove="Setup\Catalogitems - Copy.zip" />
-    <None Remove="Setup\Catalogitems - Copy.zip" />
+    <Content Remove="Setup\Catalog.json" />
+    <None Remove="Setup\Catalog.json" />
     <Compile Include="IntegrationEvents\EventHandling\AnyFutureIntegrationEventHandler.cs.txt" />
     <Content Update="web.config;">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -73,8 +74,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Infrastructure\ActionResults\" />
-    <Folder Include="Infrastructure\Filters\" />
     <Folder Include="ViewModel\" />
   </ItemGroup>
 

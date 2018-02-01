@@ -21,9 +21,9 @@ export class CatalogService {
 
     constructor(private service: DataService, private configurationService: ConfigurationService) {
         this.configurationService.settingsLoaded$.subscribe(x => {
-            this.catalogUrl = this.configurationService.serverSettings.catalogUrl + '/api/v1/catalog/items';
-            this.brandUrl = this.configurationService.serverSettings.catalogUrl + '/api/v1/catalog/catalogbrands';
-            this.typesUrl = this.configurationService.serverSettings.catalogUrl + '/api/v1/catalog/catalogtypes';
+            this.catalogUrl = this.configurationService.serverSettings.catalogUrl + '/api/v1/procucts/page';
+            this.brandUrl = this.configurationService.serverSettings.catalogUrl + '/api/v1/brands';
+            this.typesUrl = this.configurationService.serverSettings.catalogUrl + '/api/v1/categories';
         });
     }
 
@@ -32,11 +32,11 @@ export class CatalogService {
         url = url + '?pageIndex=' + pageIndex + '&pageSize=' + pageSize;
 
         if (type) {
-            url = url + '&type=' + (type ? type.toString() : 'null');
+            url = url + '&typeId=' + (type ? type.toString() : 'null');
         }
 
         if (brand) {
-            url = url + '&brand=' + (brand ? brand.toString() : 'null');
+            url = url + '&brandId=' + (brand ? brand.toString() : 'null');
         }
 
         return this.service.get(url).map((response: Response) => {

@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF;
-using Microsoft.eShopOnContainers.Services.Catalog.API.Infrastructure;
+using HMS.Catalog.API.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.IO;
-namespace Microsoft.eShopOnContainers.Services.Catalog.API
+
+namespace HMS.Catalog.API
 {
     public class Program
     {

@@ -1,4 +1,4 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Catalog.API
+﻿namespace HMS.Catalog.API
 {
     public class CatalogSettings
     {

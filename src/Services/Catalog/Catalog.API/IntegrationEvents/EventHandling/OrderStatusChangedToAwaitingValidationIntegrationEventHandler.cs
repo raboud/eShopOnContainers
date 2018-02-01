@@ -1,14 +1,13 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Catalog.API.IntegrationEvents.EventHandling
-{
-    using BuildingBlocks.EventBus.Abstractions;
-    using System.Threading.Tasks;
-    using BuildingBlocks.EventBus.Events;
-    using Infrastructure;
-    using System.Collections.Generic;
-    using System.Linq;
-    using global::Catalog.API.IntegrationEvents;
-    using IntegrationEvents.Events;
+﻿using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
+using HMS.Catalog.API.Infrastructure;
+using HMS.Catalog.API.IntegrationEvents.Events;
+using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Events;
 
+namespace HMS.Catalog.API.IntegrationEvents.EventHandling
+{
     public class OrderStatusChangedToAwaitingValidationIntegrationEventHandler : 
         IIntegrationEventHandler<OrderStatusChangedToAwaitingValidationIntegrationEvent>
     {
@@ -28,7 +27,7 @@
 
             foreach (var orderStockItem in command.OrderStockItems)
             {
-                var catalogItem = _catalogContext.CatalogItems.Find(orderStockItem.ProductId);
+                var catalogItem = _catalogContext.Products.Find(orderStockItem.ProductId);
                 var hasStock = catalogItem.AvailableStock >= orderStockItem.Units;
                 var confirmedOrderStockItem = new ConfirmedOrderStockItem(catalogItem.Id, hasStock);
 
