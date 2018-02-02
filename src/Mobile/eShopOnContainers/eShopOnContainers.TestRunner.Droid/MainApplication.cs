@@ -4,7 +4,7 @@ using Android.Runtime;
 using Plugin.CurrentActivity;
 using System;
 
-namespace eShopOnContainers.TestRunner.Droid
+namespace HMS.TestRunner.Droid
 {
     //You can specify additional application information in this attribute
     [Application]

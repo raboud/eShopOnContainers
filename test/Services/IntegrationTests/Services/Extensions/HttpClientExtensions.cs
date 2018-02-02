@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 
-namespace IntegrationTests.Services.Extensions
+namespace HMS.IntegrationTests.Services.Extensions
 {
     static class HttpClientExtensions
     {

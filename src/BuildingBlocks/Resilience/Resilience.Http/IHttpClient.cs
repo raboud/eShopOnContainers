@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.BuildingBlocks.Resilience.Http
+namespace Microsoft.BuildingBlocks.Resilience.Http
 {
     public interface IHttpClient
     {

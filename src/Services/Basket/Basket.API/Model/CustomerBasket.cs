@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Microsoft.eShopOnContainers.Services.Basket.API.Model
+namespace HMS.Basket.API.Model
 {
     public class CustomerBasket
     {

@@ -22,9 +22,9 @@
 	<key>MinimumOSVersion</key>
 	<string>9.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>eShopOnContainers</string>
+	<string>hms</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.eShopOnContainers</string>
+	<string>com.yourcompany.hms</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>
@@ -32,7 +32,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string></string>
 	<key>CFBundleName</key>
-	<string>eShopOnContainers</string>
+	<string>hms</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>XSLaunchImageAssets</key>

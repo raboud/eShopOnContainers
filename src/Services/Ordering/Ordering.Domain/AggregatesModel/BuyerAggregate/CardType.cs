@@ -1,9 +1,9 @@
-﻿using Microsoft.eShopOnContainers.Services.Ordering.Domain.SeedWork;
+﻿using HMS.Ordering.Domain.SeedWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.BuyerAggregate
+namespace HMS.Ordering.Domain.AggregatesModel.BuyerAggregate
 {
 
     public class CardType

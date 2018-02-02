@@ -10,7 +10,7 @@ using HMS.Catalog.API.Model;
 using System.Net;
 using HMS.Catalog.API.ViewModel;
 
-namespace Catalog.API.Controllers
+namespace HMS.Catalog.API.Controllers
 {
     [Produces("application/json")]
 	[Route("api/v1/[controller]")]

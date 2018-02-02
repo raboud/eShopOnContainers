@@ -1,4 +1,4 @@
-﻿using Basket.API.Infrastructure.Middlewares;
+﻿using HMS.Basket.API.Infrastructure.Middlewares;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.IO;
 
-namespace Microsoft.eShopOnContainers.Services.Basket.API
+namespace HMS.Basket.API
 {
     public class Program
     {

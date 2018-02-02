@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.eShopOnContainers.Services.Common.API;
-using Microsoft.eShopOnContainers.Services.Marketing.API.Dto;
-using Microsoft.eShopOnContainers.Services.Marketing.API.Infrastructure;
-using Microsoft.eShopOnContainers.Services.Marketing.API.Infrastructure.Repositories;
-using Microsoft.eShopOnContainers.Services.Marketing.API.Infrastructure.Services;
-using Microsoft.eShopOnContainers.Services.Marketing.API.Model;
+using HMS.Common.API;
+using HMS.Marketing.API.Dto;
+using HMS.Marketing.API.Infrastructure;
+using HMS.Marketing.API.Infrastructure.Repositories;
+using HMS.Marketing.API.Infrastructure.Services;
+using HMS.Marketing.API.Model;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.Services.Marketing.API.Controllers
+namespace HMS.Marketing.API.Controllers
 {
 	[Route("api/v1/[controller]")]
     [Authorize]

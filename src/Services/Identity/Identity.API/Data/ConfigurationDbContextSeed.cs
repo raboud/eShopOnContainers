@@ -1,13 +1,13 @@
 ﻿using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
-using Microsoft.eShopOnContainers.Services.Identity.API.Configuration;
+using HMS.Identity.API.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.Services.Identity.API.Data
+namespace HMS.Identity.API.Data
 {
     public class ConfigurationDbContextSeed
     {

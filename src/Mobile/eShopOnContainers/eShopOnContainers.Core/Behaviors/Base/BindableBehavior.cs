@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.Behaviors.Base
+namespace HMS.Core.Behaviors.Base
 {
     public class BindableBehavior<T> : Behavior<T> where T : BindableObject
     {

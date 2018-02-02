@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Microsoft.eShopOnContainers.Services.Marketing.API.Infrastructure.MarketingMigrations
+namespace HMS.Marketing.API.Infrastructure.MarketingMigrations
 {
     public partial class addedcampaigndetails : Migration
     {

@@ -1,14 +1,14 @@
-﻿using IntegrationTests.Services.Extensions;
-using Microsoft.eShopOnContainers.Services.Basket.API.Model;
+﻿using HMS.IntegrationTests.Services.Extensions;
+using HMS.Basket.API.Model;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using WebMVC.Models;
+using HMS.WebMVC.Models;
 using Xunit;
 
-namespace IntegrationTests.Services.Basket
+namespace HMS.IntegrationTests.Services.Basket
 {
     public class BasketScenarios
         : BasketScenarioBase
@@ -44,12 +44,10 @@ namespace IntegrationTests.Services.Basket
             using (var server = CreateServer())
             {
                 var contentBasket = new StringContent(BuildBasket(), UTF8Encoding.UTF8, "application/json");
-                await server.CreateClient()
-                   .PostAsync(Post.Basket, contentBasket);
+                await server.CreateClient().PostAsync(Post.Basket, contentBasket);
 
                 var contentCheckout = new StringContent(BuildCheckout(), UTF8Encoding.UTF8, "application/json");
-                var response = await server.CreateIdempotentClient()
-                   .PostAsync(Post.CheckoutOrder, contentCheckout);
+                var response = await server.CreateIdempotentClient().PostAsync(Post.CheckoutOrder, contentCheckout);
 
                 response.EnsureSuccessStatusCode();
             }

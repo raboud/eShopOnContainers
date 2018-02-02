@@ -1,8 +1,8 @@
-﻿using eShopOnContainers.Core.ViewModels.Base;
+﻿using HMS.Core.ViewModels.Base;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace eShopOnContainers.Core.Validations
+namespace HMS.Core.Validations
 {
     public class ValidatableObject<T> : ExtendedBindableObject, IValidity
     {

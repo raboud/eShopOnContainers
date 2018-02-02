@@ -1,8 +1,8 @@
-﻿using Ordering.Domain.Exceptions;
+﻿using HMS.Ordering.Domain.Exceptions;
 using System;
 using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.Services.Ordering.Infrastructure.Idempotency
+namespace HMS.Ordering.Infrastructure.Idempotency
 {
     public class RequestManager : IRequestManager
     {

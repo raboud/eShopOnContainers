@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.Services.Basket.API.Model
+namespace HMS.Basket.API.Model
 {
     public class RedisBasketRepository : IBasketRepository
     {

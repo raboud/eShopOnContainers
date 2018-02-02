@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Ordering.API.Migrations
+namespace HMS.Ordering.API.Migrations
 {
     public partial class Initial : Migration
     {

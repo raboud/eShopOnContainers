@@ -1,7 +1,7 @@
-﻿namespace Microsoft.eShopOnContainers.WebMVC.ViewModels
-{
-    using System;
+﻿using System;
 
+namespace HMS.WebMVC.ViewModels
+{
     public class CampaignItem
     {
         public int Id { get; set; }

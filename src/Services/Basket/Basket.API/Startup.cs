@@ -1,9 +1,9 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Basket.API.Infrastructure.Exceptions;
-using Basket.API.Infrastructure.Middlewares;
-using Basket.API.IntegrationEvents.EventHandling;
-using Basket.API.IntegrationEvents.Events;
+using HMS.Basket.API.Infrastructure.Exceptions;
+using HMS.Basket.API.Infrastructure.Middlewares;
+using HMS.Basket.API.IntegrationEvents.EventHandling;
+using HMS.Basket.API.IntegrationEvents.Events;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.ServiceFabric;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -11,16 +11,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.ServiceBus;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBusRabbitMQ;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBusServiceBus;
-using Microsoft.eShopOnContainers.BuildingBlocks.Infrastructure.Filters;
-using Microsoft.eShopOnContainers.BuildingBlocks.Infrastructure.Middlewares;
-using Microsoft.eShopOnContainers.Services.Basket.API.IntegrationEvents.EventHandling;
-using Microsoft.eShopOnContainers.Services.Basket.API.IntegrationEvents.Events;
-using Microsoft.eShopOnContainers.Services.Basket.API.Model;
-using Microsoft.eShopOnContainers.Services.Basket.API.Services;
+using Microsoft.BuildingBlocks.EventBus;
+using Microsoft.BuildingBlocks.EventBus.Abstractions;
+using Microsoft.BuildingBlocks.EventBusRabbitMQ;
+using Microsoft.BuildingBlocks.EventBusServiceBus;
+using Microsoft.BuildingBlocks.Infrastructure.Filters;
+using Microsoft.BuildingBlocks.Infrastructure.Middlewares;
+using HMS.Basket.API.Model;
+using HMS.Basket.API.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.HealthChecks;
@@ -34,7 +32,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.Services.Basket.API
+namespace HMS.Basket.API
 {
     public class Startup
     {

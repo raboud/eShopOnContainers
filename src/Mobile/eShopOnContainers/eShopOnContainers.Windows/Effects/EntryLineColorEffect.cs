@@ -1,5 +1,5 @@
-﻿using eShopOnContainers.Core.Behaviors;
-using eShopOnContainers.Windows.Effects;
+﻿using HMS.Core.Behaviors;
+using HMS.Windows.Effects;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -12,7 +12,7 @@ using Xaml = Windows.UI.Xaml;
 
 [assembly: ResolutionGroupName("eShopOnContainers")]
 [assembly: ExportEffect(typeof(EntryLineColorEffect), "EntryLineColorEffect")]
-namespace eShopOnContainers.Windows.Effects
+namespace HMS.Windows.Effects
 {
     public class EntryLineColorEffect : PlatformEffect
     {

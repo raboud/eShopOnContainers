@@ -1,10 +1,10 @@
-﻿namespace Microsoft.eShopOnContainers.WebMVC.Services
-{
-	using Microsoft.eShopOnContainers.Services.Common.API;
-	using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using ViewModels;
+﻿using HMS.Common.API;
+using HMS.WebMVC.ViewModels;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
+namespace HMS.WebMVC.Services
+{
     public interface ICampaignService
     {
         Task<PaginatedItemsViewModel<CampaignItem>> GetCampaigns(int pageSize, int pageIndex);

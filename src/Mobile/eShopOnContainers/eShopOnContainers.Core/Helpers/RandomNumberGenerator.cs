@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace eShopOnContainers.Core.Helpers
+namespace HMS.Core.Helpers
 {
     internal static class RandomNumberGenerator
     {

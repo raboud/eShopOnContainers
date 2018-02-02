@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.Converters
+namespace HMS.Core.Converters
 {
 	public class FirstValidationErrorConverter : IValueConverter
 	{

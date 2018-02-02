@@ -1,7 +1,7 @@
-﻿using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Events;
+﻿using Microsoft.BuildingBlocks.EventBus.Events;
 using System.Threading.Tasks;
 
-namespace Ordering.API.Application.IntegrationEvents
+namespace HMS.Ordering.API.Application.IntegrationEvents
 {
     public interface IOrderingIntegrationEventService
     {

@@ -1,7 +1,7 @@
-﻿using Microsoft.eShopOnContainers.BuildingBlocks.Resilience.Http;
+﻿using Microsoft.BuildingBlocks.Resilience.Http;
 using System;
 
-namespace Microsoft.eShopOnContainers.WebMVC.Infrastructure
+namespace HMS.WebMVC.Infrastructure
 {
     public interface IResilientHttpClientFactory
     {

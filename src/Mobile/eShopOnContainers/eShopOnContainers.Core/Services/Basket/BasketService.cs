@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using eShopOnContainers.Core.Services.RequestProvider;
-using eShopOnContainers.Core.Models.Basket;
-using eShopOnContainers.Core.Services.FixUri;
+using HMS.Core.Services.RequestProvider;
+using HMS.Core.Models.Basket;
+using HMS.Core.Services.FixUri;
 
-namespace eShopOnContainers.Core.Services.Basket
+namespace HMS.Core.Services.Basket
 {
     public class BasketService : IBasketService
     {

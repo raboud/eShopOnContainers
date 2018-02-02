@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.eShopOnContainers.BuildingBlocks.Resilience.Http;
-using Microsoft.eShopOnContainers.WebMVC.Infrastructure;
-using Microsoft.eShopOnContainers.WebMVC.Services;
-using Microsoft.eShopOnContainers.WebMVC.ViewModels;
+using Microsoft.BuildingBlocks.Resilience.Http;
+using HMS.WebMVC.Infrastructure;
+using HMS.WebMVC.Services;
+using HMS.WebMVC.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.HealthChecks;
@@ -17,10 +17,8 @@ using Microsoft.Extensions.Logging;
 using StackExchange.Redis;
 using System;
 using System.IdentityModel.Tokens.Jwt;
-using WebMVC.Infrastructure;
-using WebMVC.Services;
 
-namespace Microsoft.eShopOnContainers.WebMVC
+namespace HMS.WebMVC
 {
     public class Startup
     {

@@ -1,4 +1,4 @@
-﻿namespace FunctionalTests.Services.Marketing
+﻿namespace HMS.FunctionalTests.Services.Marketing
 {
     public class UserLocationRoleScenariosBase : MarketingScenariosBase
     {

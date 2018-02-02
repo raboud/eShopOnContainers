@@ -9,9 +9,9 @@
     <ProjectGuid>{6EEB23DC-7063-4444-9AF8-90DF24F549C0}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
-    <RootNamespace>eShopOnContainers.iOS</RootNamespace>
+    <RootNamespace>HMS.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>eShopOnContainersiOS</AssemblyName>
+    <AssemblyName>HMS.iOS</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <SkipValidatePackageReferences>true</SkipValidatePackageReferences>
@@ -98,6 +98,9 @@
     <CodesignProvision>Automatic:AppStore</CodesignProvision>
     <CodesignKey>iPhone Distribution</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
+    <AppExtensionDebugBundleId />
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Effects\EntryLineColorEffect.cs" />

@@ -1,11 +1,11 @@
 ﻿using MediatR;
-using Microsoft.eShopOnContainers.Services.Ordering.API.Application.Commands;
-using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.OrderAggregate;
-using Microsoft.eShopOnContainers.Services.Ordering.Infrastructure.Idempotency;
+using HMS.Ordering.API.Application.Commands;
+using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
+using HMS.Ordering.Infrastructure.Idempotency;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Ordering.API.Application.Commands
+namespace HMS.Ordering.API.Application.Commands
 {
     // Regular CommandHandler
     public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand, bool>

@@ -1,6 +1,6 @@
 ﻿using CoreGraphics;
-using eShopOnContainers.Core.Views;
-using eShopOnContainers.iOS;
+using HMS.Core.Views;
+using HMS.iOS;
 using SlideOverKit.iOS;
 using System;
 using UIKit;
@@ -8,7 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(CatalogView), typeof(SlideDownMenuPageRenderer))]
-namespace eShopOnContainers.iOS
+namespace HMS.iOS
 {
     public class SlideDownMenuPageRenderer : PageRenderer, ISlideOverKitPageRendereriOS
 	{

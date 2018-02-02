@@ -1,6 +1,6 @@
 ﻿using UIKit;
 
-namespace eShopOnContainers.TestRunner.iOS
+namespace HMS.TestRunner.iOS
 {
     public class Application
     {

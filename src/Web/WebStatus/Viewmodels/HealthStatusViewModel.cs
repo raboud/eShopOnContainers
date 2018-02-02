@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace WebStatus.Viewmodels
+namespace HMS.WebStatus.Viewmodels
 {
     public class HealthStatusViewModel
     {

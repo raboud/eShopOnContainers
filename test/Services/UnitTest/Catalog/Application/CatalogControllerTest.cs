@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.eShopOnContainers.Services.Common.API;
-using Microsoft.eShopOnContainers.WebMVC.Controllers;
-using Microsoft.eShopOnContainers.WebMVC.Services;
-using Microsoft.eShopOnContainers.WebMVC.ViewModels;
-using Microsoft.eShopOnContainers.WebMVC.ViewModels.CatalogViewModels;
+using HMS.Common.API;
+using HMS.WebMVC.Controllers;
+using HMS.WebMVC.Services;
+using HMS.WebMVC.ViewModels;
+using HMS.WebMVC.ViewModels.CatalogViewModels;
 using Moq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
-using CatalogModel = Microsoft.eShopOnContainers.Services.Common.API.PaginatedItemsViewModel<Microsoft.eShopOnContainers.WebMVC.ViewModels.CatalogItem>;
+using CatalogModel = HMS.Common.API.PaginatedItemsViewModel<HMS.WebMVC.ViewModels.CatalogItem>;
 
-namespace UnitTest.Catalog.Application
+namespace HMS.UnitTest.Catalog.Application
 {
     public class CatalogControllerTest
     {

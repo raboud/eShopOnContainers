@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Basket.API.Infrastructure.Middlewares
+namespace HMS.Basket.API.Infrastructure.Middlewares
 {
     public class FailingOptions
     {

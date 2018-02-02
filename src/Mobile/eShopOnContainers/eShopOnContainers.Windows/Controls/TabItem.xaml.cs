@@ -2,7 +2,7 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
-namespace eShopOnContainers.Windows.Controls
+namespace HMS.Windows.Controls
 {
     public sealed partial class TabItem : UserControl
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.HealthChecks;
 
-namespace WebStatus.Viewmodels
+namespace HMS.WebStatus.Viewmodels
 {
     public class NamedCheckResult
     {

@@ -1,7 +1,7 @@
-﻿using eShopOnContainers.Core.Models.User;
+﻿using HMS.Core.Models.User;
 using System.Threading.Tasks;
 
-namespace eShopOnContainers.Core.Services.User
+namespace HMS.Core.Services.User
 {
     public interface IUserService
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.Services.OpenUrl
+namespace HMS.Core.Services.OpenUrl
 {
     public class OpenUrlService : IOpenUrlService
     {

@@ -1,7 +1,7 @@
-﻿using eShopOnContainers.Core.Services.Settings;
+﻿using HMS.Core.Services.Settings;
 using System;
 
-namespace eShopOnContainers.UnitTests.Mocks
+namespace HMS.UnitTests.Mocks
 {
     public class MockSettingsService : ISettingsService
     {

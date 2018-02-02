@@ -1,9 +1,9 @@
-﻿using eShopOnContainers.Core.Controls;
+﻿using HMS.Core.Controls;
 using System;
 using Xamarin.Forms;
 using UI = Windows.UI;
 
-namespace eShopOnContainers.Windows.Converters
+namespace HMS.Windows.Converters
 {
     public class TabBadgeTextConverter : UI.Xaml.Data.IValueConverter
     {

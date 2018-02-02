@@ -1,4 +1,4 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Marketing.API
+﻿namespace HMS.Marketing.API
 {
     public class MarketingSettings
     {

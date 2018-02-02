@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace eShopOnContainers.Core.Models.Token
+namespace HMS.Core.Models.Token
 {
     public class UserToken
     {

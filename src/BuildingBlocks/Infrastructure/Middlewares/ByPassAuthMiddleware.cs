@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.BuildingBlocks.Infrastructure.Middlewares
+namespace Microsoft.BuildingBlocks.Infrastructure.Middlewares
 {
     public class ByPassAuthMiddleware
     {

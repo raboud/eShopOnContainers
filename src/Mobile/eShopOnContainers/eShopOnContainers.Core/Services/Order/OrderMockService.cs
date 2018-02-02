@@ -1,7 +1,7 @@
-﻿using eShopOnContainers.Core.Extensions;
-using eShopOnContainers.Core.Models.Basket;
-using eShopOnContainers.Core.Models.Orders;
-using eShopOnContainers.Core.Models.User;
+﻿using HMS.Core.Extensions;
+using HMS.Core.Models.Basket;
+using HMS.Core.Models.Orders;
+using HMS.Core.Models.User;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.Services.Order
+namespace HMS.Core.Services.Order
 {
     public class OrderMockService : IOrderService
     {

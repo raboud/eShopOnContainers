@@ -1,11 +1,11 @@
-﻿using Microsoft.eShopOnContainers.WebMVC.ViewModels;
+﻿using HMS.WebMVC.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebMVC.Models;
+using HMS.WebMVC.Models;
 
-namespace Microsoft.eShopOnContainers.WebMVC.Services
+namespace HMS.WebMVC.Services
 {
     public interface IBasketService
     {

@@ -1,9 +1,9 @@
-﻿using eShopOnContainers.Core;
-using eShopOnContainers.Core.Services.Order;
+﻿using HMS.Core;
+using HMS.Core.Services.Order;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace eShopOnContainers.UnitTests
+namespace HMS.UnitTests
 {
     public class OrdersServiceTests
     {

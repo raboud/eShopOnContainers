@@ -1,4 +1,4 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Ordering.Domain.Seedwork
+﻿namespace HMS.Ordering.Domain.Seedwork
 {
     using System;
     using MediatR;

@@ -1,4 +1,4 @@
-﻿using eShopOnContainers.WebSPA;
+﻿using HMS.WebSPA;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.ServiceFabric;
 using Microsoft.AspNetCore.Antiforgery;

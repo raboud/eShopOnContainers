@@ -1,5 +1,5 @@
-﻿using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.BuyerAggregate;
-using Ordering.Domain.Exceptions;
+﻿using HMS.Ordering.Domain.AggregatesModel.BuyerAggregate;
+using HMS.Ordering.Domain.Exceptions;
 using System;
 using Xunit;
 

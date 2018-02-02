@@ -1,7 +1,7 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Locations.API.Infrastructure.Services
+﻿namespace HMS.Locations.API.Infrastructure.Services
 {
-    using Microsoft.eShopOnContainers.Services.Locations.API.Model;
-    using Microsoft.eShopOnContainers.Services.Locations.API.ViewModel;
+    using HMS.Locations.API.Model;
+    using HMS.Locations.API.ViewModel;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 

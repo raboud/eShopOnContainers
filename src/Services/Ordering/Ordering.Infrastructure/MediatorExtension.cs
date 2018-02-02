@@ -1,10 +1,10 @@
 ﻿using MediatR;
-using Microsoft.eShopOnContainers.Services.Ordering.Domain.Seedwork;
-using Microsoft.eShopOnContainers.Services.Ordering.Infrastructure;
+using HMS.Ordering.Domain.Seedwork;
+using HMS.Ordering.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Ordering.Infrastructure
+namespace HMS.Ordering.Infrastructure
 {
     static class MediatorExtension
     {

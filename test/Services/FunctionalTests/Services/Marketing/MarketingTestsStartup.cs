@@ -1,8 +1,8 @@
-﻿namespace FunctionalTests.Services.Marketing
+﻿namespace HMS.FunctionalTests.Services.Marketing
 {
     using FunctionalTests.Middleware;
     using Microsoft.AspNetCore.Builder;
-    using Microsoft.eShopOnContainers.Services.Marketing.API;
+    using HMS.Marketing.API;
     using Microsoft.Extensions.Configuration;
 
     public class MarketingTestsStartup : Startup

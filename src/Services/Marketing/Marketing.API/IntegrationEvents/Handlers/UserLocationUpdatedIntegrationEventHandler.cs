@@ -1,9 +1,9 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Marketing.API.IntegrationEvents.Handlers
+﻿namespace HMS.Marketing.API.IntegrationEvents.Handlers
 {
     using Marketing.API.IntegrationEvents.Events;
     using Marketing.API.Model;
-    using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
-    using Microsoft.eShopOnContainers.Services.Marketing.API.Infrastructure.Repositories;
+    using Microsoft.BuildingBlocks.EventBus.Abstractions;
+    using HMS.Marketing.API.Infrastructure.Repositories;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;

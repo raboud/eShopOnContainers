@@ -1,21 +1,20 @@
-﻿using Microsoft.eShopOnContainers.Services.Ordering.API.Application.Commands;
-using Microsoft.eShopOnContainers.Services.Ordering.API.Infrastructure.Services;
-using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.BuyerAggregate;
-using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.OrderAggregate;
+﻿using HMS.Ordering.API.Application.Commands;
+using HMS.Ordering.API.Infrastructure.Services;
+using HMS.Ordering.Domain.AggregatesModel.BuyerAggregate;
+using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
 using Moq;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using HMS.Ordering.API.Application.Models;
+using MediatR;
+using System.Collections;
+using System.Collections.Generic;
+using Xunit;
+using static HMS.Ordering.API.Application.Commands.CreateOrderCommand;
 
-
-namespace UnitTest.Ordering.Application
+namespace HMS.UnitTest.Ordering.Application
 {
-    using global::Ordering.API.Application.Models;
-    using MediatR;
-    using System.Collections;
-    using System.Collections.Generic;
-    using Xunit;
-    using static Microsoft.eShopOnContainers.Services.Ordering.API.Application.Commands.CreateOrderCommand;
 
     public class NewOrderRequestHandlerTest
     {

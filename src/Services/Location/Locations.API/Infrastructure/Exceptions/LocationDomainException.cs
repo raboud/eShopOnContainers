@@ -1,4 +1,4 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Locations.API.Infrastructure.Exceptions
+﻿namespace HMS.Locations.API.Infrastructure.Exceptions
 {
     using System;
 

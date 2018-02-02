@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.IO;
 
-namespace WebStatus
+namespace HMS.WebStatus
 {
     public class Program
     {

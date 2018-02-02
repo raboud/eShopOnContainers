@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using eShopOnContainers.Core.Services.RequestProvider;
+using HMS.Core.Services.RequestProvider;
 
-namespace eShopOnContainers.Core.Services.Location
+namespace HMS.Core.Services.Location
 {
     public class LocationService : ILocationService
     {
@@ -13,7 +13,7 @@ namespace eShopOnContainers.Core.Services.Location
             _requestProvider = requestProvider;
         }
 
-        public async Task UpdateUserLocation(eShopOnContainers.Core.Models.Location.Location newLocReq, string token)
+        public async Task UpdateUserLocation(HMS.Core.Models.Location.Location newLocReq, string token)
         {
             UriBuilder builder = new UriBuilder(GlobalSetting.Instance.LocationEndpoint);
 

@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.BuyerAggregate;
-using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.OrderAggregate;
-using Microsoft.eShopOnContainers.Services.Ordering.Infrastructure;
+using HMS.Ordering.Domain.AggregatesModel.BuyerAggregate;
+using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
+using HMS.Ordering.Infrastructure;
 using System;
 
-namespace Ordering.Infrastructure.EntityConfigurations
+namespace HMS.Ordering.Infrastructure.EntityConfigurations
 {
     class OrderEntityTypeConfiguration : IEntityTypeConfiguration<Order>
     {

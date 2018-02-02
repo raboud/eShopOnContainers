@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using eShopOnContainers.Core.Models.Catalog;
-using eShopOnContainers.Core.Services.RequestProvider;
-using eShopOnContainers.Core.Extensions;
+using HMS.Core.Models.Catalog;
+using HMS.Core.Services.RequestProvider;
+using HMS.Core.Extensions;
 using System.Collections.Generic;
-using eShopOnContainers.Core.Services.FixUri;
+using HMS.Core.Services.FixUri;
 
-namespace eShopOnContainers.Core.Services.Catalog
+namespace HMS.Core.Services.Catalog
 {
     public class CatalogService : ICatalogService
     {

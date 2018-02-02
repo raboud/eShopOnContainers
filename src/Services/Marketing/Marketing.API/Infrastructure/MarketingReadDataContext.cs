@@ -1,6 +1,6 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Marketing.API.Infrastructure
+﻿namespace HMS.Marketing.API.Infrastructure
 {
-    using Microsoft.eShopOnContainers.Services.Marketing.API.Model;
+    using HMS.Marketing.API.Model;
     using Microsoft.Extensions.Options;
     using MongoDB.Driver;
 

@@ -3,7 +3,7 @@ using UIKit;
 using Xunit.Runner;
 using Xunit.Sdk;
 
-namespace eShopOnContainers.TestRunner.iOS
+namespace HMS.TestRunner.iOS
 {
     // The UIApplicationDelegate for the application. This class is responsible for launching the
     // User Interface of the application, as well as listening (and optionally responding) to application events from iOS.

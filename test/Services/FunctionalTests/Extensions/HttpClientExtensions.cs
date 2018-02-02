@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 
-namespace FunctionalTests.Extensions
+namespace HMS.FunctionalTests.Extensions
 {
     static class HttpClientExtensions
     {

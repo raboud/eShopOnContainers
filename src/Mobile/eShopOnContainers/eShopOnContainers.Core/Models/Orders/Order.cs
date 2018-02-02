@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace eShopOnContainers.Core.Models.Orders
+namespace HMS.Core.Models.Orders
 {
     public class Order
     {

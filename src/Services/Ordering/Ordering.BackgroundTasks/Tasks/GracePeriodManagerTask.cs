@@ -1,17 +1,17 @@
 ﻿using Dapper;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
+using Microsoft.BuildingBlocks.EventBus.Abstractions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Ordering.BackgroundTasks.Configuration;
-using Ordering.BackgroundTasks.IntegrationEvents;
-using Ordering.BackgroundTasks.Tasks.Base;
+using HMS.Ordering.BackgroundTasks.Configuration;
+using HMS.Ordering.BackgroundTasks.IntegrationEvents;
+using HMS.Ordering.BackgroundTasks.Tasks.Base;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Ordering.BackgroundTasks.Tasks
+namespace HMS.Ordering.BackgroundTasks.Tasks
 {
     public class GracePeriodManagerService
          : BackgroundService

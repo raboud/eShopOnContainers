@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.eShopOnContainers.WebMVC;
+using HMS.WebMVC;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -9,7 +9,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 
-namespace WebMVC.Infrastructure
+namespace HMS.WebMVC.Infrastructure
 {
     public class WebContextSeed
     {

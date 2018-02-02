@@ -1,7 +1,7 @@
-﻿using Microsoft.eShopOnContainers.Services.Ordering.Domain.Seedwork;
+﻿using HMS.Ordering.Domain.Seedwork;
 using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.OrderAggregate
+namespace HMS.Ordering.Domain.AggregatesModel.OrderAggregate
 {
     //This is just the RepositoryContracts or Interface defined at the Domain Layer
     //as requisite for the Order Aggregate

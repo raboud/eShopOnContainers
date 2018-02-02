@@ -1,4 +1,4 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Locations.API.ViewModel
+﻿namespace HMS.Locations.API.ViewModel
 {
     public class LocationRequest
     {

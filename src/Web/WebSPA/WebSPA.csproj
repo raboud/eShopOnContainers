@@ -8,6 +8,7 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <GeneratedItemPatterns>wwwroot/dist/**</GeneratedItemPatterns>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(GeneratedItemPatterns)</DefaultItemExcludes>
+    <RootNamespace>HMS.WebSPA</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,7 +32,7 @@
     <PackageReference Include="Microsoft.ApplicationInsights.DependencyCollector" Version="2.4.1" />
     <PackageReference Include="Microsoft.ApplicationInsights.Kubernetes" Version="1.0.0-beta2" />
     <PackageReference Include="Microsoft.ApplicationInsights.ServiceFabric" Version="2.0.1-beta1" />
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.DataProtection.Redis" Version="0.3.1" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>

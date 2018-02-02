@@ -1,12 +1,12 @@
-﻿using eShopOnContainers.Core.Models.Orders;
-using eShopOnContainers.Core.Services.Order;
-using eShopOnContainers.Core.Services.Settings;
-using eShopOnContainers.Core.ViewModels.Base;
+﻿using HMS.Core.Models.Orders;
+using HMS.Core.Services.Order;
+using HMS.Core.Services.Settings;
+using HMS.Core.ViewModels.Base;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.ViewModels
+namespace HMS.Core.ViewModels
 {
     public class OrderDetailViewModel : ViewModelBase
     {

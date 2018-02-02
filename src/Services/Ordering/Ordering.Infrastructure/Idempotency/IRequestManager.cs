@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.Services.Ordering.Infrastructure.Idempotency
+namespace HMS.Ordering.Infrastructure.Idempotency
 {
     public interface IRequestManager
     {

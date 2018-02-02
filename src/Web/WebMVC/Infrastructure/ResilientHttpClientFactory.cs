@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.eShopOnContainers.BuildingBlocks.Resilience.Http;
+using Microsoft.BuildingBlocks.Resilience.Http;
 using Microsoft.Extensions.Logging;
 using Polly;
 using System;
 using System.Net.Http;
 
-namespace Microsoft.eShopOnContainers.WebMVC.Infrastructure
+namespace HMS.WebMVC.Infrastructure
 {
     public class ResilientHttpClientFactory : IResilientHttpClientFactory
     {

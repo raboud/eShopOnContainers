@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.HealthChecks;
 using System;
 
-namespace WebStatus.Extensions
+namespace HMS.WebStatus.Extensions
 {
     public static class HealthCheckBuilderExtensions
     {

@@ -1,12 +1,12 @@
-﻿using eShopOnContainers.Core.Models.Basket;
-using eShopOnContainers.Core.Models.Navigation;
-using eShopOnContainers.Core.Models.Orders;
-using eShopOnContainers.Core.Models.User;
-using eShopOnContainers.Core.Services.Basket;
-using eShopOnContainers.Core.Services.Order;
-using eShopOnContainers.Core.Services.Settings;
-using eShopOnContainers.Core.Services.User;
-using eShopOnContainers.Core.ViewModels.Base;
+﻿using HMS.Core.Models.Basket;
+using HMS.Core.Models.Navigation;
+using HMS.Core.Models.Orders;
+using HMS.Core.Models.User;
+using HMS.Core.Services.Basket;
+using HMS.Core.Services.Order;
+using HMS.Core.Services.Settings;
+using HMS.Core.Services.User;
+using HMS.Core.ViewModels.Base;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.ViewModels
+namespace HMS.Core.ViewModels
 {
     public class CheckoutViewModel : ViewModelBase
     {

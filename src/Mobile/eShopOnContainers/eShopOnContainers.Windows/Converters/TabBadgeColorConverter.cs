@@ -1,11 +1,11 @@
-﻿using eShopOnContainers.Core.Controls;
-using eShopOnContainers.Windows.Helpers;
+﻿using HMS.Core.Controls;
+using HMS.Windows.Helpers;
 using System;
 using Windows.UI.Xaml.Media;
 using Xamarin.Forms;
 using UI = Windows.UI;
 
-namespace eShopOnContainers.Windows.Converters
+namespace HMS.Windows.Converters
 {
     public class TabBadgeColorConverter : UI.Xaml.Data.IValueConverter
     {

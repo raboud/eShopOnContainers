@@ -1,4 +1,4 @@
-﻿namespace FunctionalTests.Services.Basket
+﻿namespace HMS.FunctionalTests.Services.Basket
 {
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;

@@ -1,4 +1,4 @@
-﻿namespace eShopOnContainers.Core.Services.Dependency
+﻿namespace HMS.Core.Services.Dependency
 {
     public interface IDependencyService
     {

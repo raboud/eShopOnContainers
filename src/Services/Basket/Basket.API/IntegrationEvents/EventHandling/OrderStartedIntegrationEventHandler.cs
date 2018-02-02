@@ -1,10 +1,10 @@
-﻿using Basket.API.IntegrationEvents.Events;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
-using Microsoft.eShopOnContainers.Services.Basket.API.Model;
+﻿using HMS.Basket.API.IntegrationEvents.Events;
+using Microsoft.BuildingBlocks.EventBus.Abstractions;
+using HMS.Basket.API.Model;
 using System;
 using System.Threading.Tasks;
 
-namespace Basket.API.IntegrationEvents.EventHandling
+namespace HMS.Basket.API.IntegrationEvents.EventHandling
 {
     public class OrderStartedIntegrationEventHandler : IIntegrationEventHandler<OrderStartedIntegrationEvent>
     {

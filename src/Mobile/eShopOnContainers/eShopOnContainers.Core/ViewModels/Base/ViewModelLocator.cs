@@ -1,23 +1,23 @@
-﻿using eShopOnContainers.Core.Services.Basket;
-using eShopOnContainers.Core.Services.Catalog;
-using eShopOnContainers.Core.Services.Dependency;
-using eShopOnContainers.Core.Services.FixUri;
-using eShopOnContainers.Core.Services.Identity;
-using eShopOnContainers.Core.Services.Location;
-using eShopOnContainers.Core.Services.Marketing;
-using eShopOnContainers.Core.Services.OpenUrl;
-using eShopOnContainers.Core.Services.Order;
-using eShopOnContainers.Core.Services.RequestProvider;
-using eShopOnContainers.Core.Services.Settings;
-using eShopOnContainers.Core.Services.User;
-using eShopOnContainers.Services;
+﻿using HMS.Core.Services.Basket;
+using HMS.Core.Services.Catalog;
+using HMS.Core.Services.Dependency;
+using HMS.Core.Services.FixUri;
+using HMS.Core.Services.Identity;
+using HMS.Core.Services.Location;
+using HMS.Core.Services.Marketing;
+using HMS.Core.Services.OpenUrl;
+using HMS.Core.Services.Order;
+using HMS.Core.Services.RequestProvider;
+using HMS.Core.Services.Settings;
+using HMS.Core.Services.User;
+using HMS.Services;
 using System;
 using System.Globalization;
 using System.Reflection;
 using TinyIoC;
 using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.ViewModels.Base
+namespace HMS.Core.ViewModels.Base
 {
     public static class ViewModelLocator
     {

@@ -1,4 +1,4 @@
-﻿namespace IntegrationTests.Services.Marketing
+﻿namespace HMS.IntegrationTests.Services.Marketing
 {
     using System.Net.Http;
     using System.Text;
@@ -7,7 +7,7 @@
     using System;
     using Newtonsoft.Json;
     using System.Net;
-    using Microsoft.eShopOnContainers.Services.Marketing.API.Dto;
+    using HMS.Marketing.API.Dto;
 
     public class CampaignScenarios
         : CampaignScenarioBase

@@ -1,4 +1,4 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Ordering.API.Application.Queries
+﻿namespace HMS.Ordering.API.Application.Queries
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;

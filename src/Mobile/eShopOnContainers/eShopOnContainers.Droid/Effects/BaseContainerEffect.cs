@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms.Platform.Android;
 
-namespace eShopOnContainers.Droid.Effects
+namespace HMS.Droid.Effects
 {
     public abstract class BaseContainerEffect : PlatformEffect
     {

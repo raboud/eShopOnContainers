@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.eShopOnContainers.Services.Ordering.Infrastructure;
-using Microsoft.eShopOnContainers.Services.Ordering.Infrastructure.Idempotency;
+using HMS.Ordering.Infrastructure;
+using HMS.Ordering.Infrastructure.Idempotency;
 
-namespace Ordering.Infrastructure.EntityConfigurations
+namespace HMS.Ordering.Infrastructure.EntityConfigurations
 {
     class ClientRequestEntityTypeConfiguration
         : IEntityTypeConfiguration<ClientRequest>

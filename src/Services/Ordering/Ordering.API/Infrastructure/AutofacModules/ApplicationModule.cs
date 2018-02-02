@@ -1,14 +1,14 @@
 ﻿using Autofac;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
-using Microsoft.eShopOnContainers.Services.Ordering.API.Application.Commands;
-using Microsoft.eShopOnContainers.Services.Ordering.API.Application.Queries;
-using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.BuyerAggregate;
-using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.OrderAggregate;
-using Microsoft.eShopOnContainers.Services.Ordering.Infrastructure.Idempotency;
-using Microsoft.eShopOnContainers.Services.Ordering.Infrastructure.Repositories;
+using Microsoft.BuildingBlocks.EventBus.Abstractions;
+using HMS.Ordering.API.Application.Commands;
+using HMS.Ordering.API.Application.Queries;
+using HMS.Ordering.Domain.AggregatesModel.BuyerAggregate;
+using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
+using HMS.Ordering.Infrastructure.Idempotency;
+using HMS.Ordering.Infrastructure.Repositories;
 using System.Reflection;
 
-namespace Microsoft.eShopOnContainers.Services.Ordering.API.Infrastructure.AutofacModules
+namespace HMS.Ordering.API.Infrastructure.AutofacModules
 {
 
     public class ApplicationModule

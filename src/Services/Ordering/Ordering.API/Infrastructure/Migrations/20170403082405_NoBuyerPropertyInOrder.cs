@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Ordering.API.Migrations
+namespace HMS.Ordering.API.Migrations
 {
     public partial class NoBuyerPropertyInOrder : Migration
     {

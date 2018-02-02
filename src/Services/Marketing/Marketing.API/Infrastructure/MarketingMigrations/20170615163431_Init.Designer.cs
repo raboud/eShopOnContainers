@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.eShopOnContainers.Services.Marketing.API.Infrastructure;
+using HMS.Marketing.API.Infrastructure;
 
-namespace Microsoft.eShopOnContainers.Services.Marketing.API.Infrastructure.MarketingMigrations
+namespace HMS.Marketing.API.Infrastructure.MarketingMigrations
 {
     [DbContext(typeof(MarketingContext))]
     [Migration("20170615163431_Init")]
@@ -19,7 +19,7 @@ namespace Microsoft.eShopOnContainers.Services.Marketing.API.Infrastructure.Mark
                 .HasAnnotation("SqlServer:Sequence:.rule_hilo", "'rule_hilo', '', '1', '10', '', '', 'Int64', 'False'")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Microsoft.eShopOnContainers.Services.Marketing.API.Model.Campaign", b =>
+            modelBuilder.Entity("HMS.Marketing.API.Model.Campaign", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -49,7 +49,7 @@ namespace Microsoft.eShopOnContainers.Services.Marketing.API.Infrastructure.Mark
                     b.ToTable("Campaign");
                 });
 
-            modelBuilder.Entity("Microsoft.eShopOnContainers.Services.Marketing.API.Model.Rule", b =>
+            modelBuilder.Entity("HMS.Marketing.API.Model.Rule", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -73,9 +73,9 @@ namespace Microsoft.eShopOnContainers.Services.Marketing.API.Infrastructure.Mark
                     b.HasDiscriminator<int>("RuleTypeId");
                 });
 
-            modelBuilder.Entity("Microsoft.eShopOnContainers.Services.Marketing.API.Model.PurchaseHistoryRule", b =>
+            modelBuilder.Entity("HMS.Marketing.API.Model.PurchaseHistoryRule", b =>
                 {
-                    b.HasBaseType("Microsoft.eShopOnContainers.Services.Marketing.API.Model.Rule");
+                    b.HasBaseType("HMS.Marketing.API.Model.Rule");
 
 
                     b.ToTable("PurchaseHistoryRule");
@@ -83,9 +83,9 @@ namespace Microsoft.eShopOnContainers.Services.Marketing.API.Infrastructure.Mark
                     b.HasDiscriminator().HasValue(2);
                 });
 
-            modelBuilder.Entity("Microsoft.eShopOnContainers.Services.Marketing.API.Model.UserLocationRule", b =>
+            modelBuilder.Entity("HMS.Marketing.API.Model.UserLocationRule", b =>
                 {
-                    b.HasBaseType("Microsoft.eShopOnContainers.Services.Marketing.API.Model.Rule");
+                    b.HasBaseType("HMS.Marketing.API.Model.Rule");
 
                     b.Property<int>("LocationId")
                         .HasColumnName("LocationId");
@@ -95,9 +95,9 @@ namespace Microsoft.eShopOnContainers.Services.Marketing.API.Infrastructure.Mark
                     b.HasDiscriminator().HasValue(3);
                 });
 
-            modelBuilder.Entity("Microsoft.eShopOnContainers.Services.Marketing.API.Model.UserProfileRule", b =>
+            modelBuilder.Entity("HMS.Marketing.API.Model.UserProfileRule", b =>
                 {
-                    b.HasBaseType("Microsoft.eShopOnContainers.Services.Marketing.API.Model.Rule");
+                    b.HasBaseType("HMS.Marketing.API.Model.Rule");
 
 
                     b.ToTable("UserProfileRule");
@@ -105,9 +105,9 @@ namespace Microsoft.eShopOnContainers.Services.Marketing.API.Infrastructure.Mark
                     b.HasDiscriminator().HasValue(1);
                 });
 
-            modelBuilder.Entity("Microsoft.eShopOnContainers.Services.Marketing.API.Model.Rule", b =>
+            modelBuilder.Entity("HMS.Marketing.API.Model.Rule", b =>
                 {
-                    b.HasOne("Microsoft.eShopOnContainers.Services.Marketing.API.Model.Campaign", "Campaign")
+                    b.HasOne("HMS.Marketing.API.Model.Campaign", "Campaign")
                         .WithMany("Rules")
                         .HasForeignKey("CampaignId")
                         .OnDelete(DeleteBehavior.Cascade);

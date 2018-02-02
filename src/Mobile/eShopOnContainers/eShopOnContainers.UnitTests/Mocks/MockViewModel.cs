@@ -1,7 +1,7 @@
-﻿using eShopOnContainers.Core.Validations;
-using eShopOnContainers.Core.ViewModels.Base;
+﻿using HMS.Core.Validations;
+using HMS.Core.ViewModels.Base;
 
-namespace eShopOnContainers.UnitTests
+namespace HMS.UnitTests
 {
     public class MockViewModel : ViewModelBase
 	{

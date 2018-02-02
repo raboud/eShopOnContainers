@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
-namespace Ordering.API.Application.Commands
+namespace HMS.Ordering.API.Application.Commands
 {
     public class ShipOrderCommand : IRequest<bool>
     {

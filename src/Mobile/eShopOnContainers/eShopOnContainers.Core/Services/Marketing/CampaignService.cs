@@ -1,12 +1,12 @@
-﻿using eShopOnContainers.Core.Extensions;
-using eShopOnContainers.Core.Models.Marketing;
-using eShopOnContainers.Core.Services.FixUri;
-using eShopOnContainers.Core.Services.RequestProvider;
+﻿using HMS.Core.Extensions;
+using HMS.Core.Models.Marketing;
+using HMS.Core.Services.FixUri;
+using HMS.Core.Services.RequestProvider;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
-namespace eShopOnContainers.Core.Services.Marketing
+namespace HMS.Core.Services.Marketing
 {
     public class CampaignService : ICampaignService
     {

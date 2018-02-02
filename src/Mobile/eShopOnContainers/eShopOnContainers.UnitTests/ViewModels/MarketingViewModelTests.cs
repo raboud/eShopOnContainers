@@ -1,12 +1,12 @@
-﻿using eShopOnContainers.Core.Services.Marketing;
-using eShopOnContainers.Core.Services.Settings;
-using eShopOnContainers.Core.ViewModels;
-using eShopOnContainers.Core.ViewModels.Base;
-using eShopOnContainers.UnitTests.Mocks;
+﻿using HMS.Core.Services.Marketing;
+using HMS.Core.Services.Settings;
+using HMS.Core.ViewModels;
+using HMS.Core.ViewModels.Base;
+using HMS.UnitTests.Mocks;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace eShopOnContainers.UnitTests.ViewModels
+namespace HMS.UnitTests.ViewModels
 {
     public class MarketingViewModelTests
     {

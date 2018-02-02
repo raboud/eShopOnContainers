@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Basket.API.Model
+namespace HMS.Basket.API.Model
 {
     public class BasketCheckout
     {

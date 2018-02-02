@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF;
+using Microsoft.BuildingBlocks.IntegrationEventLogEF;
 using HMS.Catalog.API;
 using HMS.Catalog.API.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.IO;
 
-namespace FunctionalTests.Services.Catalog
+namespace HMS.FunctionalTests.Services.Catalog
 {
     public class CatalogScenariosBase
     {

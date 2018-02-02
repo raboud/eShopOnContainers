@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 
-namespace eShopOnContainers.Core.Services.Identity
+namespace HMS.Core.Services.Identity
 {
     public class AuthorizeRequest
     {

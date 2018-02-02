@@ -1,8 +1,8 @@
-﻿using eShopOnContainers.Core.ViewModels;
-using eShopOnContainers.Core.ViewModels.Base;
+﻿using HMS.Core.ViewModels;
+using HMS.Core.ViewModels.Base;
 using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.Views
+namespace HMS.Core.Views
 {
     public partial class MainView : TabbedPage
     {

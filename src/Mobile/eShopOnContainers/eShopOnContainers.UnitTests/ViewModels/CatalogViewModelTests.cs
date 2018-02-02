@@ -1,14 +1,14 @@
-﻿using eShopOnContainers.Core.Models.Catalog;
-using eShopOnContainers.Core.Services.Catalog;
-using eShopOnContainers.Core.Services.Settings;
-using eShopOnContainers.Core.ViewModels;
-using eShopOnContainers.Core.ViewModels.Base;
-using eShopOnContainers.UnitTests.Mocks;
+﻿using HMS.Core.Models.Catalog;
+using HMS.Core.Services.Catalog;
+using HMS.Core.Services.Settings;
+using HMS.Core.ViewModels;
+using HMS.Core.ViewModels.Base;
+using HMS.UnitTests.Mocks;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace eShopOnContainers.UnitTests
+namespace HMS.UnitTests
 {
     public class CatalogViewModelTests
     {

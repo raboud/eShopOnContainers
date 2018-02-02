@@ -1,8 +1,8 @@
-﻿using eShopOnContainers.Core.Services.Settings;
-using eShopOnContainers.Services;
+﻿using HMS.Core.Services.Settings;
+using HMS.Services;
 using System.Threading.Tasks;
 
-namespace eShopOnContainers.Core.ViewModels.Base
+namespace HMS.Core.ViewModels.Base
 {
     public abstract class ViewModelBase : ExtendedBindableObject
     {

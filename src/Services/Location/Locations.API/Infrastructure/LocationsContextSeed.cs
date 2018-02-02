@@ -1,7 +1,7 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Locations.API.Infrastructure
+﻿namespace HMS.Locations.API.Infrastructure
 {
     using Microsoft.AspNetCore.Builder;
-    using Microsoft.eShopOnContainers.Services.Locations.API.Model;
+    using HMS.Locations.API.Model;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;

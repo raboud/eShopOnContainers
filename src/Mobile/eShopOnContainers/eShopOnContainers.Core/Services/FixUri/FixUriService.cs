@@ -1,14 +1,14 @@
-﻿using eShopOnContainers.Core.Models.Basket;
-using eShopOnContainers.Core.Models.Catalog;
-using eShopOnContainers.Core.Models.Marketing;
-using eShopOnContainers.Core.ViewModels.Base;
+﻿using HMS.Core.Models.Basket;
+using HMS.Core.Models.Catalog;
+using HMS.Core.Models.Marketing;
+using HMS.Core.ViewModels.Base;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
-using eShopOnContainers.Core.Services.Settings;
+using HMS.Core.Services.Settings;
 
-namespace eShopOnContainers.Core.Services.FixUri
+namespace HMS.Core.Services.FixUri
 {
     public class FixUriService : IFixUriService
     {

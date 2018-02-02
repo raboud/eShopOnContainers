@@ -1,16 +1,15 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.eShopOnContainers.Services.Ordering.API.Application.Commands;
-using Microsoft.eShopOnContainers.Services.Ordering.API.Application.Queries;
-using Microsoft.eShopOnContainers.Services.Ordering.API.Infrastructure.Services;
-using Ordering.API.Application.Commands;
+using HMS.Ordering.API.Application.Commands;
+using HMS.Ordering.API.Application.Queries;
+using HMS.Ordering.API.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.Services.Ordering.API.Controllers
+namespace HMS.Ordering.API.Controllers
 {
     [Route("api/v1/[controller]")]
     [Authorize]

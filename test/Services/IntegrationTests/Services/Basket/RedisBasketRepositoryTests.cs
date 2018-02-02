@@ -1,7 +1,7 @@
-﻿namespace IntegrationTests.Services.Basket
+﻿namespace HMS.IntegrationTests.Services.Basket
 {
-    using Microsoft.eShopOnContainers.Services.Basket.API;
-    using Microsoft.eShopOnContainers.Services.Basket.API.Model;
+    using HMS.Basket.API;
+    using HMS.Basket.API.Model;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using System.Collections.Generic;

@@ -1,13 +1,13 @@
-﻿namespace Ordering.API.Application.DomainEventHandlers.OrderStockConfirmed
+﻿namespace HMS.Ordering.API.Application.DomainEventHandlers.OrderStockConfirmed
 {
     using MediatR;
-    using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.OrderAggregate;
+    using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
     using Microsoft.Extensions.Logging;
-    using Domain.Events;
+    using HMS.Ordering.Domain.Events;
     using System;
     using System.Threading.Tasks;
-    using Ordering.API.Application.IntegrationEvents;
-    using Ordering.API.Application.IntegrationEvents.Events;
+    using HMS.Ordering.API.Application.IntegrationEvents;
+    using HMS.Ordering.API.Application.IntegrationEvents.Events;
     using System.Threading;
 
     public class OrderStatusChangedToStockConfirmedDomainEventHandler

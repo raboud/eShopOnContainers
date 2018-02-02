@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.Services.Basket.API.Model
+namespace HMS.Basket.API.Model
 {
     public interface IBasketRepository
     {

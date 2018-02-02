@@ -1,7 +1,7 @@
 ﻿using Swashbuckle.AspNetCore.Swagger;
 using System.Collections.Generic;
 
-namespace Microsoft.eShopOnContainers.Services.Basket.API.Auth.Server
+namespace HMS.Basket.API.Auth.Server
 {
     public class IdentitySecurityScheme:SecurityScheme
     {

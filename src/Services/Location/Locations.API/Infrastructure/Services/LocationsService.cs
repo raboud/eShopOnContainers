@@ -1,11 +1,11 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Locations.API.Infrastructure.Services
+﻿namespace HMS.Locations.API.Infrastructure.Services
 {
-    using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
-    using Microsoft.eShopOnContainers.Services.Locations.API.Infrastructure.Exceptions;
-    using Microsoft.eShopOnContainers.Services.Locations.API.Infrastructure.Repositories;
-    using Microsoft.eShopOnContainers.Services.Locations.API.IntegrationEvents.Events;
-    using Microsoft.eShopOnContainers.Services.Locations.API.Model;
-    using Microsoft.eShopOnContainers.Services.Locations.API.ViewModel;
+    using Microsoft.BuildingBlocks.EventBus.Abstractions;
+    using HMS.Locations.API.Infrastructure.Exceptions;
+    using HMS.Locations.API.Infrastructure.Repositories;
+    using HMS.Locations.API.IntegrationEvents.Events;
+    using HMS.Locations.API.Model;
+    using HMS.Locations.API.ViewModel;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;

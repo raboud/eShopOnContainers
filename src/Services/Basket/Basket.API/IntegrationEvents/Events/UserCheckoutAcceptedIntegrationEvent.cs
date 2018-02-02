@@ -1,8 +1,8 @@
-﻿using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Events;
-using Microsoft.eShopOnContainers.Services.Basket.API.Model;
+﻿using Microsoft.BuildingBlocks.EventBus.Events;
+using HMS.Basket.API.Model;
 using System;
 
-namespace Basket.API.IntegrationEvents.Events
+namespace HMS.Basket.API.IntegrationEvents.Events
 {
     public class UserCheckoutAcceptedIntegrationEvent : IntegrationEvent
     {

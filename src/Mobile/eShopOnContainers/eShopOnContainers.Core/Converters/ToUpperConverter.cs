@@ -2,7 +2,7 @@
 using System.Globalization;
 using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.Converters
+namespace HMS.Core.Converters
 {
     public class ToUpperConverter : IValueConverter
     {

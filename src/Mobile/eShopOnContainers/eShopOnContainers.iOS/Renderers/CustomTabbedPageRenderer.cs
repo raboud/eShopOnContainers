@@ -1,5 +1,5 @@
-﻿using eShopOnContainers.Core.Controls;
-using eShopOnContainers.iOS.Renderers;
+﻿using HMS.Core.Controls;
+using HMS.iOS.Renderers;
 using Foundation;
 using System.Threading.Tasks;
 using UIKit;
@@ -7,7 +7,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(TabbedPage), typeof(CustomTabbedPageRenderer))]
-namespace eShopOnContainers.iOS.Renderers
+namespace HMS.iOS.Renderers
 {
     [Preserve]
     public class CustomTabbedPageRenderer : TabbedRenderer

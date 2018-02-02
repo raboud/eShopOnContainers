@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Microsoft.eShopOnContainers.Services.Ordering.Infrastructure.Idempotency
+namespace HMS.Ordering.Infrastructure.Idempotency
 {
     public class ClientRequest
     {

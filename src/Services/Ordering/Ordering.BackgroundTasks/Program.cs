@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Ordering.BackgroundTasks
+namespace HMS.Ordering.BackgroundTasks
 {
     public class Program
     {

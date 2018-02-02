@@ -8,7 +8,7 @@ using Android.Views.Animations;
 using Android.Widget;
 using System;
 
-namespace eShopOnContainers.Droid.Renderers
+namespace HMS.Droid.Renderers
 {
     public class BadgeView : TextView
     {

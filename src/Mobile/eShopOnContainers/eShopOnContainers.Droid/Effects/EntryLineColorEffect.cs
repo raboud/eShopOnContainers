@@ -1,6 +1,6 @@
 using Android.Widget;
-using eShopOnContainers.Core.Behaviors;
-using eShopOnContainers.Droid.Effects;
+using HMS.Core.Behaviors;
+using HMS.Droid.Effects;
 using System;
 using System.ComponentModel;
 using Xamarin.Forms;
@@ -8,7 +8,7 @@ using Xamarin.Forms.Platform.Android;
 
 [assembly: ResolutionGroupName("eShopOnContainers")]
 [assembly: ExportEffect(typeof(EntryLineColorEffect), "EntryLineColorEffect")]
-namespace eShopOnContainers.Droid.Effects
+namespace HMS.Droid.Effects
 {
     public class EntryLineColorEffect : PlatformEffect
     {

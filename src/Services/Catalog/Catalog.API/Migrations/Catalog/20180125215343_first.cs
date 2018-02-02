@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
-namespace Catalog.API.Migrations.Catalog
+namespace HMS.Catalog.API.Migrations.Catalog
 {
     public partial class first : Migration
     {

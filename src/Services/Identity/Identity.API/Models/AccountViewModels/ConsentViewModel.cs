@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using IdentityServer4.Models;
 
-namespace Microsoft.eShopOnContainers.Services.Identity.API.Models.AccountViewModels
+namespace HMS.Identity.API.Models.AccountViewModels
 {
     public class ConsentViewModel : ConsentInputModel
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.Models.Basket
+namespace HMS.Core.Models.Basket
 {
     public class BasketItem : BindableObject
     {

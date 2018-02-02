@@ -1,8 +1,8 @@
-﻿using eShopOnContainers.Core.Models.Basket;
+﻿using HMS.Core.Models.Basket;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
-namespace eShopOnContainers.Core.Services.Order
+namespace HMS.Core.Services.Order
 {
     public interface IOrderService
     {

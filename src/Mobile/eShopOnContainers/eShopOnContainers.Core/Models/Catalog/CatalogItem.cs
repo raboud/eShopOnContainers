@@ -1,4 +1,4 @@
-﻿namespace eShopOnContainers.Core.Models.Catalog
+﻿namespace HMS.Core.Models.Catalog
 {
     public class CatalogItem
     {

@@ -1,4 +1,4 @@
-﻿namespace IntegrationTests.Services.Ordering
+﻿namespace HMS.IntegrationTests.Services.Ordering
 {
     using IntegrationTests.Services.Extensions;
     using Newtonsoft.Json;
@@ -6,7 +6,7 @@
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
-    using WebMVC.Models;
+    using HMS.WebMVC.Models;
     using Xunit;
 
     public class OrderingScenarios

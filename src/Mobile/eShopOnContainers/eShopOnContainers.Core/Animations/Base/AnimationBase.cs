@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.Animations.Base
+namespace HMS.Core.Animations.Base
 {
     public abstract class AnimationBase : BindableObject
     {

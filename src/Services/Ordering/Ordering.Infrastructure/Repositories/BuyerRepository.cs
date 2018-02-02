@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.BuyerAggregate;
-using Microsoft.eShopOnContainers.Services.Ordering.Domain.Seedwork;
+using HMS.Ordering.Domain.AggregatesModel.BuyerAggregate;
+using HMS.Ordering.Domain.Seedwork;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.Services.Ordering.Infrastructure.Repositories
+namespace HMS.Ordering.Infrastructure.Repositories
 {
     public class BuyerRepository
         : IBuyerRepository

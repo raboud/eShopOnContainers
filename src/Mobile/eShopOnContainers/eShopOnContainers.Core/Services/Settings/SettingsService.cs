@@ -1,6 +1,6 @@
-using eShopOnContainers.Core.Services.Dependency;
+using HMS.Core.Services.Dependency;
 
-namespace eShopOnContainers.Core.Services.Settings
+namespace HMS.Core.Services.Settings
 {
     public class SettingsService : ISettingsService
     {

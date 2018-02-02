@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ordering.Domain.Exceptions
+namespace HMS.Ordering.Domain.Exceptions
 {
     /// <summary>
     /// Exception type for domain exceptions

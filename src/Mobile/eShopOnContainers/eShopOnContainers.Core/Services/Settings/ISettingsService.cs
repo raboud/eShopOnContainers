@@ -1,4 +1,4 @@
-﻿namespace eShopOnContainers.Core.Services.Settings
+﻿namespace HMS.Core.Services.Settings
 {
     public interface ISettingsService
     {

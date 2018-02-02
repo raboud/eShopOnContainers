@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Catalog.API.Migrations
+namespace HMS.Catalog.API.Migrations
 {
     public partial class IntegrationEventInitial : Migration
     {

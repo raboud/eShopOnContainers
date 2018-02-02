@@ -1,4 +1,4 @@
-﻿namespace eShopOnContainers.Core.Services.OpenUrl
+﻿namespace HMS.Core.Services.OpenUrl
 {
     public interface IOpenUrlService
     {

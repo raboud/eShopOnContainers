@@ -1,4 +1,4 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Marketing.API.Infrastructure.Repositories
+﻿namespace HMS.Marketing.API.Infrastructure.Repositories
 {
     using Model;
     using System.Threading.Tasks;

@@ -1,4 +1,4 @@
-﻿namespace FunctionalTests.Services.Locations
+﻿namespace HMS.FunctionalTests.Services.Locations
 {
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;

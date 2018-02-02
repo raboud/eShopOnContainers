@@ -1,59 +1,52 @@
-﻿using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
-using Microsoft.eShopOnContainers.Services.Basket.API.IntegrationEvents.Events;
-using Microsoft.eShopOnContainers.Services.Basket.API.Model;
+﻿using Microsoft.BuildingBlocks.EventBus.Abstractions;
+using HMS.Basket.API.IntegrationEvents.Events;
+using HMS.Basket.API.Model;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.Services.Basket.API.IntegrationEvents.EventHandling
+namespace HMS.Basket.API.IntegrationEvents.EventHandling
 {
-    public class ProductPriceChangedIntegrationEventHandler : IIntegrationEventHandler<ProductPriceChangedIntegrationEvent>
-    {
-        private readonly IBasketRepository _repository;
+	public class ProductPriceChangedIntegrationEventHandler : IIntegrationEventHandler<ProductPriceChangedIntegrationEvent>
+	{
+		private readonly IBasketRepository _repository;
 
-        public ProductPriceChangedIntegrationEventHandler(IBasketRepository repository)
-        {
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-        }
+		public ProductPriceChangedIntegrationEventHandler(IBasketRepository repository)
+		{
+			_repository = repository ?? throw new ArgumentNullException(nameof(repository));
+		}
 
-        public async Task Handle(ProductPriceChangedIntegrationEvent @event)
-        {
-            var userIds = _repository.GetUsers();
-            
-            foreach (var id in userIds)
-            {
-                var basket = await _repository.GetBasketAsync(id);
+		public async Task Handle(ProductPriceChangedIntegrationEvent @event)
+		{
+			var userIds = _repository.GetUsers();
 
-                await UpdatePriceInBasketItems(@event.ProductId, @event.NewPrice, @event.OldPrice, basket);                      
-            }
-        }
-
-        private async Task UpdatePriceInBasketItems(int productId, decimal newPrice, decimal oldPrice, CustomerBasket basket)
-        {
-			try
+			foreach (var id in userIds)
 			{
-				string match = productId.ToString();
-				var itemsToUpdate = basket?.Items?.Where(x => x.ProductId == match).ToList();
+				var basket = await _repository.GetBasketAsync(id);
 
-				if (itemsToUpdate != null)
+				await UpdatePriceInBasketItems(@event.ProductId, @event.NewPrice, @event.OldPrice, basket);
+			}
+		}
+
+		private async Task UpdatePriceInBasketItems(int productId, decimal newPrice, decimal oldPrice, CustomerBasket basket)
+		{
+			string match = productId.ToString();
+			var itemsToUpdate = basket?.Items?.Where(x => x.ProductId == match).ToList();
+
+			if (itemsToUpdate != null)
+			{
+				foreach (var item in itemsToUpdate)
 				{
-					foreach (var item in itemsToUpdate)
+					if (item.UnitPrice == oldPrice)
 					{
-						if (item.UnitPrice == oldPrice)
-						{
-							var originalPrice = item.UnitPrice;
-							item.UnitPrice = newPrice;
-							item.OldUnitPrice = originalPrice;
-						}
+						var originalPrice = item.UnitPrice;
+						item.UnitPrice = newPrice;
+						item.OldUnitPrice = originalPrice;
 					}
-					await _repository.UpdateBasketAsync(basket);
 				}
+				await _repository.UpdateBasketAsync(basket);
 			}
-			catch (Exception e)
-			{
-
-			}
-        }
-    }
+		}
+	}
 }
 

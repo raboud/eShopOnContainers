@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using HMS.Ordering.API.Application.Models;
+using MediatR;
+using HMS.Ordering.API.Application.Commands;
+using HMS.Ordering.Infrastructure.Idempotency;
+using Moq;
+using System.Collections;
+using System.Threading.Tasks;
+using Xunit;
 
-namespace UnitTest.Ordering.Application
+namespace HMS.UnitTest.Ordering.Application
 {
-    using global::Ordering.API.Application.Models;
-    using MediatR;
-    using Microsoft.eShopOnContainers.Services.Ordering.API.Application.Commands;
-    using Microsoft.eShopOnContainers.Services.Ordering.Infrastructure.Idempotency;
-    using Moq;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Xunit;
     public class IdentifiedCommandHandlerTest
     {
         private readonly Mock<IRequestManager> _requestManager;

@@ -1,4 +1,4 @@
-﻿namespace eShopOnContainers.Core.Models.User
+﻿namespace HMS.Core.Models.User
 {
     public class LogoutParameter
     {

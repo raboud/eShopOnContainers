@@ -1,4 +1,4 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Locations.API.Model
+﻿namespace HMS.Locations.API.Model
 {
     public class UserLocationDetails
     {

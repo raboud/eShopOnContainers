@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
-namespace Ordering.API.Migrations
+namespace HMS.Ordering.API.Migrations
 {
     public partial class AdressAsValueObject : Migration
     {

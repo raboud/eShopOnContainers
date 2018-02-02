@@ -1,7 +1,7 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Marketing.API.IntegrationEvents.Events
+﻿namespace HMS.Marketing.API.IntegrationEvents.Events
 {
     using Marketing.API.Model;
-    using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Events;
+    using Microsoft.BuildingBlocks.EventBus.Events;
     using System.Collections.Generic;
 
     public class UserLocationUpdatedIntegrationEvent : IntegrationEvent

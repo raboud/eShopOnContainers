@@ -1,7 +1,7 @@
 ﻿using Autofac;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Events;
+using Microsoft.BuildingBlocks.EventBus;
+using Microsoft.BuildingBlocks.EventBus.Abstractions;
+using Microsoft.BuildingBlocks.EventBus.Events;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -15,17 +15,17 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.BuildingBlocks.EventBusRabbitMQ
+namespace Microsoft.BuildingBlocks.EventBusRabbitMQ
 {
     public class EventBusRabbitMQ : IEventBus, IDisposable
     {
-        const string BROKER_NAME = "eshop_event_bus";
+        const string BROKER_NAME = "HMS_event_bus";
 
         private readonly IRabbitMQPersistentConnection _persistentConnection;
         private readonly ILogger<EventBusRabbitMQ> _logger;
         private readonly IEventBusSubscriptionsManager _subsManager;
         private readonly ILifetimeScope _autofac;
-        private readonly string AUTOFAC_SCOPE_NAME = "eshop_event_bus";
+        private readonly string AUTOFAC_SCOPE_NAME = "HMS_event_bus";
         private readonly int _retryCount;
 
         private IModel _consumerChannel;

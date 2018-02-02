@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace eShopOnContainers.Core.Services.RequestProvider
+namespace HMS.Core.Services.RequestProvider
 {
     public interface IRequestProvider
     {

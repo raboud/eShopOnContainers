@@ -1,7 +1,7 @@
 ﻿using System;
-using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.OrderAggregate;
+using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
 
-namespace UnitTest.Ordering
+namespace HMS.UnitTest.Ordering
 {
     public class AddressBuilder
     {

@@ -1,6 +1,6 @@
-﻿using FunctionalTests.Services.Basket;
-using FunctionalTests.Services.Catalog;
-using Microsoft.eShopOnContainers.Services.Basket.API.Model;
+﻿using HMS.FunctionalTests.Services.Basket;
+using HMS.FunctionalTests.Services.Catalog;
+using HMS.Basket.API.Model;
 using HMS.Catalog.API.Model;
 using Newtonsoft.Json;
 using System;
@@ -11,10 +11,9 @@ using System.Threading.Tasks;
 using Xunit;
 using System.Net.Http;
 using System.Threading;
-using Microsoft.eShopOnContainers.Services.Common.API;
-using HMS.Catalog.API.Model;
+using HMS.Common.API;
 
-namespace FunctionalTests.Services
+namespace HMS.FunctionalTests.Services
 {
     public class IntegrationEventsScenarios
     {

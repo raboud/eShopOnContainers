@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using eShopOnContainers.Core.Models.Basket;
-using eShopOnContainers.Core.Models.Catalog;
-using eShopOnContainers.Core.Models.Marketing;
+using HMS.Core.Models.Basket;
+using HMS.Core.Models.Catalog;
+using HMS.Core.Models.Marketing;
 
-namespace eShopOnContainers.Core.Services.FixUri
+namespace HMS.Core.Services.FixUri
 {
     public interface IFixUriService
     {

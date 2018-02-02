@@ -1,12 +1,12 @@
 ﻿using MediatR;
-using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.OrderAggregate;
+using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
 using Microsoft.Extensions.Logging;
-using Ordering.Domain.Events;
+using HMS.Ordering.Domain.Events;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Ordering.API.Application.DomainEventHandlers.BuyerAndPaymentMethodVerified
+namespace HMS.Ordering.API.Application.DomainEventHandlers.BuyerAndPaymentMethodVerified
 {
     public class UpdateOrderWhenBuyerAndPaymentMethodVerifiedDomainEventHandler 
                    : INotificationHandler<BuyerAndPaymentMethodVerifiedDomainEvent>

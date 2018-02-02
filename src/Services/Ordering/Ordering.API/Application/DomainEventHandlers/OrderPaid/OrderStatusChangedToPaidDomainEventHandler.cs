@@ -1,15 +1,16 @@
-﻿namespace Ordering.API.Application.DomainEventHandlers.OrderPaid
+﻿using MediatR;
+using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
+using Microsoft.Extensions.Logging;
+using HMS.Ordering.Domain.Events;
+using System;
+using System.Threading.Tasks;
+using HMS.Ordering.API.Application.IntegrationEvents;
+using System.Linq;
+using HMS.Ordering.API.Application.IntegrationEvents.Events;
+using System.Threading;
+
+namespace HMS.Ordering.API.Application.DomainEventHandlers.OrderPaid
 {
-    using MediatR;
-    using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.OrderAggregate;
-    using Microsoft.Extensions.Logging;
-    using Domain.Events;
-    using System;
-    using System.Threading.Tasks;
-    using Ordering.API.Application.IntegrationEvents;
-    using System.Linq;
-    using Ordering.API.Application.IntegrationEvents.Events;
-    using System.Threading;
 
     public class OrderStatusChangedToPaidDomainEventHandler
                    : INotificationHandler<OrderStatusChangedToPaidDomainEvent>

@@ -1,18 +1,16 @@
-namespace Microsoft.eShopOnContainers.WebMVC.Controllers
-{
-    using AspNetCore.Authorization;
-    using AspNetCore.Mvc;
-    using global::WebMVC.Models;
-    using global::WebMVC.Services;
-    using global::WebMVC.ViewModels;
-    using Microsoft.Extensions.Options;
-    using Services;
-    using System;
-	using System.Linq;
-	using System.Threading.Tasks;
-    using ViewModels;
-    using ViewModels.Pagination;
+using Microsoft.AspNetCore.Mvc;
+using HMS.WebMVC.Models;
+using HMS.WebMVC.Services;
+using HMS.WebMVC.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Options;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using HMS.WebMVC.ViewModels.Pagination;
 
+namespace HMS.WebMVC.Controllers
+{
     [Authorize]
     public class CampaignsController : Controller
     {

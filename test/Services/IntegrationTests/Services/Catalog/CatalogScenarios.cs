@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace IntegrationTests.Services.Catalog
+namespace HMS.IntegrationTests.Services.Catalog
 {
 
     public class CatalogScenarios

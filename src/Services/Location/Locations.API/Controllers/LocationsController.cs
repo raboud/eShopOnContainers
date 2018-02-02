@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.eShopOnContainers.Services.Locations.API.Infrastructure.Services;
-using Microsoft.eShopOnContainers.Services.Locations.API.Model;
-using Microsoft.eShopOnContainers.Services.Locations.API.ViewModel;
+using HMS.Locations.API.Infrastructure.Services;
+using HMS.Locations.API.Model;
+using HMS.Locations.API.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Locations.API.Controllers
+namespace HMS.Locations.API.Controllers
 {
     [Route("api/v1/[controller]")]
     [Authorize]

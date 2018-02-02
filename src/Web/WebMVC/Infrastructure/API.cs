@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebMVC.Infrastructure
+namespace HMS.WebMVC.Infrastructure
 {
     public static class API
     {
@@ -68,7 +68,7 @@ namespace WebMVC.Infrastructure
                     filterQs = $"typeId={typeQs}&brandId={brandQs}&";
                 }
 
-                return $"{baseUri}Products/items/Page?{filterQs}pageIndex={page}&pageSize={take}";
+                return $"{baseUri}Products/Page?{filterQs}pageIndex={page}&pageSize={take}";
             }
 
             public static string GetAllBrands(string baseUri)

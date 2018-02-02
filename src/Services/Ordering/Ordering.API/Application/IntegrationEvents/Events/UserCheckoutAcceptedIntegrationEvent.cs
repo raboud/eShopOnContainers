@@ -1,8 +1,8 @@
-﻿using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Events;
-using Ordering.API.Application.Models;
+﻿using Microsoft.BuildingBlocks.EventBus.Events;
+using HMS.Ordering.API.Application.Models;
 using System;
 
-namespace Ordering.API.Application.IntegrationEvents.Events
+namespace HMS.Ordering.API.Application.IntegrationEvents.Events
 {
     public class UserCheckoutAcceptedIntegrationEvent : IntegrationEvent
     {

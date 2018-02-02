@@ -1,7 +1,7 @@
-﻿using eShopOnContainers.Core.Models.Basket;
+﻿using HMS.Core.Models.Basket;
 using System.Threading.Tasks;
 
-namespace eShopOnContainers.Core.Services.Basket
+namespace HMS.Core.Services.Basket
 {
     public interface IBasketService
     {

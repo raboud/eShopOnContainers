@@ -1,4 +1,4 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Marketing.API.Dto
+﻿namespace HMS.Marketing.API.Dto
 {
     public class UserLocationRuleDTO
     {

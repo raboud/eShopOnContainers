@@ -1,9 +1,9 @@
-﻿using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
-using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.OrderAggregate;
-using Ordering.API.Application.IntegrationEvents.Events;
+﻿using Microsoft.BuildingBlocks.EventBus.Abstractions;
+using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
+using HMS.Ordering.API.Application.IntegrationEvents.Events;
 using System.Threading.Tasks;
 
-namespace Ordering.API.Application.IntegrationEvents.EventHandling
+namespace HMS.Ordering.API.Application.IntegrationEvents.EventHandling
 {
     public class GracePeriodConfirmedIntegrationEventHandler : IIntegrationEventHandler<GracePeriodConfirmedIntegrationEvent>
     {

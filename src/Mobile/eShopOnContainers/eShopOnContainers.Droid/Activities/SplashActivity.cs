@@ -4,7 +4,7 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Support.V7.App;
 
-namespace eShopOnContainers.Droid.Activities
+namespace HMS.Droid.Activities
 {
     [Activity(
          Label = "eShopOnContainers",

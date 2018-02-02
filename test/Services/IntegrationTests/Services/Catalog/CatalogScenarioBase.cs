@@ -1,9 +1,9 @@
-﻿namespace IntegrationTests.Services.Catalog
+﻿namespace HMS.IntegrationTests.Services.Catalog
 {
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.TestHost;
-    using Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF;
+    using Microsoft.BuildingBlocks.IntegrationEventLogEF;
     using HMS.Catalog.API;
     using HMS.Catalog.API.Infrastructure;
     using Microsoft.Extensions.DependencyInjection;

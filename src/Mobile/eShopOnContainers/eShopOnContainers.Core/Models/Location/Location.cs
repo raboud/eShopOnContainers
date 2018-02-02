@@ -1,4 +1,4 @@
-﻿namespace eShopOnContainers.Core.Models.Location
+﻿namespace HMS.Core.Models.Location
 {
     public class Location
     {

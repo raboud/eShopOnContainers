@@ -1,10 +1,10 @@
-﻿namespace Ordering.API.Application.IntegrationEvents.EventHandling
+﻿namespace HMS.Ordering.API.Application.IntegrationEvents.EventHandling
 {
-    using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
+    using Microsoft.BuildingBlocks.EventBus.Abstractions;
     using System.Threading.Tasks;
     using Events;
     using System.Linq;
-    using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.OrderAggregate;
+    using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
 
     public class OrderStockRejectedIntegrationEventHandler : IIntegrationEventHandler<OrderStockRejectedIntegrationEvent>
     {

@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.Controls
+namespace HMS.Core.Controls
 {
     public partial class AddBasketButton : ContentView
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace eShopOnContainers.Core.Exceptions
+namespace HMS.Core.Exceptions
 {
     public class ServiceAuthenticationException : Exception
     {

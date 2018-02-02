@@ -2,15 +2,15 @@
 using Autofac.Core;
 using FluentValidation;
 using MediatR;
-using Microsoft.eShopOnContainers.Services.Ordering.API.Application.Commands;
-using Ordering.API.Application.DomainEventHandlers.OrderStartedEvent;
-using Ordering.API.Application.Validations;
-using Ordering.API.Infrastructure.Behaviors;
+using HMS.Ordering.API.Application.Commands;
+using HMS.Ordering.API.Application.DomainEventHandlers.OrderStartedEvent;
+using HMS.Ordering.API.Application.Validations;
+using HMS.Ordering.API.Infrastructure.Behaviors;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Microsoft.eShopOnContainers.Services.Ordering.API.Infrastructure.AutofacModules
+namespace HMS.Ordering.API.Infrastructure.AutofacModules
 {
     public class MediatorModule : Autofac.Module
     {

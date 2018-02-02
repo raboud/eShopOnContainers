@@ -1,17 +1,17 @@
-﻿namespace IntegrationTests.Services.Ordering
+﻿namespace HMS.IntegrationTests.Services.Ordering
 {
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.TestHost;
-    using Microsoft.eShopOnContainers.Services.Ordering.API;
-    using Microsoft.eShopOnContainers.Services.Ordering.API.Infrastructure;
-    using Microsoft.eShopOnContainers.Services.Ordering.Infrastructure;
+    using HMS.Ordering.API;
+    using HMS.Ordering.API.Infrastructure;
+    using HMS.Ordering.Infrastructure;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using System.IO;
-    using Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF;
+    using Microsoft.BuildingBlocks.IntegrationEventLogEF;
 
     public class OrderingScenarioBase
     {

@@ -1,10 +1,10 @@
-﻿namespace Microsoft.eShopOnContainers.BuildingBlocks.EventBusServiceBus
+﻿namespace Microsoft.BuildingBlocks.EventBusServiceBus
 {
     using Autofac;
     using Microsoft.Azure.ServiceBus;
-    using Microsoft.eShopOnContainers.BuildingBlocks.EventBus;
-    using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
-    using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Events;
+    using Microsoft.BuildingBlocks.EventBus;
+    using Microsoft.BuildingBlocks.EventBus.Abstractions;
+    using Microsoft.BuildingBlocks.EventBus.Events;
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
@@ -19,7 +19,7 @@
         private readonly IEventBusSubscriptionsManager _subsManager;
         private readonly SubscriptionClient _subscriptionClient;
         private readonly ILifetimeScope _autofac;
-        private readonly string AUTOFAC_SCOPE_NAME = "eshop_event_bus";
+        private readonly string AUTOFAC_SCOPE_NAME = "HMS_event_bus";
         private const string INTEGRATION_EVENT_SUFIX = "IntegrationEvent";
 
         public EventBusServiceBus(IServiceBusPersisterConnection serviceBusPersisterConnection, 

@@ -1,10 +1,10 @@
-﻿using eShopOnContainers.Core.Services.Settings;
-using eShopOnContainers.iOS.Services;
+﻿using HMS.Core.Services.Settings;
+using HMS.iOS.Services;
 using Foundation;
 using System;
 
 [assembly: Xamarin.Forms.Dependency(typeof(SettingsServiceImplementation))]
-namespace eShopOnContainers.iOS.Services
+namespace HMS.iOS.Services
 {
     public class SettingsServiceImplementation : ISettingsServiceImplementation
     {

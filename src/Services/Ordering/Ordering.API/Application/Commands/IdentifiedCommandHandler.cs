@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using Microsoft.eShopOnContainers.Services.Ordering.Infrastructure.Idempotency;
+using HMS.Ordering.Infrastructure.Idempotency;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.Services.Ordering.API.Application.Commands
+namespace HMS.Ordering.API.Application.Commands
 {
     /// <summary>
     /// Provides a base implementation for handling duplicate request and ensuring idempotent updates, in the cases where

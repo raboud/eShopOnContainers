@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Common.API</AssemblyName>
-    <RootNamespace>Microsoft.eShopOnContainers.Services.Common.API</RootNamespace>
+    <RootNamespace>HMS.Services.Common.API</RootNamespace>
   </PropertyGroup>
 
 </Project>

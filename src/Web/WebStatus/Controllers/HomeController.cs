@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.HealthChecks;
 using System.Threading.Tasks;
-using WebStatus.Viewmodels;
+using HMS.WebStatus.Viewmodels;
 
-namespace WebStatus.Controllers
+namespace HMS.WebStatus.Controllers
 {
     public class HomeController : Controller
     {

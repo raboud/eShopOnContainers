@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.Views.Templates
+namespace HMS.Core.Views.Templates
 {
     public partial class OrderTemplate : ContentView
     {

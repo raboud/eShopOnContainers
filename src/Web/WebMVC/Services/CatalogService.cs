@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.eShopOnContainers.BuildingBlocks.Resilience.Http;
-using Microsoft.eShopOnContainers.Services.Common.API;
-using Microsoft.eShopOnContainers.WebMVC.ViewModels;
+using Microsoft.BuildingBlocks.Resilience.Http;
+using HMS.WebMVC.ViewModels;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using WebMVC.Infrastructure;
+using HMS.WebMVC.Infrastructure;
+using HMS.Common.API;
 
-namespace Microsoft.eShopOnContainers.WebMVC.Services
+namespace HMS.WebMVC.Services
 {
     public class CatalogService : ICatalogService
     {

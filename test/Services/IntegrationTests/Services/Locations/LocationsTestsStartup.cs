@@ -1,8 +1,8 @@
-﻿namespace IntegrationTests.Services.Locations
+﻿namespace HMS.IntegrationTests.Services.Locations
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.eShopOnContainers.Services.Locations.API;
+    using HMS.Locations.API;
     using Microsoft.Extensions.Configuration;
     using System.Security.Claims;
     using System.Threading.Tasks;

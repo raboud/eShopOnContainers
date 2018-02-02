@@ -1,4 +1,4 @@
-﻿namespace IntegrationTests.Services.Marketing
+﻿namespace HMS.IntegrationTests.Services.Marketing
 {
     public class CampaignScenarioBase : MarketingScenarioBase
     {

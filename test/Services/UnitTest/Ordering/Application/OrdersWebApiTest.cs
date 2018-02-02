@@ -1,18 +1,17 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.eShopOnContainers.Services.Ordering.API.Application.Commands;
-using Microsoft.eShopOnContainers.Services.Ordering.API.Application.Queries;
-using Microsoft.eShopOnContainers.Services.Ordering.API.Controllers;
-using Microsoft.eShopOnContainers.Services.Ordering.API.Infrastructure.Services;
+using HMS.Ordering.API.Application.Commands;
+using HMS.Ordering.API.Application.Queries;
+using HMS.Ordering.API.Controllers;
+using HMS.Ordering.API.Infrastructure.Services;
 using Moq;
-using Ordering.API.Application.Commands;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace UnitTest.Ordering.Application
+namespace HMS.UnitTest.Ordering.Application
 {
     public class OrdersWebApiTest
     {

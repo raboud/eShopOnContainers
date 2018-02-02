@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.eShopOnContainers.Services.Marketing.API.Model;
+using HMS.Marketing.API.Model;
 
-namespace Microsoft.eShopOnContainers.Services.Marketing.API.Infrastructure.EntityConfigurations
+namespace HMS.Marketing.API.Infrastructure.EntityConfigurations
 {
     class UserLocationRuleEntityTypeConfiguration
        : IEntityTypeConfiguration<UserLocationRule>

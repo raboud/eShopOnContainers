@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Microsoft.eShopOnContainers.Services.Ordering.Domain.SeedWork
+namespace HMS.Ordering.Domain.SeedWork
 {
     public abstract class ValueObject
     {

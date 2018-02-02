@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.eShopOnContainers.Services.Identity.API.Certificates;
-using Microsoft.eShopOnContainers.Services.Identity.API.Data;
-using Microsoft.eShopOnContainers.Services.Identity.API.Models;
-using Microsoft.eShopOnContainers.Services.Identity.API.Services;
+using HMS.Identity.API.Certificates;
+using HMS.Identity.API.Data;
+using HMS.Identity.API.Models;
+using HMS.Identity.API.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.HealthChecks;
@@ -20,7 +20,7 @@ using StackExchange.Redis;
 using System;
 using System.Reflection;
 
-namespace Microsoft.eShopOnContainers.Services.Identity.API
+namespace HMS.Identity.API
 {
     public class Startup
     {

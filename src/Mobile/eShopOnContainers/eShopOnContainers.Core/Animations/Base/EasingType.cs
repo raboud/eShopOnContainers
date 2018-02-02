@@ -1,4 +1,4 @@
-﻿namespace eShopOnContainers.Core.Animations.Base
+﻿namespace HMS.Core.Animations.Base
 {
     public enum EasingType
     {

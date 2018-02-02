@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebMVC.Models
+namespace HMS.WebMVC.Models
 {
     public class BasketDTO
     {

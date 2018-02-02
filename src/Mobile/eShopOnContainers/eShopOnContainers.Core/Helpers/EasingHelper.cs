@@ -1,7 +1,7 @@
-﻿using eShopOnContainers.Core.Animations.Base;
+﻿using HMS.Core.Animations.Base;
 using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.Helpers
+namespace HMS.Core.Helpers
 {
     public static class EasingHelper
     {

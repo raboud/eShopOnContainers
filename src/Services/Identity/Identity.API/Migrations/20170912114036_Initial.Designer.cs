@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.eShopOnContainers.Services.Identity.API.Data;
+using HMS.Identity.API.Data;
 using System;
 
 namespace Identity.API.Migrations

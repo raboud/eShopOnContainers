@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace eShopOnContainers.Core.Models.Basket
+namespace HMS.Core.Models.Basket
 {
     public class CustomerBasket
     {

@@ -1,4 +1,4 @@
-﻿namespace eShopOnContainers.Core.Validations
+﻿namespace HMS.Core.Validations
 {
     public class IsNotNullOrEmptyRule<T> : IValidationRule<T>
     {

@@ -1,12 +1,12 @@
-﻿using eShopOnContainers.Core.Views;
-using eShopOnContainers.Windows.Renderers;
+﻿using HMS.Core.Views;
+using HMS.Windows.Renderers;
 using SlideOverKit.UWP;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
 
 [assembly: ExportRenderer(typeof(CatalogView), typeof(SlideDownMenuPageRenderer))]
-namespace eShopOnContainers.Windows.Renderers
+namespace HMS.Windows.Renderers
 {
     public class SlideDownMenuPageRenderer : PageRenderer, ISlideOverKitPageRendererUWP
     {

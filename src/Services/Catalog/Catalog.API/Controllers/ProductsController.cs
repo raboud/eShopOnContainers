@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using HMS.Catalog.API;
+using HMS.Catalog.API.Infrastructure;
+using HMS.Catalog.API.IntegrationEvents;
+using HMS.Catalog.API.IntegrationEvents.Events;
+using HMS.Catalog.API.Model;
+using HMS.Catalog.API.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using HMS.Catalog.API.Infrastructure;
-using HMS.Catalog.API.Model;
-using System.Net;
-using HMS.Catalog.API.ViewModel;
 using Microsoft.Extensions.Options;
-using HMS.Catalog.API.IntegrationEvents;
-using HMS.Catalog.API;
-using HMS.Catalog.API.IntegrationEvents.Events;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 
-namespace Catalog.API.Controllers
+namespace HMS.Catalog.API.Controllers
 {
-    [Produces("application/json")]
+	[Produces("application/json")]
 	[Route("api/v1/[controller]")]
 	public class ProductsController : Controller
     {

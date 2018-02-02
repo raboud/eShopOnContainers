@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Microsoft.eShopOnContainers.Services.Ordering.API.Application.Queries
+namespace HMS.Ordering.API.Application.Queries
 {
     public class Orderitem
     {

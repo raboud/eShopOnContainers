@@ -3,9 +3,9 @@ using MediatR;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Collections;
-using Ordering.API.Application.Models;
+using HMS.Ordering.API.Application.Models;
 
-namespace Microsoft.eShopOnContainers.Services.Ordering.API.Application.Commands
+namespace HMS.Ordering.API.Application.Commands
 {
     // DDD and CQRS patterns comment: Note that it is recommended to implement immutable Commands
     // In this case, its immutability is achieved by having all the setters as private

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using System.IO;
 
-namespace IntegrationTests.Services.Locations
+namespace HMS.IntegrationTests.Services.Locations
 {
     public class LocationsScenarioBase
     {

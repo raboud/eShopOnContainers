@@ -1,4 +1,4 @@
-﻿using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Events;
+﻿using Microsoft.BuildingBlocks.EventBus.Events;
 
 namespace HMS.Catalog.API.IntegrationEvents.Events
 {

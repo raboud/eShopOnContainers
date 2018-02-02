@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using WebMVC.Models;
+using HMS.WebMVC.Models;
 
-namespace WebMVC.Services
+namespace HMS.WebMVC.Services
 {
     public interface ILocationService
     {

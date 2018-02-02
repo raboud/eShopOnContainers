@@ -2,7 +2,7 @@
 using Xamarin.Forms;
 using UI = Windows.UI;
 
-namespace eShopOnContainers.Windows.Converters
+namespace HMS.Windows.Converters
 {
     public class TabIconConverter : UI.Xaml.Data.IValueConverter
     {

@@ -1,13 +1,13 @@
 using Android.Content;
-using eShopOnContainers.Core.Views;
-using eShopOnContainers.Droid.Renderers;
+using HMS.Core.Views;
+using HMS.Droid.Renderers;
 using SlideOverKit.Droid;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportRenderer(typeof(CatalogView), typeof(SlideDownMenuPageRenderer))]
-namespace eShopOnContainers.Droid.Renderers
+namespace HMS.Droid.Renderers
 {
     public class SlideDownMenuPageRenderer : PageRenderer, ISlideOverKitPageRendererDroid
     {

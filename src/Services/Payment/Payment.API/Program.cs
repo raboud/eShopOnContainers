@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.IO;
 
-namespace Payment.API
+namespace HMS.Payment.API
 {
     public class Program
     {

@@ -1,9 +1,9 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Ordering.API.Application.Commands
+﻿namespace HMS.Ordering.API.Application.Commands
 {
     using Domain.AggregatesModel.OrderAggregate;
     using MediatR;
-    using Microsoft.eShopOnContainers.Services.Ordering.API.Infrastructure.Services;
-    using Microsoft.eShopOnContainers.Services.Ordering.Infrastructure.Idempotency;
+    using HMS.Ordering.API.Infrastructure.Services;
+    using HMS.Ordering.Infrastructure.Idempotency;
     using System;
     using System.Threading;
     using System.Threading.Tasks;

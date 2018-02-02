@@ -1,4 +1,4 @@
-﻿namespace Microsoft.eShopOnContainers.WebMVC
+﻿namespace HMS.WebMVC
 {
 	internal class ByPassAuthMiddleware
 	{

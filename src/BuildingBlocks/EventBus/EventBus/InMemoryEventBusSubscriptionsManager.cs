@@ -1,12 +1,12 @@
-﻿using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Events;
+﻿using Microsoft.BuildingBlocks.EventBus.Abstractions;
+using Microsoft.BuildingBlocks.EventBus.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Microsoft.eShopOnContainers.BuildingBlocks.EventBus
+namespace Microsoft.BuildingBlocks.EventBus
 {
     public partial class InMemoryEventBusSubscriptionsManager : IEventBusSubscriptionsManager
     {

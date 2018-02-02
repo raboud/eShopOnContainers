@@ -1,9 +1,9 @@
-﻿using eShopOnContainers.Core.Models.User;
-using eShopOnContainers.Core.Services.RequestProvider;
+﻿using HMS.Core.Models.User;
+using HMS.Core.Services.RequestProvider;
 using System;
 using System.Threading.Tasks;
 
-namespace eShopOnContainers.Core.Services.User
+namespace HMS.Core.Services.User
 {
     public class UserService : IUserService
     {

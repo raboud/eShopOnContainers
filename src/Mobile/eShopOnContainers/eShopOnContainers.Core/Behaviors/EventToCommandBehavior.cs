@@ -1,4 +1,4 @@
-﻿using eShopOnContainers.Core.Behaviors.Base;
+﻿using HMS.Core.Behaviors.Base;
 using System;
 using System.Globalization;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.Behaviors
+namespace HMS.Core.Behaviors
 {
     public class EventToCommandBehavior : BindableBehavior<View>
     {

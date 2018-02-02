@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.eShopOnContainers.WebMVC.Controllers;
-using Microsoft.eShopOnContainers.WebMVC.Services;
-using Microsoft.eShopOnContainers.WebMVC.ViewModels;
+using HMS.WebMVC.Controllers;
+using HMS.WebMVC.Services;
+using HMS.WebMVC.ViewModels;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
-using BasketModel = Microsoft.eShopOnContainers.WebMVC.ViewModels.Basket;
+using BasketModel = HMS.WebMVC.ViewModels.Basket;
 
-namespace UnitTest.Ordering.Application
+namespace HMS.UnitTest.Ordering.Application
 {
     public class OrderControllerTest
     {

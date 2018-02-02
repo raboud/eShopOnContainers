@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF;
+using Microsoft.BuildingBlocks.IntegrationEventLogEF;
 using HMS.Catalog.API.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

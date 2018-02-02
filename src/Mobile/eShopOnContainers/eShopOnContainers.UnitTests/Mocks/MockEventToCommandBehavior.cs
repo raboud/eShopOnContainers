@@ -1,6 +1,6 @@
-﻿using eShopOnContainers.Core.Behaviors;
+﻿using HMS.Core.Behaviors;
 
-namespace eShopOnContainers.UnitTests
+namespace HMS.UnitTests
 {
 	public class MockEventToCommandBehavior : EventToCommandBehavior
 	{

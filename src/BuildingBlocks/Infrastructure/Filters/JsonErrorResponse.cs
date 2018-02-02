@@ -1,4 +1,4 @@
-﻿namespace Microsoft.eShopOnContainers.BuildingBlocks.Infrastructure.Filters
+﻿namespace Microsoft.BuildingBlocks.Infrastructure.Filters
 {
 	public class JsonErrorResponse
     {

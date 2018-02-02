@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Microsoft.eShopOnContainers.Services.Common.API
+namespace HMS.Common.API
 {
     public class PaginatedItemsViewModel<TEntity> where TEntity : class
 	{

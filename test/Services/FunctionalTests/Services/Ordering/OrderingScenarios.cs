@@ -1,7 +1,7 @@
-﻿using FunctionalTests.Extensions;
-using FunctionalTests.Services.Basket;
-using Microsoft.eShopOnContainers.Services.Basket.API.Model;
-using Microsoft.eShopOnContainers.WebMVC.ViewModels;
+﻿using HMS.FunctionalTests.Extensions;
+using HMS.FunctionalTests.Services.Basket;
+using HMS.Basket.API.Model;
+using HMS.WebMVC.ViewModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,10 +9,10 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using WebMVC.Models;
+using HMS.WebMVC.Models;
 using Xunit;
 
-namespace FunctionalTests.Services.Ordering
+namespace HMS.FunctionalTests.Services.Ordering
 {
     public class OrderingScenarios : OrderingScenariosBase
     {        
@@ -89,9 +89,9 @@ namespace FunctionalTests.Services.Ordering
         string BuildBasket()
         {
             var order = new CustomerBasket("9e3163b9-1ae6-4652-9dc6-7898ab7b7a00");
-            order.Items = new List<Microsoft.eShopOnContainers.Services.Basket.API.Model.BasketItem>()
+            order.Items = new List<HMS.Basket.API.Model.BasketItem>()
             {
-                new Microsoft.eShopOnContainers.Services.Basket.API.Model.BasketItem()
+                new HMS.Basket.API.Model.BasketItem()
                 {
                     Id = "1",
                     ProductName = "ProductName",

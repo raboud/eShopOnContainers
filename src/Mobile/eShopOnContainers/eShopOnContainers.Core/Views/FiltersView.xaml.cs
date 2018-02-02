@@ -1,6 +1,6 @@
 ﻿using SlideOverKit;
 
-namespace eShopOnContainers.Core.Views
+namespace HMS.Core.Views
 {
     public partial class FiltersView : SlideMenuView
     {

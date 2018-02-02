@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using Microsoft.eShopOnContainers.Services.Ordering.API.Application.Commands;
+using HMS.Ordering.API.Application.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static Microsoft.eShopOnContainers.Services.Ordering.API.Application.Commands.CreateOrderCommand;
+using static HMS.Ordering.API.Application.Commands.CreateOrderCommand;
 
-namespace Ordering.API.Application.Validations
+namespace HMS.Ordering.API.Application.Validations
 {
     public class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
     {

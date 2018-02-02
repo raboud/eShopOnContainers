@@ -1,4 +1,4 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Locations.API.Infrastructure.Services
+﻿namespace HMS.Locations.API.Infrastructure.Services
 {
     public interface IIdentityService
     {

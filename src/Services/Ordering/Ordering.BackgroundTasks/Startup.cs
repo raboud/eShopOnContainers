@@ -3,21 +3,21 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Azure.ServiceBus;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBusRabbitMQ;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBusServiceBus;
+using Microsoft.BuildingBlocks.EventBus;
+using Microsoft.BuildingBlocks.EventBus.Abstractions;
+using Microsoft.BuildingBlocks.EventBusRabbitMQ;
+using Microsoft.BuildingBlocks.EventBusServiceBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Ordering.BackgroundTasks.Configuration;
-using Ordering.BackgroundTasks.Tasks;
+using HMS.Ordering.BackgroundTasks.Configuration;
+using HMS.Ordering.BackgroundTasks.Tasks;
 using RabbitMQ.Client;
 using System;
 
-namespace Ordering.BackgroundTasks
+namespace HMS.Ordering.BackgroundTasks
 {
     public class Startup
     {

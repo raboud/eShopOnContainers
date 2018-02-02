@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace WebMVC.Controllers
+namespace HMS.WebMVC.Controllers
 {
     public class ErrorController : Controller
     {

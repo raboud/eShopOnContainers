@@ -1,8 +1,8 @@
-﻿using eShopOnContainers.Core.Services.Catalog;
+﻿using HMS.Core.Services.Catalog;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace eShopOnContainers.UnitTests
+namespace HMS.UnitTests
 {
     public class CatalogServiceTests
     {

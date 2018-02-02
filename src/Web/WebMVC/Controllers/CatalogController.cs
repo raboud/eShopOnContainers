@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.eShopOnContainers.WebMVC.ViewModels.Pagination;
-using Microsoft.eShopOnContainers.WebMVC.Services;
-using Microsoft.eShopOnContainers.WebMVC.ViewModels.CatalogViewModels;
+using HMS.WebMVC.ViewModels.Pagination;
+using HMS.WebMVC.Services;
+using HMS.WebMVC.ViewModels.CatalogViewModels;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
 
-namespace Microsoft.eShopOnContainers.WebMVC.Controllers
+namespace HMS.WebMVC.Controllers
 {
     public class CatalogController : Controller
     {

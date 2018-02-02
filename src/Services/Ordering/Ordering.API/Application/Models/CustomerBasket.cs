@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Ordering.API.Application.Models
+namespace HMS.Ordering.API.Application.Models
 {
     public class CustomerBasket
     {

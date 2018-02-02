@@ -2,7 +2,7 @@
 using System.Linq;
 using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.Effects
+namespace HMS.Core.Effects
 {
     public static class ThemeEffects
     {

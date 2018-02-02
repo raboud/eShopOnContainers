@@ -1,12 +1,12 @@
-﻿using eShopOnContainers.Core.Extensions;
-using eShopOnContainers.Core.Models.Catalog;
+﻿using HMS.Core.Extensions;
+using HMS.Core.Models.Catalog;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.Services.Catalog
+namespace HMS.Core.Services.Catalog
 {
     public class CatalogMockService : ICatalogService
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 
-namespace eShopOnContainers.Core.Services.RequestProvider
+namespace HMS.Core.Services.RequestProvider
 {
     public class HttpRequestExceptionEx : HttpRequestException
     {

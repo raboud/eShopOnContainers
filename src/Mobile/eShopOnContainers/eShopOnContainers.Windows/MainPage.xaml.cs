@@ -2,7 +2,7 @@
 using Windows.UI;
 using Windows.UI.ViewManagement;
 
-namespace eShopOnContainers.UWP
+namespace HMS.UWP
 {
     public sealed partial class MainPage
     {
@@ -10,7 +10,7 @@ namespace eShopOnContainers.UWP
         {
             this.InitializeComponent();
 
-            LoadApplication(new eShopOnContainers.App());
+            LoadApplication(new HMS.App());
 
             NativeCustomize();
         }

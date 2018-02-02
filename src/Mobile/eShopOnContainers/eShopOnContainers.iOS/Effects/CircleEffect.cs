@@ -1,12 +1,12 @@
 ﻿using CoreAnimation;
 using CoreGraphics;
-using eShopOnContainers.iOS.Effects;
+using HMS.iOS.Effects;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportEffect(typeof(CircleEffect), "CircleEffect")]
-namespace eShopOnContainers.iOS.Effects
+namespace HMS.iOS.Effects
 {
     public class CircleEffect : PlatformEffect
     {

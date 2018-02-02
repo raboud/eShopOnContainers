@@ -1,9 +1,9 @@
-﻿using eShopOnContainers.Core.Services.Settings;
-using eShopOnContainers.Windows.Services;
+﻿using HMS.Core.Services.Settings;
+using HMS.Windows.Services;
 using Windows.Storage;
 
 [assembly: Xamarin.Forms.Dependency(typeof(SettingsServiceImplementation))]
-namespace eShopOnContainers.Windows.Services
+namespace HMS.Windows.Services
 {
     public class SettingsServiceImplementation : ISettingsServiceImplementation
     {

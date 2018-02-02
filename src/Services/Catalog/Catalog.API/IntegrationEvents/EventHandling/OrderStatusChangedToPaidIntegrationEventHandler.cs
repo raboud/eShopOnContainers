@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using HMS.Catalog.API.IntegrationEvents.Events;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
+using Microsoft.BuildingBlocks.EventBus.Abstractions;
 using HMS.Catalog.API.Infrastructure;
 
 namespace HMS.Catalog.API.IntegrationEvents.EventHandling

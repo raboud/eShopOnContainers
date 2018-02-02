@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.eShopOnContainers.WebMVC.Services;
-using Microsoft.eShopOnContainers.WebMVC.ViewModels;
+using HMS.WebMVC.Services;
+using HMS.WebMVC.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using System.Net.Http;
 using Polly.CircuitBreaker;
-using WebMVC.Models;
+using HMS.WebMVC.Models;
 
-namespace Microsoft.eShopOnContainers.WebMVC.Controllers
+namespace HMS.WebMVC.Controllers
 {
     [Authorize]
     public class OrderController : Controller

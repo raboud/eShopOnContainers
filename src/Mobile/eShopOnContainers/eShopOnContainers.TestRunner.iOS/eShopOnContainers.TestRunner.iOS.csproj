@@ -8,9 +8,9 @@
     <ProjectGuid>{B68C2B56-7581-46AE-B55D-D25DDFD3BFE3}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
-    <RootNamespace>eShopOnContainers.TestRunner.iOS</RootNamespace>
+    <RootNamespace>HMS.TestRunner.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>eShopOnContainersTestRunneriOS</AssemblyName>
+    <AssemblyName>HMS.TestRunneriOS</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -156,6 +156,9 @@
       <Project>{FDD910BC-DF0F-483D-B7D5-C7D831855172}</Project>
       <Name>eShopOnContainers.UnitTests</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\..\packages\xunit.analyzers.0.8.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\..\..\packages\xunit.runner.devices.2.3.3\build\xamarinios10\xunit.runner.devices.targets" Condition="Exists('..\..\..\..\packages\xunit.runner.devices.2.3.3\build\xamarinios10\xunit.runner.devices.targets')" />

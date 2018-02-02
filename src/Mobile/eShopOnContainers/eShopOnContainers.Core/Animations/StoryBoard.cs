@@ -1,9 +1,9 @@
-﻿using eShopOnContainers.Core.Animations.Base;
+﻿using HMS.Core.Animations.Base;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.Animations
+namespace HMS.Core.Animations
 {
     [ContentProperty("Animations")]
     public class StoryBoard : AnimationBase

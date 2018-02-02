@@ -12,7 +12,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace Microsoft.eShopOnContainers.BuildingBlocks.Resilience.Http
+namespace Microsoft.BuildingBlocks.Resilience.Http
 {
     /// <summary>
     /// HttpClient wrapper that integrates Retry and Circuit

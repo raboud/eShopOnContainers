@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Microsoft.eShopOnContainers.Services.Basket.API.Controllers
+namespace HMS.Basket.API.Controllers
 {
     public class HomeController : Controller
     {

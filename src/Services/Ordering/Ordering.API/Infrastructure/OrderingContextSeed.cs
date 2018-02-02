@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.BuyerAggregate;
-using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.OrderAggregate;
+using HMS.Ordering.Domain.AggregatesModel.BuyerAggregate;
+using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Ordering.Infrastructure;
+using HMS.Ordering.Infrastructure;
 using Polly;
 using System;
 using System.Collections.Generic;
@@ -15,9 +15,8 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.eShopOnContainers.Services.Ordering.Infrastructure;
 
-namespace Microsoft.eShopOnContainers.Services.Ordering.API.Infrastructure
+namespace HMS.Ordering.API.Infrastructure
 {
     public class OrderingContextSeed
     {

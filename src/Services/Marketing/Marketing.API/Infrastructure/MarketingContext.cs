@@ -1,9 +1,9 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Marketing.API.Infrastructure
+﻿namespace HMS.Marketing.API.Infrastructure
 {
     using EntityConfigurations;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Design;
-    using Microsoft.eShopOnContainers.Services.Marketing.API.Model;
+    using HMS.Marketing.API.Model;
 
     public class MarketingContext : DbContext
     {

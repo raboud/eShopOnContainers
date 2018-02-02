@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System;
 
-namespace Microsoft.eShopOnContainers.Services.Ordering.API.Application.Commands
+namespace HMS.Ordering.API.Application.Commands
 {
     public class IdentifiedCommand<T, R> : IRequest<R>
         where T : IRequest<R>

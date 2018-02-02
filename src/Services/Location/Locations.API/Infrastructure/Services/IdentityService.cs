@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 
-namespace Microsoft.eShopOnContainers.Services.Locations.API.Infrastructure.Services
+namespace HMS.Locations.API.Infrastructure.Services
 {
     public class IdentityService : IIdentityService
     {

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="eShopOnContainers.Core.Views.CampaignView"   
-             xmlns:templates="clr-namespace:eShopOnContainers.Core.Views.Templates;assembly=eShopOnContainers.Core"
-		     xmlns:viewModelBase="clr-namespace:eShopOnContainers.Core.ViewModels.Base;assembly=eShopOnContainers.Core"
-             xmlns:animations="clr-namespace:eShopOnContainers.Core.Animations;assembly=eShopOnContainers.Core"
-             xmlns:triggers="clr-namespace:eShopOnContainers.Core.Triggers;assembly=eShopOnContainers.Core"
-             xmlns:behaviors="clr-namespace:eShopOnContainers.Core.Behaviors;assembly=eShopOnContainers.Core"
+             x:Class="HMS.Core.Views.CampaignView"   
+             xmlns:templates="clr-namespace:HMS.Core.Views.Templates;assembly=HMS.Core"
+		     xmlns:viewModelBase="clr-namespace:HMS.Core.ViewModels.Base;assembly=HMS.Core"
+             xmlns:animations="clr-namespace:HMS.Core.Animations;assembly=HMS.Core"
+             xmlns:triggers="clr-namespace:HMS.Core.Triggers;assembly=HMS.Core"
+             xmlns:behaviors="clr-namespace:HMS.Core.Behaviors;assembly=HMS.Core"
 			 viewModelBase:ViewModelLocator.AutoWireViewModel="true"
              Title="Campaigns">
     <ContentPage.Resources>

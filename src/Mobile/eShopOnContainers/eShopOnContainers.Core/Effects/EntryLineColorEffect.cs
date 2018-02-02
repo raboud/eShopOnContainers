@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.Effects
+namespace HMS.Core.Effects
 {
 	public class EntryLineColorEffect : RoutingEffect
 	{

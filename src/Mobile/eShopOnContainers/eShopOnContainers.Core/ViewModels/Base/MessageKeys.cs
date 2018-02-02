@@ -1,4 +1,4 @@
-﻿namespace eShopOnContainers.Core.ViewModels.Base
+﻿namespace HMS.Core.ViewModels.Base
 {
     public class MessageKeys
     {

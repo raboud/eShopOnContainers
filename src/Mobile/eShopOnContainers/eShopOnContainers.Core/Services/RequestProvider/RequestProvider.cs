@@ -1,4 +1,4 @@
-﻿using eShopOnContainers.Core.Exceptions;
+﻿using HMS.Core.Exceptions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace eShopOnContainers.Core.Services.RequestProvider
+namespace HMS.Core.Services.RequestProvider
 {
     public class RequestProvider : IRequestProvider
     {

@@ -1,9 +1,9 @@
-﻿namespace IntegrationTests.Services.Marketing
+﻿namespace HMS.IntegrationTests.Services.Marketing
 {
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.TestHost;
-    using Microsoft.eShopOnContainers.Services.Marketing.API.Infrastructure;
+    using HMS.Marketing.API.Infrastructure;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.DependencyInjection;
     using System.IO;

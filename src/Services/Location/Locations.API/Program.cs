@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.IO;
 
-namespace Microsoft.eShopOnContainers.Services.Locations.API
+namespace HMS.Locations.API
 {
     public class Program
     {

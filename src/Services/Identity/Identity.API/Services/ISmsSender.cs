@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.Services.Identity.API.Services
+namespace HMS.Identity.API.Services
 {
     public interface ISmsSender
     {

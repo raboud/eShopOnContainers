@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.eShopOnContainers.Services.Common.API;
-using Microsoft.eShopOnContainers.WebMVC.ViewModels;
+using HMS.Common.API;
+using HMS.WebMVC.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.WebMVC.Services
+namespace HMS.WebMVC.Services
 {
     public interface ICatalogService
     {

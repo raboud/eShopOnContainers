@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace Catalog.API.Migrations.Catalog
+namespace HMS.Catalog.API.Migrations.Catalog
 {
     [DbContext(typeof(CatalogContext))]
     [Migration("20180125215343_first")]

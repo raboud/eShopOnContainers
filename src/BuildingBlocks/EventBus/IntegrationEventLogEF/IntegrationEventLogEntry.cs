@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Events;
+using Microsoft.BuildingBlocks.EventBus.Events;
 
-namespace Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF
+namespace Microsoft.BuildingBlocks.IntegrationEventLogEF
 {
     public class IntegrationEventLogEntry
     {

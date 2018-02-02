@@ -1,12 +1,12 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.Preferences;
-using eShopOnContainers.Core.Services.Settings;
-using eShopOnContainers.Droid.Services;
+using HMS.Core.Services.Settings;
+using HMS.Droid.Services;
 using System;
 
 [assembly: Xamarin.Forms.Dependency(typeof(SettingsServiceImplementation))]
-namespace eShopOnContainers.Droid.Services
+namespace HMS.Droid.Services
 {
     public class SettingsServiceImplementation : ISettingsServiceImplementation
     {

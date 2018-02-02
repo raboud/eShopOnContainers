@@ -1,12 +1,12 @@
-﻿using eShopOnContainers.Core.Models.Navigation;
-using eShopOnContainers.Core.Services.Settings;
-using eShopOnContainers.Core.ViewModels;
-using eShopOnContainers.Core.ViewModels.Base;
-using eShopOnContainers.UnitTests.Mocks;
+﻿using HMS.Core.Models.Navigation;
+using HMS.Core.Services.Settings;
+using HMS.Core.ViewModels;
+using HMS.Core.ViewModels.Base;
+using HMS.UnitTests.Mocks;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace eShopOnContainers.UnitTests
+namespace HMS.UnitTests
 {
     public class MainViewModelTests
     {

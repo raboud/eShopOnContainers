@@ -1,13 +1,13 @@
-﻿namespace FunctionalTests.Services.Marketing
-{
-    using Microsoft.AspNetCore;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.TestHost;
-    using Microsoft.eShopOnContainers.Services.Marketing.API.Infrastructure;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
-    using System.IO;
+﻿using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
+using HMS.Marketing.API.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System.IO;
 
+namespace HMS.FunctionalTests.Services.Marketing
+{
     public class MarketingScenariosBase
     {
         public static string CampaignsUrlBase => "api/v1/campaigns";

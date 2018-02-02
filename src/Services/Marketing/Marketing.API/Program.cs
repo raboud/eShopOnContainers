@@ -1,13 +1,13 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Marketing.API
-{
-    using AspNetCore.Hosting;
-    using Microsoft.AspNetCore;
-    using Microsoft.eShopOnContainers.Services.Marketing.API.Infrastructure;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
-    using System.IO;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore;
+using HMS.Marketing.API.Infrastructure;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System.IO;
 
+namespace HMS.Marketing.API
+{
     public class Program
     {
         public static void Main(string[] args)

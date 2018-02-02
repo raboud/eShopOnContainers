@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
 
-namespace eShopOnContainers.Windows.Extensions
+namespace HMS.Windows.Extensions
 {
     public static class VisualTreeExtensions
     {

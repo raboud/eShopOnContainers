@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Ordering.API.Application.IntegrationEvents;
-using Ordering.API.Application.IntegrationEvents.Events;
-using Microsoft.eShopOnContainers.Services.Ordering.API.Infrastructure.AutofacModules;
-using Microsoft.eShopOnContainers.BuildingBlocks.Infrastructure.Filters;
-using Microsoft.eShopOnContainers.Services.Ordering.API.Infrastructure.Services;
+using HMS.Ordering.API.Application.IntegrationEvents;
+using HMS.Ordering.API.Application.IntegrationEvents.Events;
+using HMS.Ordering.API.Infrastructure.AutofacModules;
+using Microsoft.BuildingBlocks.Infrastructure.Filters;
+using HMS.Ordering.API.Infrastructure.Services;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.ServiceFabric;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -13,18 +13,18 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBusRabbitMQ;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBusServiceBus;
-using Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF;
-using Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF.Services;
+using Microsoft.BuildingBlocks.EventBus;
+using Microsoft.BuildingBlocks.EventBus.Abstractions;
+using Microsoft.BuildingBlocks.EventBusRabbitMQ;
+using Microsoft.BuildingBlocks.EventBusServiceBus;
+using Microsoft.BuildingBlocks.IntegrationEventLogEF;
+using Microsoft.BuildingBlocks.IntegrationEventLogEF.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Ordering.Infrastructure;
+using HMS.Ordering.Infrastructure;
 using RabbitMQ.Client;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
@@ -32,11 +32,10 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
-using Microsoft.eShopOnContainers.Services.Ordering.Infrastructure;
-using Ordering.Domain.Exceptions;
-using Microsoft.eShopOnContainers.BuildingBlocks.Infrastructure.Middlewares;
+using HMS.Ordering.Domain.Exceptions;
+using Microsoft.BuildingBlocks.Infrastructure.Middlewares;
 
-namespace Microsoft.eShopOnContainers.Services.Ordering.API
+namespace HMS.Ordering.API
 {
     public class Startup
     {
@@ -253,7 +252,7 @@ namespace Microsoft.eShopOnContainers.Services.Ordering.API
 
         private void ConfigureEventBus(IApplicationBuilder app)
         {
-            var eventBus = app.ApplicationServices.GetRequiredService<BuildingBlocks.EventBus.Abstractions.IEventBus>();
+            var eventBus = app.ApplicationServices.GetRequiredService<Microsoft.BuildingBlocks.EventBus.Abstractions.IEventBus>();
 
             eventBus.Subscribe<UserCheckoutAcceptedIntegrationEvent, IIntegrationEventHandler<UserCheckoutAcceptedIntegrationEvent>>();
             eventBus.Subscribe<GracePeriodConfirmedIntegrationEvent, IIntegrationEventHandler<GracePeriodConfirmedIntegrationEvent>>();

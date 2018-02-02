@@ -1,13 +1,13 @@
-﻿using eShopOnContainers.Core;
-using eShopOnContainers.Core.Services.Order;
-using eShopOnContainers.Core.Services.Settings;
-using eShopOnContainers.Core.ViewModels;
-using eShopOnContainers.Core.ViewModels.Base;
-using eShopOnContainers.UnitTests.Mocks;
+﻿using HMS.Core;
+using HMS.Core.Services.Order;
+using HMS.Core.Services.Settings;
+using HMS.Core.ViewModels;
+using HMS.Core.ViewModels.Base;
+using HMS.UnitTests.Mocks;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace eShopOnContainers.UnitTests
+namespace HMS.UnitTests
 {
     public class OrderViewModelTests
     {

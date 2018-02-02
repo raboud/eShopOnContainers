@@ -1,8 +1,8 @@
-﻿using Microsoft.eShopOnContainers.Services.Ordering.Domain.Seedwork;
-using Ordering.Domain.Exceptions;
+﻿using HMS.Ordering.Domain.Seedwork;
+using HMS.Ordering.Domain.Exceptions;
 using System;
 
-namespace Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.BuyerAggregate
+namespace HMS.Ordering.Domain.AggregatesModel.BuyerAggregate
 {
     public class PaymentMethod
         : Entity

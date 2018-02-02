@@ -3,23 +3,23 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Azure.ServiceBus;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBusRabbitMQ;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBusServiceBus;
+using Microsoft.BuildingBlocks.EventBus;
+using Microsoft.BuildingBlocks.EventBus.Abstractions;
+using Microsoft.BuildingBlocks.EventBusRabbitMQ;
+using Microsoft.BuildingBlocks.EventBusServiceBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.HealthChecks;
 using Microsoft.Extensions.Logging;
-using Payment.API.IntegrationEvents.EventHandling;
-using Payment.API.IntegrationEvents.Events;
+using HMS.Payment.API.IntegrationEvents.EventHandling;
+using HMS.Payment.API.IntegrationEvents.Events;
 using RabbitMQ.Client;
 using System;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.ServiceFabric;
 
-namespace Payment.API
+namespace HMS.Payment.API
 {
     public class Startup
     {

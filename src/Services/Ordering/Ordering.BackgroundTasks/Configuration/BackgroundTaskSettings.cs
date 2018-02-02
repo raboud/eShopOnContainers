@@ -1,4 +1,4 @@
-﻿namespace Ordering.BackgroundTasks.Configuration
+﻿namespace HMS.Ordering.BackgroundTasks.Configuration
 {
     public class BackgroundTaskSettings
     {

@@ -1,9 +1,9 @@
-﻿using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.OrderAggregate;
-using Ordering.Domain.Events;
-using Ordering.Domain.Exceptions;
+﻿using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
+using HMS.Ordering.Domain.Events;
+using HMS.Ordering.Domain.Exceptions;
 using System;
 using System.Linq;
-using UnitTest.Ordering;
+using HMS.UnitTest.Ordering;
 using Xunit;
 
 public class OrderAggregateTest

@@ -1,4 +1,4 @@
-﻿namespace eShopOnContainers.Core.Models.Navigation
+﻿namespace HMS.Core.Models.Navigation
 {
     public class TabParameter
     {

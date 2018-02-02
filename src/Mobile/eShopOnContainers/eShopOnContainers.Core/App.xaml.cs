@@ -1,8 +1,8 @@
-﻿using eShopOnContainers.Core.Models.Location;
-using eShopOnContainers.Core.Services.Location;
-using eShopOnContainers.Core.Services.Settings;
-using eShopOnContainers.Core.ViewModels.Base;
-using eShopOnContainers.Services;
+﻿using HMS.Core.Models.Location;
+using HMS.Core.Services.Location;
+using HMS.Core.Services.Settings;
+using HMS.Core.ViewModels.Base;
+using HMS.Services;
 using Plugin.Geolocator;
 using System.Globalization;
 using System.Threading.Tasks;
@@ -10,7 +10,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
-namespace eShopOnContainers
+namespace HMS.Core
 {
     public partial class App : Application
     {

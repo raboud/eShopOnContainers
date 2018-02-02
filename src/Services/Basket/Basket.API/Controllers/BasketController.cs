@@ -1,15 +1,14 @@
-﻿using Basket.API.IntegrationEvents.Events;
-using Basket.API.Model;
+﻿using HMS.Basket.API.IntegrationEvents.Events;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
-using Microsoft.eShopOnContainers.Services.Basket.API.Model;
-using Microsoft.eShopOnContainers.Services.Basket.API.Services;
+using Microsoft.BuildingBlocks.EventBus.Abstractions;
+using HMS.Basket.API.Model;
+using HMS.Basket.API.Services;
 using System;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.Services.Basket.API.Controllers
+namespace HMS.Basket.API.Controllers
 {
     [Route("api/v1/[controller]")]
     [Authorize]

@@ -1,4 +1,4 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Identity.API
+﻿namespace HMS.Identity.API
 {
     public class AppSettings
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace eShopOnContainers.Core.Models.Marketing
+namespace HMS.Core.Models.Marketing
 {
     public class CampaignItem
     {

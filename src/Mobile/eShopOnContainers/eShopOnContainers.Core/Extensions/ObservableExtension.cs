@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace eShopOnContainers.Core.Extensions
+namespace HMS.Core.Extensions
 {
     public static class ObservableExtension
     {

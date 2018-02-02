@@ -1,13 +1,13 @@
-﻿using Microsoft.eShopOnContainers.Services.Ordering.API;
+﻿using HMS.Ordering.API;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
-using IntegrationTests.Middleware;
+using HMS.IntegrationTests.Middleware;
 using Microsoft.Extensions.Configuration;
 
-namespace IntegrationTests.Services.Ordering
+namespace HMS.IntegrationTests.Services.Ordering
 {
     public class OrderingTestsStartup : Startup
     {

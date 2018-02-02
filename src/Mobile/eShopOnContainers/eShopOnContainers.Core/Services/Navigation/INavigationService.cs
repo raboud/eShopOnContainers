@@ -1,7 +1,7 @@
-﻿using eShopOnContainers.Core.ViewModels.Base;
+﻿using HMS.Core.ViewModels.Base;
 using System.Threading.Tasks;
 
-namespace eShopOnContainers.Services
+namespace HMS.Services
 {
     public interface INavigationService
     {

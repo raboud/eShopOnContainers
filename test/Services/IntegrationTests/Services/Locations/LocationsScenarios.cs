@@ -1,6 +1,6 @@
-﻿using Microsoft.eShopOnContainers.Services.Locations.API.Model;
-using Microsoft.eShopOnContainers.Services.Locations.API.ViewModel;
-using Location = Microsoft.eShopOnContainers.Services.Locations.API.Model.Locations;
+﻿using HMS.Locations.API.Model;
+using HMS.Locations.API.ViewModel;
+using Location = HMS.Locations.API.Model.Locations;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Net.Http;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Xunit;
 using System;
 
-namespace IntegrationTests.Services.Locations
+namespace HMS.IntegrationTests.Services.Locations
 {
     public class LocationsScenarios
         : LocationsScenarioBase

@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.IO;
 
-namespace Microsoft.eShopOnContainers.WebMVC
+namespace HMS.WebMVC
 {
     public class Program
     {

@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.Views
+namespace HMS.Core.Views
 {
     public partial class CustomNavigationView : NavigationPage
     {

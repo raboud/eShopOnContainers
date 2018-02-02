@@ -1,8 +1,8 @@
-﻿using eShopOnContainers.Core.Models.Catalog;
+﻿using HMS.Core.Models.Catalog;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
-namespace eShopOnContainers.Core.Services.Catalog
+namespace HMS.Core.Services.Catalog
 {
     public interface ICatalogService
     {

@@ -1,6 +1,6 @@
 ﻿using UIKit;
 
-namespace eShopOnContainers.iOS
+namespace HMS.iOS
 {
     public class Application
     {

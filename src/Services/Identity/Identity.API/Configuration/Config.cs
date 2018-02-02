@@ -2,7 +2,7 @@
 using IdentityServer4.Models;
 using System.Collections.Generic;
 
-namespace Microsoft.eShopOnContainers.Services.Identity.API.Configuration
+namespace HMS.Identity.API.Configuration
 {
     public class Config
     {

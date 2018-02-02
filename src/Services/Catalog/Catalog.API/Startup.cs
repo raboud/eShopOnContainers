@@ -12,13 +12,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBusRabbitMQ;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBusServiceBus;
-using Microsoft.eShopOnContainers.BuildingBlocks.Infrastructure.Filters;
-using Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF;
-using Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF.Services;
+using Microsoft.BuildingBlocks.EventBus;
+using Microsoft.BuildingBlocks.EventBus.Abstractions;
+using Microsoft.BuildingBlocks.EventBusRabbitMQ;
+using Microsoft.BuildingBlocks.EventBusServiceBus;
+using Microsoft.BuildingBlocks.Infrastructure.Filters;
+using Microsoft.BuildingBlocks.IntegrationEventLogEF;
+using Microsoft.BuildingBlocks.IntegrationEventLogEF.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.HealthChecks;
@@ -111,7 +111,7 @@ namespace HMS.Catalog.API
                 options.DescribeAllEnumsAsStrings();
                 options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
                 {
-                    Title = "eShopOnContainers - Catalog HTTP API",
+                    Title = "HMS - Catalog HTTP API",
                     Version = "v1",
                     Description = "The Catalog Microservice HTTP API. This is a Data-Driven/CRUD microservice sample",
                     TermsOfService = "Terms Of Service"

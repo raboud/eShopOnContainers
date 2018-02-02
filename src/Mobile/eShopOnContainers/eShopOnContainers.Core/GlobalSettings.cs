@@ -1,4 +1,4 @@
-﻿namespace eShopOnContainers.Core
+﻿namespace HMS.Core
 {
     public class GlobalSetting
     {

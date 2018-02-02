@@ -1,6 +1,6 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Marketing.API.Model
+﻿namespace HMS.Marketing.API.Model
 {
-    using Microsoft.eShopOnContainers.Services.Marketing.API.Infrastructure.Exceptions;
+    using HMS.Marketing.API.Infrastructure.Exceptions;
     using System;
     using System.Collections.Generic;
     using System.Linq;

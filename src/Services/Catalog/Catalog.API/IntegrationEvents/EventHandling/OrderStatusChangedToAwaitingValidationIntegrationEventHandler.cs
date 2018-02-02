@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
+using Microsoft.BuildingBlocks.EventBus.Abstractions;
 using HMS.Catalog.API.Infrastructure;
 using HMS.Catalog.API.IntegrationEvents.Events;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Events;
+using Microsoft.BuildingBlocks.EventBus.Events;
 
 namespace HMS.Catalog.API.IntegrationEvents.EventHandling
 {

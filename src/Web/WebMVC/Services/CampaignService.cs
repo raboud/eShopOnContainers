@@ -1,17 +1,17 @@
-﻿namespace Microsoft.eShopOnContainers.WebMVC.Services
-{
-    using global::WebMVC.Infrastructure;
-    using AspNetCore.Authentication;
-    using AspNetCore.Http;
-    using BuildingBlocks.Resilience.Http;
-    using ViewModels;
-    using Microsoft.Extensions.Logging;
-    using Microsoft.Extensions.Options;
-    using Newtonsoft.Json;
-    using System;
-    using System.Threading.Tasks;
-	using Microsoft.eShopOnContainers.Services.Common.API;
+﻿using HMS.WebMVC.Infrastructure;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
+using Microsoft.BuildingBlocks.Resilience.Http;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using System;
+using System.Threading.Tasks;
+using HMS.Common.API;
+using HMS.WebMVC.ViewModels;
 
+namespace HMS.WebMVC.Services
+{
 	public class CampaignService : ICampaignService
     {
         private readonly IOptionsSnapshot<AppSettings> _settings;

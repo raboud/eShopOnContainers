@@ -1,9 +1,9 @@
-﻿using eShopOnContainers.Core;
-using eShopOnContainers.Core.Services.Marketing;
+﻿using HMS.Core;
+using HMS.Core.Services.Marketing;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace eShopOnContainers.UnitTests.Services
+namespace HMS.UnitTests.Services
 {
     public class MarketingServiceTests
     {

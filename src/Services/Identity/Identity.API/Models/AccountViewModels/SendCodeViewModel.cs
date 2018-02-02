@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
-namespace Microsoft.eShopOnContainers.Services.Identity.API.Models.AccountViewModels
+namespace HMS.Identity.API.Models.AccountViewModels
 {
     public class SendCodeViewModel
     {

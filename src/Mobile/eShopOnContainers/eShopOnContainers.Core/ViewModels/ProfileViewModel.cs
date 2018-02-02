@@ -1,15 +1,15 @@
-﻿using eShopOnContainers.Core.Extensions;
-using eShopOnContainers.Core.Models.Orders;
-using eShopOnContainers.Core.Models.User;
-using eShopOnContainers.Core.Services.Order;
-using eShopOnContainers.Core.Services.Settings;
-using eShopOnContainers.Core.ViewModels.Base;
+﻿using HMS.Core.Extensions;
+using HMS.Core.Models.Orders;
+using HMS.Core.Models.User;
+using HMS.Core.Services.Order;
+using HMS.Core.Services.Settings;
+using HMS.Core.ViewModels.Base;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.ViewModels
+namespace HMS.Core.ViewModels
 {
     public class ProfileViewModel : ViewModelBase
     {

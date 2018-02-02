@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using System.IO;
 
-namespace IntegrationTests.Services.Basket
+namespace HMS.IntegrationTests.Services.Basket
 {
     public class BasketScenarioBase
     {

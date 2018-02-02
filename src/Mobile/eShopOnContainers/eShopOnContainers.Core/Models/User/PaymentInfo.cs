@@ -1,7 +1,7 @@
-﻿using eShopOnContainers.Core.Models.Orders;
+﻿using HMS.Core.Models.Orders;
 using System;
 
-namespace eShopOnContainers.Core.Models.User
+namespace HMS.Core.Models.User
 {
     public class PaymentInfo
     {

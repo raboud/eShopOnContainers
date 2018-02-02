@@ -16,7 +16,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Microsoft.eShopOnContainers.Services.Catalog.API": {
+    "HMS.Catalog.API": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

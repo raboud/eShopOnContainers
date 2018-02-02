@@ -1,7 +1,7 @@
-﻿namespace Ordering.Domain.Events
+﻿namespace HMS.Ordering.Domain.Events
 {
     using MediatR;
-    using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.OrderAggregate;
+    using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
     using System.Collections.Generic;
 
     /// <summary>

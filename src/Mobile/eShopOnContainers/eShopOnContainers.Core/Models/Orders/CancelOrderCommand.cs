@@ -1,4 +1,4 @@
-﻿namespace eShopOnContainers.Core.Models.Orders
+﻿namespace HMS.Core.Models.Orders
 {
     public class CancelOrderCommand
     {

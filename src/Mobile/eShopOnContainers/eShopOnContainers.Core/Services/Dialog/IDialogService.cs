@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace eShopOnContainers.Services
+namespace HMS.Services
 {
     public interface IDialogService
     {

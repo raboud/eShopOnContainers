@@ -1,4 +1,4 @@
-﻿namespace eShopOnContainers.Core.Services.Common
+﻿namespace HMS.Core.Services.Common
 {
     public static class Common
     {

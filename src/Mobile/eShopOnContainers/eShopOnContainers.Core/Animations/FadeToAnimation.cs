@@ -1,10 +1,10 @@
-﻿using eShopOnContainers.Core.Animations.Base;
-using eShopOnContainers.Core.Helpers;
+﻿using HMS.Core.Animations.Base;
+using HMS.Core.Helpers;
 using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.Animations
+namespace HMS.Core.Animations
 {
     public class FadeToAnimation : AnimationBase
     {

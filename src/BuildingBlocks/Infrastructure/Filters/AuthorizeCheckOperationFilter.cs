@@ -4,7 +4,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Microsoft.eShopOnContainers.BuildingBlocks.Infrastructure.Filters
+namespace Microsoft.BuildingBlocks.Infrastructure.Filters
 {
     public class AuthorizeCheckOperationFilter : IOperationFilter
     {

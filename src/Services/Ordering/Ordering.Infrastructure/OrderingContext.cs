@@ -1,16 +1,16 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.BuyerAggregate;
-using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.OrderAggregate;
-using Microsoft.eShopOnContainers.Services.Ordering.Domain.Seedwork;
-using Ordering.Infrastructure;
-using Ordering.Infrastructure.EntityConfigurations;
+using HMS.Ordering.Domain.AggregatesModel.BuyerAggregate;
+using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
+using HMS.Ordering.Domain.Seedwork;
+using HMS.Ordering.Infrastructure;
+using HMS.Ordering.Infrastructure.EntityConfigurations;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.Services.Ordering.Infrastructure
+namespace HMS.Ordering.Infrastructure
 {
     public class OrderingContext : DbContext, IUnitOfWork
     {

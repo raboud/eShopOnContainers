@@ -4,9 +4,9 @@ using Android.Support.Design.Widget;
 using Android.Support.V4.View;
 using Android.Views;
 using Android.Widget;
-using eShopOnContainers.Core.Controls;
-using eShopOnContainers.Droid.Extensions;
-using eShopOnContainers.Droid.Renderers;
+using HMS.Core.Controls;
+using HMS.Droid.Extensions;
+using HMS.Droid.Renderers;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,7 +15,7 @@ using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms.Platform.Android.AppCompat;
 
 [assembly: ExportRenderer(typeof(TabbedPage), typeof(CustomTabbedPageRenderer))]
-namespace eShopOnContainers.Droid.Renderers
+namespace HMS.Droid.Renderers
 {
     public class CustomTabbedPageRenderer : TabbedPageRenderer
     {

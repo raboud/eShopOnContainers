@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>HMS.UnitTests</AssemblyName>
+    <RootNamespace>HMS.UnitTests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

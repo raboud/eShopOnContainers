@@ -1,4 +1,4 @@
-﻿namespace Payment.API
+﻿namespace HMS.Payment.API
 {
     public class PaymentSettings
     {

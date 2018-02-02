@@ -3,7 +3,7 @@ using System.Globalization;
 using Xamarin.Forms;
 using Xunit;
 
-namespace eShopOnContainers.UnitTests
+namespace HMS.UnitTests
 {
     public class EventToCommandBehaviorTests
 	{

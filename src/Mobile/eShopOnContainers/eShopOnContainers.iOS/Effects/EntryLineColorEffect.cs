@@ -1,7 +1,7 @@
 ﻿using CoreAnimation;
 using CoreGraphics;
-using eShopOnContainers.Core.Behaviors;
-using eShopOnContainers.iOS.Effects;
+using HMS.Core.Behaviors;
+using HMS.iOS.Effects;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -9,9 +9,9 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ResolutionGroupName("eShopOnContainers")]
+[assembly: ResolutionGroupName("hms")]
 [assembly: ExportEffect(typeof(EntryLineColorEffect), "EntryLineColorEffect")]
-namespace eShopOnContainers.iOS.Effects
+namespace HMS.iOS.Effects
 {
     public class EntryLineColorEffect : PlatformEffect
     {

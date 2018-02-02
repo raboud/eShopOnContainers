@@ -1,11 +1,11 @@
-﻿using eShopOnContainers.Core.Models.Marketing;
+﻿using HMS.Core.Models.Marketing;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.Services.Marketing
+namespace HMS.Core.Services.Marketing
 {
     public class CampaignMockService : ICampaignService
     {

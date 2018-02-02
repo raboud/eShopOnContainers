@@ -1,7 +1,7 @@
 ﻿using Xamarin.Forms;
 using UI = Windows.UI;
 
-namespace eShopOnContainers.Windows.Helpers
+namespace HMS.Windows.Helpers
 {
     public static class ColorHelper
     {

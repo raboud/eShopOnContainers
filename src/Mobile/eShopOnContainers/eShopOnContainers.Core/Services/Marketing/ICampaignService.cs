@@ -1,8 +1,8 @@
-﻿using eShopOnContainers.Core.Models.Marketing;
+﻿using HMS.Core.Models.Marketing;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
-namespace eShopOnContainers.Core.Services.Marketing
+namespace HMS.Core.Services.Marketing
 {
     public interface ICampaignService
     {

@@ -11,7 +11,7 @@ using Plugin.Permissions;
 using System;
 using Xamarin.Forms.Platform.Android;
 
-namespace eShopOnContainers.Droid.Activities
+namespace HMS.Droid.Activities
 {
     [Activity(
         Label = "eShopOnContainers",

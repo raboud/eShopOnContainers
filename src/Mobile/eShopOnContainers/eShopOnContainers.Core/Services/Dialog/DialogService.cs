@@ -1,7 +1,7 @@
 ﻿using Acr.UserDialogs;
 using System.Threading.Tasks;
 
-namespace eShopOnContainers.Services
+namespace HMS.Services
 {
     public class DialogService : IDialogService
     {

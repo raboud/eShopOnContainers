@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using System;
 
-namespace Basket.API.Infrastructure.Middlewares
+namespace HMS.Basket.API.Infrastructure.Middlewares
 {
     public class FailingStartupFilter : IStartupFilter
     {

@@ -7,16 +7,16 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.ServiceBus;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBusRabbitMQ;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBusServiceBus;
-using Microsoft.eShopOnContainers.BuildingBlocks.Infrastructure.Filters;
-using Microsoft.eShopOnContainers.BuildingBlocks.Infrastructure.Middlewares;
-using Microsoft.eShopOnContainers.Services.Locations.API.Infrastructure;
-using Microsoft.eShopOnContainers.Services.Locations.API.Infrastructure.Exceptions;
-using Microsoft.eShopOnContainers.Services.Locations.API.Infrastructure.Repositories;
-using Microsoft.eShopOnContainers.Services.Locations.API.Infrastructure.Services;
+using Microsoft.BuildingBlocks.EventBus;
+using Microsoft.BuildingBlocks.EventBus.Abstractions;
+using Microsoft.BuildingBlocks.EventBusRabbitMQ;
+using Microsoft.BuildingBlocks.EventBusServiceBus;
+using Microsoft.BuildingBlocks.Infrastructure.Filters;
+using Microsoft.BuildingBlocks.Infrastructure.Middlewares;
+using HMS.Locations.API.Infrastructure;
+using HMS.Locations.API.Infrastructure.Exceptions;
+using HMS.Locations.API.Infrastructure.Repositories;
+using HMS.Locations.API.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.HealthChecks;
@@ -28,7 +28,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.Services.Locations.API
+namespace HMS.Locations.API
 {
     public class Startup
     {

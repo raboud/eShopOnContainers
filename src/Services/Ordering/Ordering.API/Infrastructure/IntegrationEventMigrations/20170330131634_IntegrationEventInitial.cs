@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Ordering.API.Infrastructure.IntegrationEventMigrations
+namespace HMS.Ordering.API.Infrastructure.IntegrationEventMigrations
 {
     public partial class IntegrationEventInitial : Migration
     {

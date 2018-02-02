@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using eShopOnContainers.Core.Services.RequestProvider;
-using eShopOnContainers.Core.Models.Token;
-using eShopOnContainers.Core.Helpers;
+using HMS.Core.Services.RequestProvider;
+using HMS.Core.Models.Token;
+using HMS.Core.Helpers;
 using IdentityModel;
 using PCLCrypto;
 using static PCLCrypto.WinRTCrypto;
 
-namespace eShopOnContainers.Core.Services.Identity
+namespace HMS.Core.Services.Identity
 {
     public class IdentityService : IIdentityService
     {

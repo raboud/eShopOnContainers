@@ -1,13 +1,13 @@
+using HMS.WebMVC.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.eShopOnContainers.WebMVC.Services;
-using Microsoft.eShopOnContainers.WebMVC.ViewModels;
+using HMS.WebMVC.Services;
 using Polly.CircuitBreaker;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.WebMVC.Controllers
+namespace HMS.WebMVC.Controllers
 {
     [Authorize]
     public class CartController : Controller

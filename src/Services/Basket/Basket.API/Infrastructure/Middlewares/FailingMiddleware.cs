@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Basket.API.Infrastructure.Middlewares
+namespace HMS.Basket.API.Infrastructure.Middlewares
 {
     public class FailingMiddleware
     {

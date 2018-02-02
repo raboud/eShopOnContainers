@@ -7,8 +7,8 @@
     <ProjectGuid>{A7337243-33B8-463A-87AD-944B75EFD820}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>eShopOnContainers.TestRunner.Windows</RootNamespace>
-    <AssemblyName>eShopOnContainers.TestRunner.Windows</AssemblyName>
+    <RootNamespace>HMS.TestRunner.Windows</RootNamespace>
+    <AssemblyName>HMS.TestRunner.Windows</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>

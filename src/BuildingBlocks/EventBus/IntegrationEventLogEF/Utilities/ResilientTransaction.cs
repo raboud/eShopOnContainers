@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Events;
-using Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF.Services;
+using Microsoft.BuildingBlocks.EventBus.Events;
+using Microsoft.BuildingBlocks.IntegrationEventLogEF.Services;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF.Utilities
+namespace Microsoft.BuildingBlocks.IntegrationEventLogEF.Utilities
 {
     public class ResilientTransaction
     {

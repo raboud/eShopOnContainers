@@ -1,12 +1,11 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.OrderAggregate
-{
-    using global::Ordering.Domain.Exceptions;
-    using Seedwork;
-    using SeedWork;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
+﻿using HMS.Ordering.Domain.Exceptions;
+using HMS.Ordering.Domain.SeedWork;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
+namespace HMS.Ordering.Domain.AggregatesModel.OrderAggregate
+{
     public class OrderStatus
         : Enumeration
     {

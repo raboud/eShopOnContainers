@@ -1,7 +1,7 @@
-﻿using eShopOnContainers.Core.Models.Token;
+﻿using HMS.Core.Models.Token;
 using System.Threading.Tasks;
 
-namespace eShopOnContainers.Core.Services.Identity
+namespace HMS.Core.Services.Identity
 {
     public interface IIdentityService
     {

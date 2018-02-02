@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.Services.Identity.API.Services
+namespace HMS.Identity.API.Services
 {
     // This class is used by the application to send Email and SMS
     // when you turn on two-factor authentication in ASP.NET Identity.

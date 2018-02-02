@@ -1,10 +1,10 @@
-﻿using eShopOnContainers.Core.Models.Basket;
+﻿using HMS.Core.Models.Basket;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System;
 
-namespace eShopOnContainers.Core.Services.Basket
+namespace HMS.Core.Services.Basket
 {
     public class BasketMockService : IBasketService
     {

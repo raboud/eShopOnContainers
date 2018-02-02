@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Microsoft.eShopOnContainers.Services.Locations.API
+namespace HMS.Locations.API
 {
     public class LocationSettings
     {

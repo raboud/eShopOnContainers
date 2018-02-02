@@ -1,13 +1,13 @@
 ﻿using MediatR;
-using Microsoft.eShopOnContainers.Services.Ordering.API.Infrastructure.Services;
-using Microsoft.eShopOnContainers.Services.Ordering.Domain.AggregatesModel.BuyerAggregate;
+using HMS.Ordering.API.Infrastructure.Services;
+using HMS.Ordering.Domain.AggregatesModel.BuyerAggregate;
 using Microsoft.Extensions.Logging;
-using Ordering.Domain.Events;
+using HMS.Ordering.Domain.Events;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Ordering.API.Application.DomainEventHandlers.OrderStartedEvent
+namespace HMS.Ordering.API.Application.DomainEventHandlers.OrderStartedEvent
 {
     public class ValidateOrAddBuyerAggregateWhenOrderStartedDomainEventHandler 
                         : INotificationHandler<OrderStartedDomainEvent>

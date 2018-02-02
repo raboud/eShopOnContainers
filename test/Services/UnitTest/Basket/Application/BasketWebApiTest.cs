@@ -1,17 +1,16 @@
-﻿using Basket.API.IntegrationEvents.Events;
-using Basket.API.Model;
+﻿using HMS.Basket.API.IntegrationEvents.Events;
+using HMS.Basket.API.Model;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
-using Microsoft.eShopOnContainers.Services.Basket.API.Controllers;
-using Microsoft.eShopOnContainers.Services.Basket.API.Model;
+using Microsoft.BuildingBlocks.EventBus.Abstractions;
+using HMS.Basket.API.Controllers;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
-using IBasketIdentityService = Microsoft.eShopOnContainers.Services.Basket.API.Services.IIdentityService;
+using IBasketIdentityService = HMS.Basket.API.Services.IIdentityService;
 
-namespace UnitTest.Basket.Application
+namespace HMS.UnitTest.Basket.Application
 {
     public class BasketWebApiTest
     {

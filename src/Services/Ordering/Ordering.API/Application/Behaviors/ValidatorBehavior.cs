@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
 using MediatR;
-using Ordering.Domain.Exceptions;
+using HMS.Ordering.Domain.Exceptions;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Ordering.API.Infrastructure.Behaviors
+namespace HMS.Ordering.API.Infrastructure.Behaviors
 {
     public class ValidatorBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {

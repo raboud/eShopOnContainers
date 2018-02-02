@@ -1,10 +1,10 @@
-﻿using eShopOnContainers.Core.ViewModels;
+﻿using HMS.Core.ViewModels;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace eShopOnContainers.Core.Views
+namespace HMS.Core.Views
 {
     public partial class LoginView : ContentPage
     {

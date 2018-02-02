@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.eShopOnContainers.BuildingBlocks.Infrastructure.ActionResults;
+using Microsoft.BuildingBlocks.Infrastructure.ActionResults;
 using Microsoft.Extensions.Logging;
 using System.Net;
 
-namespace Microsoft.eShopOnContainers.BuildingBlocks.Infrastructure.Filters
+namespace Microsoft.BuildingBlocks.Infrastructure.Filters
 {
 
     public class HttpGlobalExceptionFilter<T> : IExceptionFilter

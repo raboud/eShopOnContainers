@@ -1,10 +1,10 @@
-namespace Microsoft.eShopOnContainers.Services.Marketing.API.Controllers
+namespace HMS.Marketing.API.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.eShopOnContainers.Services.Marketing.API.Dto;
-    using Microsoft.eShopOnContainers.Services.Marketing.API.Infrastructure;
-    using Microsoft.eShopOnContainers.Services.Marketing.API.Model;
+    using HMS.Marketing.API.Dto;
+    using HMS.Marketing.API.Infrastructure;
+    using HMS.Marketing.API.Model;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
