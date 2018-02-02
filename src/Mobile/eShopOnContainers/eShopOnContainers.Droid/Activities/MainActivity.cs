@@ -7,6 +7,7 @@ using Android.Runtime;
 using Android.Views;
 using FFImageLoading;
 using FFImageLoading.Forms.Droid;
+using HMS.Core;
 using Plugin.Permissions;
 using System;
 using Xamarin.Forms.Platform.Android;
@@ -14,7 +15,7 @@ using Xamarin.Forms.Platform.Android;
 namespace HMS.Droid.Activities
 {
     [Activity(
-        Label = "eShopOnContainers",
+        Label = "HMS",
         Icon = "@drawable/icon",
         Theme = "@style/MainTheme",
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]

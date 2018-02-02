@@ -7,7 +7,7 @@ using Android.Support.V7.App;
 namespace HMS.Droid.Activities
 {
     [Activity(
-         Label = "eShopOnContainers",
+         Label = "HMS",
          Icon = "@drawable/icon",
          Theme = "@style/Theme.Splash",
          NoHistory = true,

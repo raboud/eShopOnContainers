@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("eShopOnContainers.TestRunner.Droid.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("HMS.TestRunner.Droid.Resource", IsApplication=true)]
 
 namespace HMS.TestRunner.Droid
 {

@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDisplayName</key>
-	<string>eShopOnContainers.TestRunner.iOS</string>
+	<string>HMS.TestRunner.iOS</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.companyname.eShopOnContainers.TestRunner.iOS</string>
+	<string>com.companyname.HMS.TestRunner.iOS</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>

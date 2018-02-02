@@ -10,7 +10,7 @@ using Media = Windows.UI.Xaml.Media;
 using UI = Windows.UI;
 using Xaml = Windows.UI.Xaml;
 
-[assembly: ResolutionGroupName("eShopOnContainers")]
+[assembly: ResolutionGroupName("HMS")]
 [assembly: ExportEffect(typeof(EntryLineColorEffect), "EntryLineColorEffect")]
 namespace HMS.Windows.Effects
 {

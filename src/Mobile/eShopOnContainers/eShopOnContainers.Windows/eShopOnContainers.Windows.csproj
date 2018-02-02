@@ -184,7 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\eShopOnContainers.Core\eShopOnContainers.Core.csproj">
-      <Project>{76c5f2a7-6cd5-49ea-9f33-ec44de6539c7}</Project>
+      <Project>{ba96a12c-4ee3-46c4-bb3f-f811b554cd01}</Project>
       <Name>eShopOnContainers.Core</Name>
     </ProjectReference>
   </ItemGroup>

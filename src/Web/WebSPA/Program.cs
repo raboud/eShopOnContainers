@@ -4,7 +4,7 @@ using System.IO;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 
-namespace eShopConContainers.WebSPA
+namespace HMS.WebSPA
 {
     public class Program
     {

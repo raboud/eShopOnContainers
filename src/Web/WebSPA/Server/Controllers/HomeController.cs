@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using HMS.WebSPA;
 
-namespace eShopConContainers.WebSPA.Server.Controllers
+namespace HMS.WebSPA.Server.Controllers
 {
     public class HomeController : Controller
     {

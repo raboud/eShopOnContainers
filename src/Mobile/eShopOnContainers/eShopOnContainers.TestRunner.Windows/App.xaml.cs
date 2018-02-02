@@ -17,7 +17,7 @@ namespace UwpTestRunner
 
         protected override void OnInitializeRunner()
         {
-            AddTestAssembly(typeof(eShopOnContainers.UnitTests.CatalogViewModelTests).GetTypeInfo().Assembly);
+            AddTestAssembly(typeof(HMS.UnitTests.CatalogViewModelTests).GetTypeInfo().Assembly);
         }
     }
 }

@@ -108,7 +108,7 @@ namespace HMS.Locations.API
                 options.DescribeAllEnumsAsStrings();
                 options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
                 {
-                    Title = "eShopOnContainers - Location HTTP API",
+                    Title = "HMS - Location HTTP API",
                     Version = "v1",
                     Description = "The Location Microservice HTTP API. This is a Data-Driven/CRUD microservice sample",
                     TermsOfService = "Terms Of Service"

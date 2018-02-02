@@ -12,7 +12,7 @@ namespace HMS.Core.Services.User
             Name = "Jhon",
             LastName = "Doe",
             PreferredUsername = "Jdoe",
-            Email = "jdoe@eshop.com",
+            Email = "jdoe@hms.com",
             EmailVerified = true,
             PhoneNumber = "202-555-0165",
             PhoneNumberVerified = true,

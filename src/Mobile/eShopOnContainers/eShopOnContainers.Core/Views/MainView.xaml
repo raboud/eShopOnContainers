@@ -11,7 +11,7 @@
 			viewModelBase:ViewModelLocator.AutoWireViewModel="true">
     <TabbedPage.Title>
         <OnPlatform x:TypeArguments="x:String">
-            <On Platform="iOS, UWP, WinRT, WinPhone" Value="eShop on Containers" />
+            <On Platform="iOS, UWP, WinRT, WinPhone" Value="HMS" />
         </OnPlatform>
     </TabbedPage.Title>
     <ContentPage.ToolbarItems>

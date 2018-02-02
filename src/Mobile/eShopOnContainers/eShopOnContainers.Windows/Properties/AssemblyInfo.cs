@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("eShopOnContainers.UWP")]
+[assembly: AssemblyTitle("HMS.UWP")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("eShopOnContainers.UWP")]
+[assembly: AssemblyProduct("HMS.UWP")]
 [assembly: AssemblyCopyright("Copyright Microsoft © 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

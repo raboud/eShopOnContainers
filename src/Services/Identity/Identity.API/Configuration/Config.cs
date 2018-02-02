@@ -38,7 +38,7 @@ namespace HMS.Identity.API.Configuration
                 new Client
                 {
                     ClientId = "js",
-                    ClientName = "eShop SPA OpenId Client",
+                    ClientName = "HMS SPA OpenId Client",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
                     RedirectUris =           { $"{clientsUrl["Spa"]}/" },
@@ -58,7 +58,7 @@ namespace HMS.Identity.API.Configuration
                 new Client
                 {
                     ClientId = "xamarin",
-                    ClientName = "eShop Xamarin OpenId Client",
+                    ClientName = "HMS Xamarin OpenId Client",
                     AllowedGrantTypes = GrantTypes.Hybrid,                    
                     //Used to retrieve the access token on the back channel.
                     ClientSecrets =
@@ -69,7 +69,7 @@ namespace HMS.Identity.API.Configuration
                     RequireConsent = false,
                     RequirePkce = true,
                     PostLogoutRedirectUris = { $"{clientsUrl["Xamarin"]}/Account/Redirecting" },
-                    AllowedCorsOrigins = { "http://eshopxamarin" },
+                    AllowedCorsOrigins = { "http://hmsxamarin" },
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,

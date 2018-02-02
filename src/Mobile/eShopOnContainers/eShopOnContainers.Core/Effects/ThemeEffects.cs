@@ -46,7 +46,7 @@ namespace HMS.Core.Effects
         private class CircleEffect : RoutingEffect
         {
             public CircleEffect()
-                : base("eShopOnContainers.CircleEffect")
+                : base("hms.CircleEffect")
             {
             }
         }

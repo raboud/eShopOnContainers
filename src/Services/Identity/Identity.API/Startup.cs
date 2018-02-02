@@ -58,7 +58,7 @@ namespace HMS.Identity.API
             {
                 services.AddDataProtection(opts =>
                 {
-                    opts.ApplicationDiscriminator = "eshop.identity";
+                    opts.ApplicationDiscriminator = "hms.identity";
                 })
                 .PersistKeysToRedis(ConnectionMultiplexer.Connect(Configuration["DPConnectionString"]), "DataProtection-Keys");
             }

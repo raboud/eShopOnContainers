@@ -1,4 +1,4 @@
-# eShop Web SPA (Single Page Application)
+# HMS Web SPA (Single Page Application)
 
 ## Requirements and set up
 
@@ -33,7 +33,7 @@ If you get an error like <b>"Node Sass could not find a binding for your current
 Then, run again the <b>npm run build:prod</b> command that should finish with no errors.
 
 ### Build/create the Docker images
-Create the Docker images with the <b>build-images.ps1</b> PowerShell script in Windows (or the <b>build-images.sh</b> bash script in a Mac) as explained in the main instructions at https://github.com/dotnet/eShopOnContainers/ 
+Create the Docker images with the <b>build-images.ps1</b> PowerShell script in Windows (or the <b>build-images.sh</b> bash script in a Mac) as explained in the main instructions at https://github.com/raboud/eShopOnContainers/ 
 
 ### Deploy/run the Docker containers
 Deploy/run the Docker containers with <b>"docker-compose up"</b> as explained in the main instructions at https://github.com/dotnet/eShopOnContainers/ 
