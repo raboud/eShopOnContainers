@@ -1,0 +1,54 @@
+﻿{
+	"roles": [
+		"admin", "user"
+	],
+	"users": [
+		{
+			"CardHolderName": "DemoUser",
+			"CardNumber": "4012888888881881",
+			"CardType": 1,
+			"City": "Redmond",
+			"Country": "U.S.",
+			"Email": "demouser@microsoft.com",
+			"Expiration": "12/20",
+			"LastName": "DemoLastName",
+			"Name": "DemoUser",
+			"PhoneNumber": "1234567890",
+			"UserName": "demouser@microsoft.com",
+			"ZipCode": "98052",
+			"State": "WA",
+			"Street": "15703 NE 61st Ct",
+			"SecurityNumber": "535",
+			"PasswordHash": "Pass@word1"
+		},
+			{
+				"CardHolderName": "DemoAdmin",
+				"CardNumber": "4012888888881881",
+				"CardType": 1,
+				"City": "Redmond",
+				"Country": "U.S.",
+				"Email": "demoadmin@microsoft.com",
+				"Expiration": "12/20",
+				"LastName": "DemoLastName",
+				"Name": "DemoAdmin",
+				"PhoneNumber": "1234567890",
+				"UserName": "demoadmin@microsoft.com",
+				"ZipCode": "98052",
+				"State": "WA",
+				"Street": "15703 NE 61st Ct",
+				"SecurityNumber": "535",
+				"PasswordHash": "Pass@word1"
+			}
+
+	],
+	"userRoles": [
+			{
+				"Email": "demoadmin@microsoft.com",
+				"Role": "admin"
+			},
+			{
+				"Email": "demouser@microsoft.com",
+				"Role": "user"
+			}
+	]
+}

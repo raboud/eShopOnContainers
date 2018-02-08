@@ -14,8 +14,9 @@ namespace Microsoft.eShopOnContainers.Services.Identity.API.Configuration
                 new ApiResource("orders", "Orders Service"),
                 new ApiResource("basket", "Basket Service"),
                 new ApiResource("marketing", "Marketing Service"),
-                new ApiResource("locations", "Locations Service")
-            };
+                new ApiResource("locations", "Locations Service"),
+				new ApiResource("catalog", "Catalog Service")
+			};
         }
 
         // Identity resources are data like user ID, name, or email address of a user
@@ -34,6 +35,26 @@ namespace Microsoft.eShopOnContainers.Services.Identity.API.Configuration
         {
             return new List<Client>
             {
+				                // resource owner password grant client
+                new Client
+				{
+					ClientId = "ro.client",
+					AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+
+					ClientSecrets =
+					{
+						new Secret("secret".Sha256())
+					},
+					AllowedScopes =
+					{
+						"catalog",
+						"orders",
+						"basket",
+						"locations",
+						"marketing"
+					}
+				},
+
                 // JavaScript Client
                 new Client
                 {
@@ -49,7 +70,8 @@ namespace Microsoft.eShopOnContainers.Services.Identity.API.Configuration
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "orders",
+						"catalog",
+						"orders",
                         "basket",
                         "locations",
                         "marketing"
@@ -75,7 +97,8 @@ namespace Microsoft.eShopOnContainers.Services.Identity.API.Configuration
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.OfflineAccess,
-                        "orders",
+						"catalog",
+						"orders",
                         "basket",
                         "locations",
                         "marketing"
@@ -111,7 +134,8 @@ namespace Microsoft.eShopOnContainers.Services.Identity.API.Configuration
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.OfflineAccess,
-                        "orders",
+						"catalog",
+						"orders",
                         "basket",
                         "locations",
                         "marketing"
@@ -143,13 +167,29 @@ namespace Microsoft.eShopOnContainers.Services.Identity.API.Configuration
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.OfflineAccess,
-                        "orders",
+						"catalog",
+						"orders",
                         "basket",
                         "locations",
                         "marketing"
                     },
                 },
-                new Client
+				new Client
+				{
+					ClientId = "catalogswaggerui",
+					ClientName = "Catalog Swagger UI",
+					AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+					AllowAccessTokensViaBrowser = true,
+
+					RedirectUris = { $"{clientsUrl["CatalogApi"]}/swagger/o2c.html" },
+					PostLogoutRedirectUris = { $"{clientsUrl["CatalogApi"]}/swagger/" },
+
+					AllowedScopes =
+					{
+						"catalog"
+					}
+				},
+				new Client
                 {
                     ClientId = "locationsswaggerui",
                     ClientName = "Locations Swagger UI",
