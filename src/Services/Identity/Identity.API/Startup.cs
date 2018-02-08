@@ -19,6 +19,7 @@ using Microsoft.Extensions.Logging;
 using StackExchange.Redis;
 using System;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Microsoft.eShopOnContainers.Services.Identity.API
 {
@@ -104,10 +105,14 @@ namespace Microsoft.eShopOnContainers.Services.Identity.API
                                          //Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency 
                                          sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                                      });
+					 options.EnableTokenCleanup = true;
+					 options.TokenCleanupInterval = 30;
                  })
                 .Services.AddTransient<IProfileService, ProfileService>();
+			services.AddSingleton<ApplicationDbContextSeed, ApplicationDbContextSeed>();
+			services.AddSingleton<ConfigurationDbContextSeed, ConfigurationDbContextSeed>();
 
-            var container = new ContainerBuilder();
+			var container = new ContainerBuilder();
             container.Populate(services);
 
             return new AutofacServiceProvider(container.Build());
@@ -164,7 +169,7 @@ namespace Microsoft.eShopOnContainers.Services.Identity.API
             });
         }
 
-        private void RegisterAppInsights(IServiceCollection services)
+		private void RegisterAppInsights(IServiceCollection services)
         {
             services.AddApplicationInsightsTelemetry(Configuration);
             var orchestratorType = Configuration.GetValue<string>("OrchestratorType");

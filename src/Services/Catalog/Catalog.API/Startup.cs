@@ -1,35 +1,41 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Catalog.API
-{
-    using Autofac;
-    using Autofac.Extensions.DependencyInjection;
-    using global::Catalog.API.Infrastructure.Filters;
-    using global::Catalog.API.IntegrationEvents;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.ServiceFabric;
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Azure.ServiceBus;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Diagnostics;
-    using Microsoft.eShopOnContainers.BuildingBlocks.EventBus;
-    using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
-    using Microsoft.eShopOnContainers.BuildingBlocks.EventBusRabbitMQ;
-    using Microsoft.eShopOnContainers.BuildingBlocks.EventBusServiceBus;
-    using Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF;
-    using Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF.Services;
-    using Microsoft.eShopOnContainers.Services.Catalog.API.Infrastructure;
-    using Microsoft.eShopOnContainers.Services.Catalog.API.IntegrationEvents.EventHandling;
-    using Microsoft.eShopOnContainers.Services.Catalog.API.IntegrationEvents.Events;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.HealthChecks;
-    using Microsoft.Extensions.Logging;
-    using Microsoft.Extensions.Options;
-    using RabbitMQ.Client;
-    using System;
-    using System.Data.Common;
-    using System.Reflection;
+﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Catalog.API.Infrastructure.Middlewares;
+using global::Catalog.API.Infrastructure.Filters;
+using global::Catalog.API.IntegrationEvents;
+using IdentityServer4.AccessTokenValidation;
+using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.ApplicationInsights.ServiceFabric;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Azure.ServiceBus;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.eShopOnContainers.BuildingBlocks.EventBus;
+using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Abstractions;
+using Microsoft.eShopOnContainers.BuildingBlocks.EventBusRabbitMQ;
+using Microsoft.eShopOnContainers.BuildingBlocks.EventBusServiceBus;
+using Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF;
+using Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF.Services;
+using Microsoft.eShopOnContainers.Services.Catalog.API.Infrastructure;
+using Microsoft.eShopOnContainers.Services.Catalog.API.IntegrationEvents.EventHandling;
+using Microsoft.eShopOnContainers.Services.Catalog.API.IntegrationEvents.Events;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.HealthChecks;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using RabbitMQ.Client;
+using Swashbuckle.AspNetCore.Swagger;
+using System;
+using System.Collections.Generic;
+using System.Data.Common;
+using System.IdentityModel.Tokens.Jwt;
+using System.Reflection;
 
+namespace Microsoft.eShopOnContainers.Services.Catalog.API
+{
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -41,11 +47,20 @@
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
+			RegisterAppInsights(services);
 
-            RegisterAppInsights(services);
+			// Add framework services.
+			services.AddMvc(options =>
+			{
+				options.Filters.Add(typeof(HttpGlobalExceptionFilter));
+			}).AddControllersAsServices();
 
-            services.AddHealthChecks(checks =>
+			services.AddMvcCore()
+			.AddAuthorization();
+
+			ConfigureAuthService(services);
+
+			services.AddHealthChecks(checks =>
             {
                 var minutes = 1;
                 if (int.TryParse(Configuration["HealthCheck:Timeout"], out var minutesParsed))
@@ -61,11 +76,6 @@
                     checks.AddAzureBlobStorageCheck(accountName, accountKey);
                 }
             });
-
-            services.AddMvc(options =>
-            {
-                options.Filters.Add(typeof(HttpGlobalExceptionFilter));
-            }).AddControllersAsServices();
 
             services.AddDbContext<CatalogContext>(options =>
             {
@@ -107,7 +117,21 @@
                     Description = "The Catalog Microservice HTTP API. This is a Data-Driven/CRUD microservice sample",
                     TermsOfService = "Terms Of Service"
                 });
-            });
+
+				options.AddSecurityDefinition("oauth2", new OAuth2Scheme
+				{
+					Type = "oauth2",
+					Flow = "implicit",
+					AuthorizationUrl = $"{Configuration.GetValue<string>("IdentityUrlExternal")}/connect/authorize",
+					TokenUrl = $"{Configuration.GetValue<string>("IdentityUrlExternal")}/connect/token",
+					Scopes = new Dictionary<string, string>()
+					{
+						{ "catalog", "Catalog API" }
+					}
+				});
+
+				options.OperationFilter<AuthorizeCheckOperationFilter>();
+			});
 
             services.AddCors(options =>
             {
@@ -178,7 +202,6 @@
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             //Configure logs
-
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
             loggerFactory.AddAzureWebAppDiagnostics();
@@ -197,13 +220,16 @@
 
             app.UseCors("CorsPolicy");
 
-            app.UseMvcWithDefaultRoute();
+			ConfigureAuth(app);
+
+			app.UseMvcWithDefaultRoute();
 
             app.UseSwagger()
               .UseSwaggerUI(c =>
               {
-                  c.SwaggerEndpoint($"{ (!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty) }/swagger/v1/swagger.json", "Catalog.API V1");                  
-              });
+                  c.SwaggerEndpoint($"{ (!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty) }/swagger/v1/swagger.json", "Catalog.API V1");
+//				  c.ConfigureOAuth2("catalogswaggerui", "", "", "Catalog Swagger UI");
+			  });
 
             ConfigureEventBus(app);
         }
@@ -226,7 +252,40 @@
             }
         }
 
-        private void RegisterEventBus(IServiceCollection services)
+		private void ConfigureAuthService(IServiceCollection services)
+		{
+			// prevent from mapping "sub" claim to nameidentifier.
+			JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
+			var identityUrl = Configuration.GetValue<string>("IdentityUrl");
+
+			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+				.AddIdentityServerAuthentication(options =>
+				{
+					setIS4Options(options);
+				});
+		}
+
+		virtual public void setIS4Options(IdentityServerAuthenticationOptions options)
+		{
+			options.Authority = "http://localhost:5000";
+			options.RequireHttpsMetadata = false;
+
+			options.ApiName = "catalog";
+		}
+
+		protected virtual void ConfigureAuth(IApplicationBuilder app)
+		{
+			if (Configuration.GetValue<bool>("UseLoadTest"))
+			{
+				app.UseMiddleware<ByPassAuthMiddleware>();
+			}
+
+			app.UseAuthentication();
+		}
+
+
+		private void RegisterEventBus(IServiceCollection services)
         {
             var subscriptionClientName = Configuration["SubscriptionClientName"];
 

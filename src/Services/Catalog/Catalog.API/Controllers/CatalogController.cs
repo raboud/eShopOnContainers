@@ -1,4 +1,5 @@
 ﻿using Catalog.API.IntegrationEvents;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.eShopOnContainers.Services.Catalog.API.Infrastructure;
@@ -37,7 +38,8 @@ namespace Microsoft.eShopOnContainers.Services.Catalog.API.Controllers
         public async Task<IActionResult> Items([FromQuery]int pageSize = 10, [FromQuery]int pageIndex = 0)
 
         {
-            var totalItems = await _catalogContext.CatalogItems
+			var t = new JsonResult(from c in User.Claims select new { c.Type, c.Value });
+			var totalItems = await _catalogContext.CatalogItems
                 .LongCountAsync();
 
             var itemsOnPage = await _catalogContext.CatalogItems
@@ -157,8 +159,9 @@ namespace Microsoft.eShopOnContainers.Services.Catalog.API.Controllers
             return Ok(items);
         }
 
-        //PUT api/v1/[controller]/items
-        [Route("items")]
+		//PUT api/v1/[controller]/items
+		[Authorize(Roles = "admin")]
+		[Route("items")]
         [HttpPut]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.Created)]
@@ -199,8 +202,9 @@ namespace Microsoft.eShopOnContainers.Services.Catalog.API.Controllers
             return CreatedAtAction(nameof(GetItemById), new { id = productToUpdate.Id }, null);
         }
 
-        //POST api/v1/[controller]/items
-        [Route("items")]
+		//POST api/v1/[controller]/items
+		[Authorize(Roles = "admin")]
+		[Route("items")]
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         public async Task<IActionResult> CreateProduct([FromBody]CatalogItem product)
@@ -221,8 +225,9 @@ namespace Microsoft.eShopOnContainers.Services.Catalog.API.Controllers
             return CreatedAtAction(nameof(GetItemById), new { id = item.Id }, null);
         }
 
-        //DELETE api/v1/[controller]/id
-        [Route("{id}")]
+		//DELETE api/v1/[controller]/id
+		[Authorize(Roles = "admin")]
+		[Route("{id}")]
         [HttpDelete]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<IActionResult> DeleteProduct(int id)
