@@ -9,6 +9,7 @@ using Microsoft.ApplicationInsights.ServiceFabric;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -21,6 +22,7 @@ using Microsoft.eShopOnContainers.BuildingBlocks.IntegrationEventLogEF.Services;
 using Microsoft.eShopOnContainers.Services.Catalog.API.Infrastructure;
 using Microsoft.eShopOnContainers.Services.Catalog.API.IntegrationEvents.EventHandling;
 using Microsoft.eShopOnContainers.Services.Catalog.API.IntegrationEvents.Events;
+using Microsoft.eShopOnContainers.Services.Catalog.API.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.HealthChecks;
@@ -141,8 +143,10 @@ namespace Microsoft.eShopOnContainers.Services.Catalog.API
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
+			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+			services.AddTransient<IIdentityService, IdentityService>();
 
-            services.AddTransient<Func<DbConnection, IIntegrationEventLogService>>(
+			services.AddTransient<Func<DbConnection, IIntegrationEventLogService>>(
                 sp => (DbConnection c) => new IntegrationEventLogService(c));
 
             services.AddTransient<ICatalogIntegrationEventService, CatalogIntegrationEventService>();
@@ -257,8 +261,6 @@ namespace Microsoft.eShopOnContainers.Services.Catalog.API
 			// prevent from mapping "sub" claim to nameidentifier.
 			JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-			var identityUrl = Configuration.GetValue<string>("IdentityUrl");
-
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 				.AddIdentityServerAuthentication(options =>
 				{
@@ -268,9 +270,11 @@ namespace Microsoft.eShopOnContainers.Services.Catalog.API
 
 		virtual public void setIS4Options(IdentityServerAuthenticationOptions options)
 		{
-			options.Authority = "http://localhost:5000";
-			options.RequireHttpsMetadata = false;
+			var identityUrl = Configuration.GetValue<string>("IdentityUrl");
 
+			options.Authority = identityUrl;
+			options.RequireHttpsMetadata = false;
+			options.SupportedTokens = SupportedTokens.Jwt;
 			options.ApiName = "catalog";
 		}
 
