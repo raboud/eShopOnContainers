@@ -1,4 +1,4 @@
-﻿namespace Microsoft.eShopOnContainers.Services.Catalog.API.Services
+﻿namespace HMS.Catalog.API.Services
 {
     public interface IIdentityService
     {

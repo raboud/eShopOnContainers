@@ -112,6 +112,15 @@ namespace HMS.Identity.API
 			services.AddSingleton<ApplicationDbContextSeed, ApplicationDbContextSeed>();
 			services.AddSingleton<ConfigurationDbContextSeed, ConfigurationDbContextSeed>();
 
+			services.AddCors(options =>
+			{
+				options.AddPolicy("CorsPolicy",
+					builder => builder.AllowAnyOrigin()
+					.AllowAnyMethod()
+					.AllowAnyHeader()
+					.AllowCredentials());
+			});
+
 			var container = new ContainerBuilder();
             container.Populate(services);
 
@@ -148,7 +157,8 @@ namespace HMS.Identity.API
             app.Map("/liveness", lapp => lapp.Run(async ctx => ctx.Response.StatusCode = 200));
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 
-            app.UseStaticFiles();
+			app.UseCors("CorsPolicy");
+			app.UseStaticFiles();
 
 
             // Make work identity server redirections in Edge and lastest versions of browers. WARN: Not valid in a production environment.

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Catalog.API.Infrastructure.Middlewares
+namespace HMS.Catalog.API.Infrastructure.Middlewares
 {
     class ByPassAuthMiddleware
     {

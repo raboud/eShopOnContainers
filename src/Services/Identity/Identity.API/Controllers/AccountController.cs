@@ -32,22 +32,26 @@ namespace HMS.Identity.API.Controllers
         private readonly IClientStore _clientStore;
         private readonly ILogger<AccountController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
+		private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public AccountController(
+
+		public AccountController(
 
             //InMemoryUserLoginService loginService,
             ILoginService<ApplicationUser> loginService,
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             ILogger<AccountController> logger,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+			SignInManager<ApplicationUser> signInManager)
         {
             _loginService = loginService;
             _interaction = interaction;
             _clientStore = clientStore;
             _logger = logger;
             _userManager = userManager;
-        }
+			_signInManager = signInManager;
+		}
 
         /// <summary>
         /// Show login page
@@ -141,10 +145,19 @@ namespace HMS.Identity.API.Controllers
             return vm;
         }
 
-        /// <summary>
-        /// Show logout page
-        /// </summary>
-        [HttpGet]
+
+		[HttpGet]
+		public async Task Signout()
+		{
+			await _signInManager.SignOutAsync();
+			Ok(true);
+		}
+
+
+		/// <summary>
+		/// Show logout page
+		/// </summary>
+		[HttpGet]
         public async Task<IActionResult> Logout(string logoutId)
         {
             if (User.Identity.IsAuthenticated == false)

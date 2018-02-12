@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using System;
 
-namespace Microsoft.eShopOnContainers.Services.Catalog.API.Services
+namespace HMS.Catalog.API.Services
 {
     public class IdentityService : IIdentityService
     {

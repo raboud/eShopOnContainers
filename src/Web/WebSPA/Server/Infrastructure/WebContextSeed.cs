@@ -9,7 +9,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 
-namespace WebSPA.Infrastructure
+namespace HMS.WebSPA.Infrastructure
 {
     public class WebContextSeed
     {

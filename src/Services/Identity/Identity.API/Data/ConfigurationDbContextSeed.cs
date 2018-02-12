@@ -36,17 +36,17 @@ namespace HMS.Identity.API.Data
 
             if (!await _context.Clients.AnyAsync())
             {
-                await context.Clients.AddRangeAsync(Config.GetClients(clientUrls).Select(client => client.ToEntity()));
+                await _context.Clients.AddRangeAsync(Config.GetClients(clientUrls).Select(client => client.ToEntity()));
             }
 
             if (!await _context.IdentityResources.AnyAsync())
             {
-                await context.IdentityResources.AddRangeAsync(Config.GetResources().Select(resource => resource.ToEntity()));
+                await _context.IdentityResources.AddRangeAsync(Config.GetResources().Select(resource => resource.ToEntity()));
             }
 
             if (!await _context.ApiResources.AnyAsync())
             {
-                await context.ApiResources.AddRangeAsync(Config.GetApis().Select(api => api.ToEntity()));
+                await _context.ApiResources.AddRangeAsync(Config.GetApis().Select(api => api.ToEntity()));
             }
 
             await _context.SaveChangesAsync();

@@ -1,10 +1,10 @@
-﻿using Microsoft.eShopOnContainers.Services.Identity.API.Models;
+﻿using HMS.Identity.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Identity.API.Data
+namespace HMS.Identity.API.Data
 {
     public class UserSeed
     {

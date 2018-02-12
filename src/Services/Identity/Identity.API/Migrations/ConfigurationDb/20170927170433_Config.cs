@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 
-namespace Identity.API.Migrations.ConfigurationDb
+namespace HMS.Identity.API.Migrations.ConfigurationDb
 {
     public partial class Config : Migration
     {

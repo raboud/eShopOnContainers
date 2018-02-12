@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
-namespace Identity.API.Migrations
+namespace HMS.Identity.API.Migrations
 {
     public partial class Initial : Migration
     {

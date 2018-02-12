@@ -29,6 +29,14 @@ using RabbitMQ.Client;
 using System;
 using System.Data.Common;
 using System.Reflection;
+using System.Collections.Generic;
+using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.AspNetCore.Http;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using IdentityServer4.AccessTokenValidation;
+using HMS.Catalog.API.Infrastructure.Middlewares;
+using HMS.Catalog.API.Services;
 
 namespace HMS.Catalog.API
 {
@@ -48,8 +56,8 @@ namespace HMS.Catalog.API
 			// Add framework services.
 			services.AddMvc(options =>
 			{
-				options.Filters.Add(typeof(HttpGlobalExceptionFilter));
-			}).AddControllersAsServices();
+				options.Filters.Add(typeof(HttpGlobalExceptionFilter<CatalogDomainException>));
+			}).AddControllersAsServices()
 			.AddJsonOptions(
 				options => {
 					options.SerializerSettings.ContractResolver = new DefaultContractResolver();

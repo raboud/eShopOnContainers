@@ -1,4 +1,4 @@
-﻿using FunctionalTests.Services.Identity;
+﻿using HMS.FunctionalTests.Services.Identity;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -15,6 +15,9 @@ using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using HMS.Catalog.API.Model;
+using HMS.Common.API;
 
 namespace HMS.FunctionalTests.Services.Catalog
 {
@@ -64,9 +67,10 @@ namespace HMS.FunctionalTests.Services.Catalog
         {
             public static string Orders = "api/v1/orders";
 
-            public static string Items = "api/v1/Products/page";
+            public static string Page = "api/v1/Products/page";
+			public static string Item = "api/v1/Products";
 
-            public static string ProductByName(string name)
+			public static string ProductByName(string name)
             {
                 return $"api/v1/products/items?name/{name}";
             }
@@ -98,24 +102,24 @@ namespace HMS.FunctionalTests.Services.Catalog
 	{
 		public CatalogClient(HttpMessageHandler handler) : base(handler) { }
 
-		public async Task<PaginatedItemsViewModel<CatalogItem>> GetCatalogAsync()
+		public async Task<PaginatedItemsViewModel<Product>> GetCatalogAsync()
 		{
-			var response = await this.GetAsync(CatalogScenariosBase.Get.Items);
+			var response = await this.GetAsync(CatalogScenariosBase.Get.Page);
 			var items = await response.Content.ReadAsStringAsync();
-			return JsonConvert.DeserializeObject<PaginatedItemsViewModel<CatalogItem>>(items);
+			return JsonConvert.DeserializeObject<PaginatedItemsViewModel<Product>>(items);
 		}
 
-		public async Task<HttpResponseMessage> UpdateProduct(CatalogItem product)
+		public async Task<HttpResponseMessage> UpdateProduct(Product product)
 		{
 			var content = new StringContent(JsonConvert.SerializeObject(product), UTF8Encoding.UTF8, "application/json");
-			return await this.PutAsync(CatalogScenariosBase.Put.UpdateCatalogProduct, content);
+			return await this.PutAsync(CatalogScenariosBase.Put.UpdateCatalogProduct + $"{product.Id}", content);
 		}
 
-		public async Task<CatalogItem> GetCatalogItemAsync(int id)
+		public async Task<Product> GetCatalogItemAsync(int id)
 		{
-			var response = await this.GetAsync(CatalogScenariosBase.Get.Items + $"/{id}");
+			var response = await this.GetAsync(CatalogScenariosBase.Get.Item + $"/{id}");
 			var items = await response.Content.ReadAsStringAsync();
-			return JsonConvert.DeserializeObject<CatalogItem>(items);
+			return JsonConvert.DeserializeObject<Product>(items);
 		}
 
 	}

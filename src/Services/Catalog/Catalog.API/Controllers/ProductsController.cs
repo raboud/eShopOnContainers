@@ -4,6 +4,7 @@ using HMS.Catalog.API.IntegrationEvents;
 using HMS.Catalog.API.IntegrationEvents.Events;
 using HMS.Catalog.API.Model;
 using HMS.Catalog.API.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -178,6 +179,7 @@ namespace HMS.Catalog.API.Controllers
 
         // PUT: api/Products/5
         [HttpPut("{id}")]
+		[Authorize(Roles = "admin")]
 		[ProducesResponseType((int)HttpStatusCode.NotFound)]
 		[ProducesResponseType((int)HttpStatusCode.Created)]
 		public async Task<IActionResult> PutProduct([FromRoute] int id, [FromBody] Product product)
@@ -272,6 +274,7 @@ namespace HMS.Catalog.API.Controllers
 
         // POST: api/Products
         [HttpPost]
+		[Authorize(Roles = "admin")]
 		[ProducesResponseType((int)HttpStatusCode.Created)]
 		public async Task<IActionResult> PostProduct([FromBody] Product product)
         {
@@ -288,6 +291,7 @@ namespace HMS.Catalog.API.Controllers
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]
+		[Authorize(Roles = "admin")]
 		[ProducesResponseType((int)HttpStatusCode.NoContent)]
 		public async Task<IActionResult> DeleteProduct([FromRoute] int id)
         {

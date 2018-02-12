@@ -13,7 +13,7 @@ using Newtonsoft.Json.Serialization;
 using StackExchange.Redis;
 using System;
 using System.IO;
-using WebSPA.Infrastructure;
+using HMS.WebSPA.Infrastructure;
 
 namespace HMS.WebSPA
 {

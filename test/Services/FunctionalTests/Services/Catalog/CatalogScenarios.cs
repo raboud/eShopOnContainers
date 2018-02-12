@@ -1,4 +1,5 @@
-﻿using FunctionalTests.Services.Identity;
+﻿using HMS.FunctionalTests.Services.Identity;
+using HMS.FunctionalTests.Services.Catalog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace FunctionalTests.Services.Catalog
+namespace HMS.FunctionalTests.Services.Catalog
 {
     public class CatalogScenarios 
     {
@@ -28,14 +29,14 @@ namespace FunctionalTests.Services.Catalog
 				var product = originalCatalogProducts.Data.First();
 				product.Price += 2;
 				var resp = await catalogClient.UpdateProduct(product);
-				Assert.Equal(HttpStatusCode.Created, resp.StatusCode);
+				Assert.Equal(HttpStatusCode.NoContent, resp.StatusCode);
 				var p2 = await catalogClient.GetCatalogItemAsync(product.Id);
 
 				Assert.Equal(product.Price, p2.Price);
 
 				product.Price -= 2;
 				resp = await catalogClient.UpdateProduct(product);
-				Assert.Equal(HttpStatusCode.Created, resp.StatusCode);
+				Assert.Equal(HttpStatusCode.NoContent, resp.StatusCode);
 
 
 			}

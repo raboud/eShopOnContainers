@@ -47,6 +47,31 @@ namespace HMS.Identity.API.Configuration
 					},
 					AllowedScopes =
 					{
+						IdentityServerConstants.StandardScopes.OpenId,
+						IdentityServerConstants.StandardScopes.Profile,
+						"catalog",
+						"orders",
+						"basket",
+						"locations",
+						"marketing"
+					}
+				},
+
+                // JavaScript Client
+                new Client
+				{
+					ClientId = "HMSjs",
+					ClientName = "HMS OpenId Client",
+					AllowedGrantTypes = GrantTypes.ImplicitAndClientCredentials,
+					AllowAccessTokensViaBrowser = true,
+					RedirectUris =           { $"http://localhost:4200/home" },
+					RequireConsent = false,
+					PostLogoutRedirectUris = { $"http://localhost:4200/" },
+					AllowedCorsOrigins =     { $"http://localhost:4200" },
+					AllowedScopes =
+					{
+						IdentityServerConstants.StandardScopes.OpenId,
+						IdentityServerConstants.StandardScopes.Profile,
 						"catalog",
 						"orders",
 						"basket",

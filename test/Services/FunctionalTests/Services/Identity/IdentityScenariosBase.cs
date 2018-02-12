@@ -3,8 +3,8 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.eShopOnContainers.Services.Identity.API;
-using Microsoft.eShopOnContainers.Services.Identity.API.Data;
+using HMS.Identity.API;
+using HMS.Identity.API.Data;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace FunctionalTests.Services.Identity
+namespace HMS.FunctionalTests.Services.Identity
 {
 	class IdentityScenariosBase
     {

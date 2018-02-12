@@ -13,7 +13,7 @@ using System.Net.Http;
 using System.Threading;
 using HMS.Common.API;
 using IdentityModel.Client;
-using FunctionalTests.Services.Identity;
+using HMS.FunctionalTests.Services.Identity;
 using Newtonsoft.Json.Linq;
 
 namespace HMS.FunctionalTests.Services
@@ -100,7 +100,7 @@ namespace HMS.FunctionalTests.Services
             return itemUpdated;
         }
 
-		private CatalogItem ChangePrice(BasketItem itemToModify, decimal newPrice, PaginatedItemsViewModel<CatalogItem> catalogProducts)
+		private Product ChangePrice(BasketItem itemToModify, decimal newPrice, PaginatedItemsViewModel<Product> catalogProducts)
         {
             var catalogProduct = catalogProducts.Data.Single(pr => pr.Id == int.Parse(itemToModify.ProductId));
             catalogProduct.Price = newPrice;
