@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore;
+﻿using FunctionalTests.Services.Identity;
+using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.BuildingBlocks.IntegrationEventLogEF;
@@ -7,21 +9,39 @@ using HMS.Catalog.API.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using System;
 using System.IO;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace HMS.FunctionalTests.Services.Catalog
 {
-    public class CatalogScenariosBase
+    public class CatalogScenariosBase : IDisposable
     {
-        public TestServer CreateServer()
+		private TestServer testServer { get; set; }
+
+		public CatalogScenariosBase(IdentityServer idServer)
+		{
+			CreateServer(idServer);
+		}
+
+		public CatalogClient CreateClient()
+		{
+			return new CatalogClient(this.testServer.CreateHandler()) { BaseAddress = this.testServer.BaseAddress };
+		}
+
+		private void CreateServer(IdentityServer idServer)
         {
-            var webHostBuilder = WebHost.CreateDefaultBuilder();
+			TestStartup.BackChannelHandler = idServer.CreateHandler();
+			var webHostBuilder = WebHost.CreateDefaultBuilder();
             webHostBuilder.UseContentRoot(Directory.GetCurrentDirectory() + "\\Services\\Catalog");
-            webHostBuilder.UseStartup<Startup>();
+            webHostBuilder.UseStartup<TestStartup>();
 
-            var testServer = new TestServer(webHostBuilder);
+            this.testServer = new TestServer(webHostBuilder);
 
-            testServer.Host
+            this.testServer.Host
                 .MigrateDbContext<CatalogContext>((context, services) =>
                 {
                     var env = services.GetService<IHostingEnvironment>();
@@ -33,11 +53,14 @@ namespace HMS.FunctionalTests.Services.Catalog
                     .Wait();
                 })
                 .MigrateDbContext<IntegrationEventLogContext>((_, __) => { });
-
-            return testServer;
         }
 
-        public static class Get
+		public void Dispose()
+		{
+			this.testServer.Dispose();
+		}
+
+		public static class Get
         {
             public static string Orders = "api/v1/orders";
 
@@ -53,5 +76,47 @@ namespace HMS.FunctionalTests.Services.Catalog
         {
             public static string UpdateCatalogProduct = "api/v1/products/";
         }
-    }
+
+		public class TestStartup : Startup
+		{
+			public TestStartup(IConfiguration configuration) : base(configuration) { }
+
+			public static HttpMessageHandler BackChannelHandler { get; set; }
+
+			public override void setIS4Options(IdentityServerAuthenticationOptions options)
+			{
+				base.setIS4Options(options);
+				options.IntrospectionBackChannelHandler = BackChannelHandler;
+				options.IntrospectionDiscoveryHandler = BackChannelHandler;
+				options.JwtBackChannelHandler = BackChannelHandler;
+			}
+
+		}
+	}
+
+	public class CatalogClient : HttpClient
+	{
+		public CatalogClient(HttpMessageHandler handler) : base(handler) { }
+
+		public async Task<PaginatedItemsViewModel<CatalogItem>> GetCatalogAsync()
+		{
+			var response = await this.GetAsync(CatalogScenariosBase.Get.Items);
+			var items = await response.Content.ReadAsStringAsync();
+			return JsonConvert.DeserializeObject<PaginatedItemsViewModel<CatalogItem>>(items);
+		}
+
+		public async Task<HttpResponseMessage> UpdateProduct(CatalogItem product)
+		{
+			var content = new StringContent(JsonConvert.SerializeObject(product), UTF8Encoding.UTF8, "application/json");
+			return await this.PutAsync(CatalogScenariosBase.Put.UpdateCatalogProduct, content);
+		}
+
+		public async Task<CatalogItem> GetCatalogItemAsync(int id)
+		{
+			var response = await this.GetAsync(CatalogScenariosBase.Get.Items + $"/{id}");
+			var items = await response.Content.ReadAsStringAsync();
+			return JsonConvert.DeserializeObject<CatalogItem>(items);
+		}
+
+	}
 }

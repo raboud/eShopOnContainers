@@ -14,24 +14,19 @@ namespace HMS.Identity.API
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args)
+             BuildWebHost(args)
+
                 .MigrateDbContext<PersistedGrantDbContext>((_, __) => { })
                 .MigrateDbContext<ApplicationDbContext>((context, services) =>
                 {
-                    var env = services.GetService<IHostingEnvironment>();
-                    var logger = services.GetService<ILogger<ApplicationDbContextSeed>>();
-                    var settings = services.GetService<IOptions<AppSettings>>();
-
-                    new ApplicationDbContextSeed()
-                        .SeedAsync(context, env, logger, settings)
+					services.GetService <ApplicationDbContextSeed>()
+                        .SeedAsync()
                         .Wait();
                 })
                 .MigrateDbContext<ConfigurationDbContext>((context,services)=> 
                 {
-                    var configuration = services.GetService<IConfiguration>();
-
-                    new ConfigurationDbContextSeed()
-                        .SeedAsync(context, configuration)
+                    services.GetService<ConfigurationDbContextSeed>()
+                        .SeedAsync()
                         .Wait();
                 }).Run();
         }

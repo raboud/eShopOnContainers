@@ -11,36 +11,45 @@ namespace HMS.Identity.API.Data
 {
     public class ConfigurationDbContextSeed
     {
-        public async Task SeedAsync(ConfigurationDbContext context, IConfiguration configuration)
+		private readonly ConfigurationDbContext _context;
+		private readonly IConfiguration _configuration;
+
+		public ConfigurationDbContextSeed(ConfigurationDbContext context, IConfiguration configuration)
+		{
+			this._context = context;
+			this._configuration = configuration;
+		}
+		public async Task SeedAsync()
         {
             //callbacks urls from config:
             var clientUrls = new Dictionary<string, string>
             {
-                {"Mvc", configuration.GetValue<string>("MvcClient")},
-                {"Spa", configuration.GetValue<string>("SpaClient")},
-                {"Xamarin", configuration.GetValue<string>("XamarinCallback")},
-                {"LocationsApi", configuration.GetValue<string>("LocationApiClient")},
-                {"MarketingApi", configuration.GetValue<string>("MarketingApiClient")},
-                {"BasketApi", configuration.GetValue<string>("BasketApiClient")},
-                {"OrderingApi", configuration.GetValue<string>("OrderingApiClient")}
+                {"Mvc", _configuration.GetValue<string>("MvcClient")},
+                {"Spa", _configuration.GetValue<string>("SpaClient")},
+                {"Xamarin", _configuration.GetValue<string>("XamarinCallback")},
+                {"LocationsApi", _configuration.GetValue<string>("LocationApiClient")},
+                {"MarketingApi", _configuration.GetValue<string>("MarketingApiClient")},
+                {"BasketApi", _configuration.GetValue<string>("BasketApiClient")},
+				{"CatalogApi", _configuration.GetValue<string>("CatalogApiClient")},
+				{"OrderingApi", _configuration.GetValue<string>("OrderingApiClient")}
             };
 
-            if (!await context.Clients.AnyAsync())
+            if (!await _context.Clients.AnyAsync())
             {
                 await context.Clients.AddRangeAsync(Config.GetClients(clientUrls).Select(client => client.ToEntity()));
             }
 
-            if (!await context.IdentityResources.AnyAsync())
+            if (!await _context.IdentityResources.AnyAsync())
             {
                 await context.IdentityResources.AddRangeAsync(Config.GetResources().Select(resource => resource.ToEntity()));
             }
 
-            if (!await context.ApiResources.AnyAsync())
+            if (!await _context.ApiResources.AnyAsync())
             {
                 await context.ApiResources.AddRangeAsync(Config.GetApis().Select(api => api.ToEntity()));
             }
 
-            await context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
     }
 }

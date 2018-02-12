@@ -9,8 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Setup\**\*;">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    <None Remove="Setup\images.zip" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Setup\images.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
@@ -52,9 +56,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Setup\*">
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Setup\UserSeed.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
 
 </Project>

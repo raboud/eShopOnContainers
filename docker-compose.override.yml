@@ -31,6 +31,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://0.0.0.0:80
       - ConnectionString=${HMS_AZURE_CATALOG_DB:-Server=sql.data;Database=CatalogDb;User Id=sa;Password=Pass@word}
+      - identityUrl=http://identity.api              #Local: You need to open your local dev-machine firewall at range 5100-5110.
+      - IdentityUrlExternal=http://${HMS_EXTERNAL_DNS_NAME_OR_IP}:5105
       - PicBaseUrl=${HMS_AZURE_STORAGE_CATALOG_URL:-http://localhost:5101/api/v1/catalog/items/[0]/pic/}   #Local: You need to open your local dev-machine firewall at range 5100-5110.  
       - EventBusConnection=${HMS_AZURE_SERVICE_BUS:-rabbitmq}
       - EventBusUserName=${HMS_SERVICE_BUS_USERNAME}
@@ -57,6 +59,7 @@ services:
       - MarketingApiClient=http://${HMS_EXTERNAL_DNS_NAME_OR_IP}:5110
       - BasketApiClient=http://${HMS_EXTERNAL_DNS_NAME_OR_IP}:5103
       - OrderingApiClient=http://${HMS_EXTERNAL_DNS_NAME_OR_IP}:5102
+      - CatalogApiClient=http://${HMS_EXTERNAL_DNS_NAME_OR_IP}:5101
       - UseCustomizationData=True  
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
       - OrchestratorType=${ORCHESTRATOR_TYPE}

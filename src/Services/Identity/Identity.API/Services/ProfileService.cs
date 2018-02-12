@@ -14,9 +14,11 @@ namespace HMS.Identity.API.Services
     public class ProfileService : IProfileService
     {
         private readonly UserManager<ApplicationUser> _userManager;
+		private readonly IUserClaimsPrincipalFactory<ApplicationUser> _claimsFactory;
 
-        public ProfileService(UserManager<ApplicationUser> userManager)
+		public ProfileService(IUserClaimsPrincipalFactory<ApplicationUser> claimsFactory, UserManager<ApplicationUser> userManager)
         {
+			this._claimsFactory = claimsFactory;
             _userManager = userManager;
         }
 
@@ -30,8 +32,11 @@ namespace HMS.Identity.API.Services
             if (user == null)
                 throw new ArgumentException("Invalid subject identifier");
 
-            var claims = GetClaimsFromUser(user);
-            context.IssuedClaims = claims.ToList();
+			var principal = await _claimsFactory.CreateAsync(user);
+			var claims = principal.Claims.ToList();
+
+			claims.AddRange(GetClaimsFromUser(user));
+            context.IssuedClaims = claims;
         }
 
         async public Task IsActiveAsync(IsActiveContext context)
@@ -65,14 +70,7 @@ namespace HMS.Identity.API.Services
 
         private IEnumerable<Claim> GetClaimsFromUser(ApplicationUser user)
         {
-            var claims = new List<Claim>
-            {
-                new Claim(JwtClaimTypes.Subject, user.Id),
-                new Claim(JwtClaimTypes.PreferredUserName, user.UserName)
-            };
-
-            if (!string.IsNullOrWhiteSpace(user.Name))
-                claims.Add(new Claim("name", user.Name));
+			var claims = new List<Claim>();
 
             if (!string.IsNullOrWhiteSpace(user.LastName))
                 claims.Add(new Claim("last_name", user.LastName));
@@ -103,24 +101,6 @@ namespace HMS.Identity.API.Services
 
             if (!string.IsNullOrWhiteSpace(user.ZipCode))
                 claims.Add(new Claim("address_zip_code", user.ZipCode));
-
-            if (_userManager.SupportsUserEmail)
-            {
-                claims.AddRange(new[]
-                {
-                    new Claim(JwtClaimTypes.Email, user.Email),
-                    new Claim(JwtClaimTypes.EmailVerified, user.EmailConfirmed ? "true" : "false", ClaimValueTypes.Boolean)
-                });
-            }
-
-            if (_userManager.SupportsUserPhoneNumber && !string.IsNullOrWhiteSpace(user.PhoneNumber))
-            {
-                claims.AddRange(new[]
-                {
-                    new Claim(JwtClaimTypes.PhoneNumber, user.PhoneNumber),
-                    new Claim(JwtClaimTypes.PhoneNumberVerified, user.PhoneNumberConfirmed ? "true" : "false", ClaimValueTypes.Boolean)
-                });
-            }
 
             return claims;
         }
