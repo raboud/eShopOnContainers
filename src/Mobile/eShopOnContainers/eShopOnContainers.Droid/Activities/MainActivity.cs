@@ -7,10 +7,9 @@ using Android.Runtime;
 using Android.Views;
 using FFImageLoading;
 using FFImageLoading.Forms.Droid;
-using HMS.Core;
-using Plugin.Permissions;
 using System;
 using Xamarin.Forms.Platform.Android;
+using HMS.Droid.Services;
 
 namespace HMS.Droid.Activities
 {
@@ -58,7 +57,7 @@ namespace HMS.Droid.Activities
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            ((PermissionsService)PermissionsService.Instance).OnRequestPermissionResult(requestCode, permissions, grantResults);
         }
     }
 }

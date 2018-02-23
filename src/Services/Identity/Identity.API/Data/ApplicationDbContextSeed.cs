@@ -33,7 +33,7 @@ namespace HMS.Identity.API.Data
 
                 if (!context.Users.Any())
                 {
-                    await context.Users.AddRangeAsync(useCustomizationData
+                    context.Users.AddRange(useCustomizationData
                         ? GetUsersFromFile(contentRootPath, logger)
                         : GetDefaultUser());
 

@@ -28,7 +28,7 @@ namespace HMS.Core.Services.User
 
         public async Task<UserInfo> GetUserInfoAsync(string authToken)
         {
-            await Task.Delay(500);
+            await Task.Delay(10);
             return MockUserInfo;
         }
     }

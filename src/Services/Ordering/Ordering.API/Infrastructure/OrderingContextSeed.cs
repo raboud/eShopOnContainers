@@ -39,7 +39,7 @@ namespace HMS.Ordering.API.Infrastructure
 
                     if (!context.CardTypes.Any())
                     {
-                        await context.CardTypes.AddRangeAsync(useCustomizationData
+                        context.CardTypes.AddRange(useCustomizationData
                                                 ? GetCardTypesFromFile(contentRootPath, logger)
                                                 : GetPredefinedCardTypes());
 
@@ -48,7 +48,7 @@ namespace HMS.Ordering.API.Infrastructure
 
                     if (!context.OrderStatus.Any())
                     {
-                        await context.OrderStatus.AddRangeAsync(useCustomizationData
+                        context.OrderStatus.AddRange(useCustomizationData
                                                 ? GetOrderStatusFromFile(contentRootPath, logger)
                                                 : GetPredefinedOrderStatus());
                     }
