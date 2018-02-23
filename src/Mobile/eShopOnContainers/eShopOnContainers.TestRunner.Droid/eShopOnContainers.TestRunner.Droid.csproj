@@ -173,15 +173,7 @@
     <Reference Include="Plugin.Settings">
       <HintPath>..\..\..\..\packages\Xam.Plugins.Settings.3.1.1\lib\MonoAndroid10\Plugin.Settings.dll</HintPath>
     </Reference>
-    <Reference Include="Plugin.CurrentActivity">
-      <HintPath>..\..\..\..\packages\Plugin.CurrentActivity.1.0.1\lib\MonoAndroid10\Plugin.CurrentActivity.dll</HintPath>
-    </Reference>
-    <Reference Include="Plugin.Geolocator.Abstractions">
-      <HintPath>..\..\..\..\packages\Xam.Plugin.Geolocator.3.0.4\lib\MonoAndroid10\Plugin.Geolocator.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Plugin.Geolocator">
-      <HintPath>..\..\..\..\packages\Xam.Plugin.Geolocator.3.0.4\lib\MonoAndroid10\Plugin.Geolocator.dll</HintPath>
-    </Reference>
+
     <Reference Include="PCLCrypto">
       <HintPath>..\..\..\..\packages\PCLCrypto.2.0.147\lib\MonoAndroid23\PCLCrypto.dll</HintPath>
     </Reference>

@@ -3,11 +3,12 @@ using HMS.Core.Models.User;
 using HMS.Core.Services.Location;
 using HMS.Core.Services.Settings;
 using HMS.Core.ViewModels.Base;
-using Plugin.Geolocator;
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using HMS.Core.Services.Dependency;
+using HMS.Core.Services.Location;
 
 namespace HMS.Core.ViewModels
 {
@@ -29,11 +30,13 @@ namespace HMS.Core.ViewModels
 
         private readonly ISettingsService _settingsService;
         private readonly ILocationService _locationService;
+        private readonly IDependencyService _dependencyService;
 
-        public SettingsViewModel(ISettingsService settingsService, ILocationService locationService)
+        public SettingsViewModel(ISettingsService settingsService, ILocationService locationService, IDependencyService dependencyService)
         {
             _settingsService = settingsService;
             _locationService = locationService;
+            _dependencyService = dependencyService;
 
             _useAzureServices = !_settingsService.UseMocks;
             _endpoint = _settingsService.UrlBase;
@@ -307,8 +310,7 @@ namespace HMS.Core.ViewModels
 
             }
         }
-
-
+        
         private void UpdateUseAzureServices()
         {
             // Save use mocks services to local storage
@@ -342,7 +344,7 @@ namespace HMS.Core.ViewModels
         {
             if (_allowGpsLocation)
             {
-                var locator = CrossGeolocator.Current;
+                var locator = _dependencyService.Get<ILocationServiceImplementation>();
                 if (!locator.IsGeolocationEnabled)
                 {
                     _allowGpsLocation = false;
