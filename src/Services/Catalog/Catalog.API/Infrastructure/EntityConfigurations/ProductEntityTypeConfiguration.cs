@@ -25,8 +25,6 @@ namespace HMS.Catalog.API.Infrastructure.EntityConfigurations
             builder.Property(ci => ci.PictureFileName)
                 .IsRequired(false);
 
-            builder.Ignore(ci => ci.PictureUri);
-
             builder.HasOne(ci => ci.Brand)
                 .WithMany()
                 .HasForeignKey(ci => ci.BrandId);

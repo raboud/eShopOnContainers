@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace HMS.Catalog.API.Controllers
 {
-    public class PicController : Controller
+	[ResponseCache(Duration = 3600)]
+	public class PicController : Controller
     {
         private readonly IHostingEnvironment _env;
         private readonly CatalogContext _catalogContext;

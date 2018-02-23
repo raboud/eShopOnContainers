@@ -8,8 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using HMS.Catalog.API.Infrastructure;
 using HMS.Catalog.API.Model;
 using System.Net;
-using HMS.Catalog.API.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using HMS.Common.API;
+using HMS.Catalog.DTO;
+using AutoMapper;
 
 namespace HMS.Catalog.API.Controllers
 {
@@ -18,15 +20,19 @@ namespace HMS.Catalog.API.Controllers
 	public class BrandsController : Controller
 	{
 		private readonly CatalogContext _context;
+		private readonly IMapper _mapper;
 
-		public BrandsController(CatalogContext context)
+		public BrandsController(CatalogContext context,
+			IMapper mapper)
 		{
 			_context = context;
+			_mapper = mapper;
 		}
 
 		// GET: api/v1/[controller]
 		[HttpGet]
-		[ProducesResponseType(typeof(List<Brand>), (int)HttpStatusCode.OK)]
+		[ProducesResponseType(typeof(List<BrandDTO>), (int)HttpStatusCode.OK)]
+		[ResponseCache(Duration = 3600)]
 		public async Task<IActionResult> GetItems([FromQuery]bool? all)
 		{
 			IQueryable<Brand> query;
@@ -39,16 +45,17 @@ namespace HMS.Catalog.API.Controllers
 				query = _context.Brands
 				.Where(b => !b.InActive);
 			}
-			return Ok(await query
+			var items = await query
 				.OrderBy(b => b.Name)
-				.ToListAsync()
-				);
+				.ToListAsync();
+
+			return Ok(this._mapper.Map<List<BrandDTO>>(items));
 		}
 
 		// GET: api/v1/[controller]/Page
 		[HttpGet]
 		[Route("[action]")]
-		[ProducesResponseType(typeof(PaginatedItemsViewModel<Brand>), (int)HttpStatusCode.OK)]
+		[ProducesResponseType(typeof(PaginatedItemsViewModel<BrandDTO>), (int)HttpStatusCode.OK)]
 		public async Task<IActionResult> Page([FromQuery]bool? all, [FromQuery]int pageSize = 10, [FromQuery]int pageIndex = 0)
 		{
 			IQueryable<Brand> query = _context.Brands;
@@ -67,8 +74,8 @@ namespace HMS.Catalog.API.Controllers
 				.Take(pageSize)
 				.ToListAsync();
 
-			PaginatedItemsViewModel<Brand> model = new PaginatedItemsViewModel<Brand>(
-				pageIndex, pageSize, totalItems, items);
+			PaginatedItemsViewModel<BrandDTO> model = new PaginatedItemsViewModel<BrandDTO>(
+				pageIndex, pageSize, totalItems, this._mapper.Map<List<BrandDTO>>(items));
 
 			return Ok(model);
 		}
@@ -76,7 +83,7 @@ namespace HMS.Catalog.API.Controllers
 		// GET: api/v1/[controller]/5
 		[HttpGet("{id}")]
 		[ProducesResponseType((int)HttpStatusCode.NotFound)]
-		[ProducesResponseType(typeof(Brand), (int)HttpStatusCode.OK)]
+		[ProducesResponseType(typeof(BrandDTO), (int)HttpStatusCode.OK)]
 		public async Task<IActionResult> GetBrand([FromRoute] int id)
 		{
 			if (!ModelState.IsValid)
@@ -91,7 +98,7 @@ namespace HMS.Catalog.API.Controllers
 				return NotFound();
 			}
 
-			return Ok(brand);
+			return Ok(this._mapper.Map<BrandDTO>(brand));
 		}
 
 		// PUT: api/v1/[controller]/5
@@ -99,7 +106,7 @@ namespace HMS.Catalog.API.Controllers
 		[Authorize(Roles = "admin")]
 		[ProducesResponseType((int)HttpStatusCode.NotFound)]
 		[ProducesResponseType((int)HttpStatusCode.Created)]
-		public async Task<IActionResult> PutBrand([FromRoute] int id, [FromBody] Brand brand)
+		public async Task<IActionResult> PutBrand([FromRoute] int id, [FromBody] BrandDTO brand)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -111,7 +118,7 @@ namespace HMS.Catalog.API.Controllers
 				return BadRequest();
 			}
 
-			_context.Entry(brand).State = EntityState.Modified;
+			_context.Entry(this._mapper.Map<Brand>(brand)).State = EntityState.Modified;
 
 			try
 			{
@@ -136,14 +143,14 @@ namespace HMS.Catalog.API.Controllers
 		[HttpPost]
 		[Authorize(Roles = "admin")]
 		[ProducesResponseType((int)HttpStatusCode.Created)]
-		public async Task<IActionResult> PostBrand([FromBody] Brand brand)
+		public async Task<IActionResult> PostBrand([FromBody] BrandDTO brand)
 		{
 			if (!ModelState.IsValid)
 			{
 				return BadRequest(ModelState);
 			}
 
-			_context.Brands.Add(brand);
+			_context.Brands.Add(this._mapper.Map<Brand>(brand));
 			await _context.SaveChangesAsync();
 
 			return CreatedAtAction("GetBrand", new { id = brand.Id }, brand);

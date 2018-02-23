@@ -105,8 +105,8 @@ namespace HMS.Identity.API
                                          //Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency 
                                          sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                                      });
-					 options.EnableTokenCleanup = true;
-					 options.TokenCleanupInterval = 30;
+//					 options.EnableTokenCleanup = true;
+//					 options.TokenCleanupInterval = 30;
                  })
                 .Services.AddTransient<IProfileService, ProfileService>();
 			services.AddSingleton<ApplicationDbContextSeed, ApplicationDbContextSeed>();

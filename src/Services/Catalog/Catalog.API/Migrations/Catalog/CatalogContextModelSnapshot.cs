@@ -120,11 +120,11 @@ namespace HMS.Catalog.API.Migrations.Catalog
 
             modelBuilder.Entity("HMS.Catalog.API.Model.ProductCategory", b =>
                 {
-                    b.Property<int>("ItemId");
+                    b.Property<int>("ProductId");
 
                     b.Property<int>("CategoryId");
 
-                    b.HasKey("ItemId", "CategoryId");
+                    b.HasKey("ProductId", "CategoryId");
 
                     b.HasIndex("CategoryId");
 
@@ -179,14 +179,14 @@ namespace HMS.Catalog.API.Migrations.Catalog
 
             modelBuilder.Entity("HMS.Catalog.API.Model.ProductCategory", b =>
                 {
-                    b.HasOne("HMS.Catalog.API.Model.Category", "Category")
+                    b.HasOne("HMS.Catalog.API.Model.Category")
                         .WithMany("ProductCategories")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("HMS.Catalog.API.Model.Product", "Item")
+                    b.HasOne("HMS.Catalog.API.Model.Product")
                         .WithMany("ProductCategories")
-                        .HasForeignKey("ItemId")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

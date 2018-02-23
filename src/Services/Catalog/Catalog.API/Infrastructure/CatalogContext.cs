@@ -11,13 +11,13 @@
         {
         }
 
-		public DbSet<Brand> Brands { get; set; }
-		public DbSet<Category> Categories { get; set; }
-		public DbSet<Product> Products { get; set; }
-		public DbSet<Unit> Units { get; set; }
-		public DbSet<Vendor> Vendors { get; set; }
+		internal DbSet<Brand> Brands { get; set; }
+		internal DbSet<Category> Categories { get; set; }
+		internal DbSet<Product> Products { get; set; }
+		internal DbSet<Unit> Units { get; set; }
+		internal DbSet<Vendor> Vendors { get; set; }
 
-		public DbSet<ProductCategory> ProductCategories { get; set; }
+		internal DbSet<ProductCategory> ProductCategories { get; set; }
 
 		//protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		//{
@@ -28,7 +28,7 @@
 		{
 			base.OnModelCreating(modelBuilder);
 			modelBuilder.Entity<ProductCategory>()
-				.HasKey(x => new { x.ItemId, x.CategoryId });
+				.HasKey(x => new { x.ProductId, x.CategoryId });
 
 			modelBuilder.ApplyConfiguration(new BrandEntityTypeConfiguration());
 			modelBuilder.ApplyConfiguration(new CategoryEntityTypeConfiguration());

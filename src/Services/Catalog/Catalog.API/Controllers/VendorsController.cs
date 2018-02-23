@@ -8,8 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using HMS.Catalog.API.Infrastructure;
 using HMS.Catalog.API.Model;
 using System.Net;
-using HMS.Catalog.API.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using HMS.Common.API;
+using HMS.Catalog.DTO;
+using AutoMapper;
 
 namespace HMS.Catalog.API.Controllers
 {
@@ -18,15 +20,19 @@ namespace HMS.Catalog.API.Controllers
 	public class VendorsController : Controller
     {
         private readonly CatalogContext _context;
+		private readonly IMapper _mapper;
 
-        public VendorsController(CatalogContext context)
+		public VendorsController(CatalogContext context,
+			IMapper mapper)
         {
             _context = context;
-        }
+			_mapper = mapper;
+		}
 
-        // GET: api/Vendors
-        [HttpGet]
-		[ProducesResponseType(typeof(List<Vendor>), (int)HttpStatusCode.OK)]
+		// GET: api/Vendors
+		[HttpGet]
+		[ResponseCache(Duration = 3600)]
+		[ProducesResponseType(typeof(List<VendorDTO>), (int)HttpStatusCode.OK)]
 		public async  Task<IActionResult> GetVendors()
         {
 			List<Vendor> items = await _context.Vendors
@@ -34,13 +40,13 @@ namespace HMS.Catalog.API.Controllers
 				.OrderBy(b => b.Name)
 				.ToListAsync();
 
-			return Ok(items);
+			return Ok(this._mapper.Map<List<VendorDTO>>(items));
 		}
 
 		// GET: api/v1/[controller]/Page
 		[HttpGet]
 		[Route("[action]")]
-		[ProducesResponseType(typeof(PaginatedItemsViewModel<Vendor>), (int)HttpStatusCode.OK)]
+		[ProducesResponseType(typeof(PaginatedItemsViewModel<VendorDTO>), (int)HttpStatusCode.OK)]
 		public async Task<IActionResult> Page([FromQuery]bool? all, [FromQuery]int pageSize = 10, [FromQuery]int pageIndex = 0)
 		{
 			IQueryable<Vendor> query = _context.Vendors;
@@ -59,8 +65,8 @@ namespace HMS.Catalog.API.Controllers
 				.Take(pageSize)
 				.ToListAsync();
 
-			PaginatedItemsViewModel<Vendor> model = new PaginatedItemsViewModel<Vendor>(
-				pageIndex, pageSize, totalItems, items);
+			PaginatedItemsViewModel<VendorDTO> model = new PaginatedItemsViewModel<VendorDTO>(
+				pageIndex, pageSize, totalItems, this._mapper.Map<List<VendorDTO>>(items));
 
 			return Ok(model);
 		}
@@ -83,7 +89,7 @@ namespace HMS.Catalog.API.Controllers
                 return NotFound();
             }
 
-            return Ok(vendor);
+            return Ok(this._mapper.Map<VendorDTO>(vendor));
         }
 
         // PUT: api/Vendors/5
@@ -91,7 +97,7 @@ namespace HMS.Catalog.API.Controllers
 		[Authorize(Roles = "admin")]
 		[ProducesResponseType((int)HttpStatusCode.NotFound)]
 		[ProducesResponseType((int)HttpStatusCode.Created)]
-		public async Task<IActionResult> PutVendor([FromRoute] int id, [FromBody] Vendor vendor)
+		public async Task<IActionResult> PutVendor([FromRoute] int id, [FromBody] VendorDTO vendor)
         {
             if (!ModelState.IsValid)
             {
@@ -103,7 +109,7 @@ namespace HMS.Catalog.API.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(vendor).State = EntityState.Modified;
+            _context.Entry(this._mapper.Map<Vendor>(vendor)).State = EntityState.Modified;
 
             try
             {
@@ -128,14 +134,14 @@ namespace HMS.Catalog.API.Controllers
         [HttpPost]
 		[Authorize(Roles = "admin")]
 		[ProducesResponseType((int)HttpStatusCode.Created)]
-		public async Task<IActionResult> PostVendor([FromBody] Vendor vendor)
+		public async Task<IActionResult> PostVendor([FromBody] VendorDTO vendor)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Vendors.Add(vendor);
+            _context.Vendors.Add(this._mapper.Map<Vendor>(vendor));
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetVendor", new { id = vendor.Id }, vendor);

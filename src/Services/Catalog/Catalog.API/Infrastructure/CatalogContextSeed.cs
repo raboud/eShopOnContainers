@@ -131,6 +131,7 @@ namespace HMS.Catalog.API.Infrastructure
 					p.UnitId = p.Unit.Id;
 					p.VendorId = p.Vendor.Id;
 
+					p.Id = item.Id;
 					p.Name = item.Name;
 					p.AvailableStock = item.AvailableStock;
 					p.Cost = item.Cost;
@@ -141,17 +142,19 @@ namespace HMS.Catalog.API.Infrastructure
 					p.Price = item.Price;
 					p.RestockThreshold = item.RestockThreshold;
 					p.SuggestPrice = item.SuggestPrice;
+					await context.Products.AddAsync(p);
+//					await context.SaveChangesAsync();
 
 					foreach (string category in item.Categories)
 					{
 						ProductCategory pc = new ProductCategory();
-						pc.Item = p;
+						pc.ProductId = p.Id;
 						pc.Category = categories.FirstOrDefault(c => c.Name == category);
-						pcs.Add(pc);
+						p.ProductCategories.Add(pc);
 					}
 				}
 			}
-			await context.ProductCategories.AddRangeAsync(pcs);
+//			await context.ProductCategories.AddRangeAsync(pcs);
 			await context.SaveChangesAsync();
 		}
 
@@ -203,7 +206,7 @@ namespace HMS.Catalog.API.Infrastructure
 						if (type != null)
 						{
 							ProductCategory it = new ProductCategory();
-							it.ItemId = ItemId;
+							it.ProductId = ItemId;
 							it.CategoryId = type.Id;
 							its.Add(it);
 						}

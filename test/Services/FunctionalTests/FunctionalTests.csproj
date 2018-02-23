@@ -34,6 +34,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="..\..\..\src\Services\Catalog\Catalog.API\Setup\Catalog.json" Link="Services\Catalog\Setup\Catalog.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\..\src\Services\Identity\Identity.API\Setup\UserSeed.json" Link="Services\Identity\Setup\UserSeed.json" />
     <Content Include="Services\Basket\appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -53,9 +57,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="IdentityModel" Version="3.0.0" />
+    <PackageReference Include="IdentityModel" Version="3.2.0" />
     <PackageReference Include="IdentityServer4.EntityFramework" Version="2.1.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.0.1" />
     <PackageReference Include="xunit" Version="2.3.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
@@ -86,5 +90,18 @@
   <ItemGroup>
     <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\Catalog\Setup\" />
+    <Folder Include="Services\Identity\Setup\" />
+    <Folder Include="Services\Ordering\Setup\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\src\Services\Ordering\Ordering.API\Setup\CardTypes.csv" Link="Services\Ordering\Setup\CardTypes.csv" />
+    <None Include="..\..\..\src\Services\Ordering\Ordering.API\Setup\OrderStatus.csv" Link="Services\Ordering\Setup\OrderStatus.csv" />
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties Services_4Catalog_4appsettings_1json__JSONSchema="http://json.schemastore.org/bower" /></VisualStudio></ProjectExtensions>
 
 </Project>

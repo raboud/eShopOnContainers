@@ -37,6 +37,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using IdentityServer4.AccessTokenValidation;
 using HMS.Catalog.API.Infrastructure.Middlewares;
 using HMS.Catalog.API.Services;
+using AutoMapper;
 
 namespace HMS.Catalog.API
 {
@@ -202,6 +203,8 @@ namespace HMS.Catalog.API
                     return new DefaultRabbitMQPersistentConnection(factory, logger, retryCount);
                 });
             }
+			AutoMapper.ServiceCollectionExtensions.UseStaticRegistration = false;
+			services.AddAutoMapper();
 
             RegisterEventBus(services);
 
@@ -240,7 +243,9 @@ namespace HMS.Catalog.API
               .UseSwaggerUI(c =>
               {
                   c.SwaggerEndpoint($"{ (!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty) }/swagger/v1/swagger.json", "Catalog.API V1");
-//				  c.ConfigureOAuth2("catalogswaggerui", "", "", "Catalog Swagger UI");
+				  //				  c.ConfigureOAuth2("catalogswaggerui", "", "", "Catalog Swagger UI");
+				  c.OAuthClientId("catalogswaggerui");
+				  c.OAuthAppName("Catalog Swagger UI");
 			  });
 
             ConfigureEventBus(app);

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace HMS.Catalog.API.Migrations.Catalog
 {
-    public partial class first : Migration
+    public partial class First : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -123,12 +123,12 @@ namespace HMS.Catalog.API.Migrations.Catalog
                 name: "ProductCategories",
                 columns: table => new
                 {
-                    ItemId = table.Column<int>(nullable: false),
+                    ProductId = table.Column<int>(nullable: false),
                     CategoryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductCategories", x => new { x.ItemId, x.CategoryId });
+                    table.PrimaryKey("PK_ProductCategories", x => new { x.ProductId, x.CategoryId });
                     table.ForeignKey(
                         name: "FK_ProductCategories_Category_CategoryId",
                         column: x => x.CategoryId,
@@ -136,8 +136,8 @@ namespace HMS.Catalog.API.Migrations.Catalog
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductCategories_Product_ItemId",
-                        column: x => x.ItemId,
+                        name: "FK_ProductCategories_Product_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);

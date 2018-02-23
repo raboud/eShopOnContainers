@@ -8,8 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using HMS.Catalog.API.Infrastructure;
 using HMS.Catalog.API.Model;
 using System.Net;
-using HMS.Catalog.API.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using HMS.Common.API;
+using HMS.Catalog.DTO;
+using AutoMapper;
 
 namespace HMS.Catalog.API.Controllers
 {
@@ -18,15 +20,19 @@ namespace HMS.Catalog.API.Controllers
 	public class UnitsController : Controller
     {
         private readonly CatalogContext _context;
+		private readonly IMapper _mapper;
 
-        public UnitsController(CatalogContext context)
+		public UnitsController(CatalogContext context,
+			IMapper mapper)
         {
             _context = context;
-        }
+			_mapper = mapper;
+		}
 
-        // GET: api/Units
-        [HttpGet]
-		[ProducesResponseType(typeof(List<Unit>), (int)HttpStatusCode.OK)]
+		// GET: api/Units
+		[HttpGet]
+		[ProducesResponseType(typeof(List<UnitDTO>), (int)HttpStatusCode.OK)]
+		[ResponseCache(Duration = 3600)]
 		public async Task<IActionResult> GetItems()
         {
 			List<Unit> items = await _context.Units
@@ -34,7 +40,7 @@ namespace HMS.Catalog.API.Controllers
 				.OrderBy(b => b.Name)
 				.ToListAsync();
 
-			return Ok(items);
+			return Ok(this._mapper.Map<List<UnitDTO>>(items));
 		}
 
 		// GET: api/Units
@@ -59,8 +65,8 @@ namespace HMS.Catalog.API.Controllers
 				.Take(pageSize)
 				.ToListAsync();
 
-			PaginatedItemsViewModel<Unit> model = new PaginatedItemsViewModel<Unit>(
-				pageIndex, pageSize, totalItems, items);
+			PaginatedItemsViewModel<UnitDTO> model = new PaginatedItemsViewModel<UnitDTO>(
+				pageIndex, pageSize, totalItems, this._mapper.Map<List<UnitDTO>>(items));
 
 			return Ok(model);
 		}
@@ -68,7 +74,7 @@ namespace HMS.Catalog.API.Controllers
 		// GET: api/Units/5
 		[HttpGet("{id}")]
 		[ProducesResponseType((int)HttpStatusCode.NotFound)]
-		[ProducesResponseType(typeof(Brand), (int)HttpStatusCode.OK)]
+		[ProducesResponseType(typeof(UnitDTO), (int)HttpStatusCode.OK)]
 		public async Task<IActionResult> GetUnit([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -82,7 +88,7 @@ namespace HMS.Catalog.API.Controllers
 				return NotFound();
 			}
 
-			return Ok(item);
+			return Ok(this._mapper.Map<UnitDTO>(item));
 		}
 
 		// PUT: api/Units/5
@@ -90,7 +96,7 @@ namespace HMS.Catalog.API.Controllers
 		[Authorize(Roles = "admin")]
 		[ProducesResponseType((int)HttpStatusCode.NotFound)]
 		[ProducesResponseType((int)HttpStatusCode.Created)]
-		public async Task<IActionResult> PutUnit([FromRoute] int id, [FromBody] Unit item)
+		public async Task<IActionResult> PutUnit([FromRoute] int id, [FromBody] UnitDTO item)
         {
             if (!ModelState.IsValid)
             {
@@ -102,9 +108,8 @@ namespace HMS.Catalog.API.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(item).State = EntityState.Modified;
-
-            try
+			_context.Entry(this._mapper.Map<Unit>(item)).State = EntityState.Modified;
+			try
             {
                 await _context.SaveChangesAsync();
             }
@@ -127,14 +132,14 @@ namespace HMS.Catalog.API.Controllers
         [HttpPost]
 		[Authorize(Roles = "admin")]
 		[ProducesResponseType((int)HttpStatusCode.Created)]
-		public async Task<IActionResult> PostUnit([FromBody] Unit unit)
+		public async Task<IActionResult> PostUnit([FromBody] UnitDTO unit)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Units.Add(unit);
+            _context.Units.Add(this._mapper.Map<Unit>(unit));
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUnit", new { id = unit.Id }, unit);

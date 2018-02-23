@@ -38,7 +38,7 @@ namespace HMS.Identity.API
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
-                .ConfigureAppConfiguration((builderContext, config) =>
+	            .ConfigureAppConfiguration((builderContext, config) =>
                 {
                     config.AddEnvironmentVariables();
                 })

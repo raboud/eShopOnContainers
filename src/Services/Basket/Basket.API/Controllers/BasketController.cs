@@ -7,6 +7,7 @@ using HMS.Basket.API.Services;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace HMS.Basket.API.Controllers
 {
@@ -42,6 +43,7 @@ namespace HMS.Basket.API.Controllers
         [ProducesResponseType(typeof(CustomerBasket), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Post([FromBody]CustomerBasket value)
         {
+			value.Items = value.Items.Where(x => x.Quantity > 0).ToList();
             var basket = await _repository.UpdateBasketAsync(value);
 
             return Ok(basket);

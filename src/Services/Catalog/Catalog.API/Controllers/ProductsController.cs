@@ -1,9 +1,11 @@
-﻿using HMS.Catalog.API;
+﻿using AutoMapper;
+using HMS.Catalog.API;
 using HMS.Catalog.API.Infrastructure;
 using HMS.Catalog.API.IntegrationEvents;
 using HMS.Catalog.API.IntegrationEvents.Events;
 using HMS.Catalog.API.Model;
-using HMS.Catalog.API.ViewModel;
+using HMS.Catalog.DTO;
+using HMS.Common.API;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,21 +23,25 @@ namespace HMS.Catalog.API.Controllers
 	public class ProductsController : Controller
     {
         private readonly CatalogContext _context;
-		private readonly CatalogSettings _settings;
 		private readonly ICatalogIntegrationEventService _catalogIntegrationEventService;
+		private readonly IMapper _mapper;
 
-		public ProductsController(CatalogContext context, IOptionsSnapshot<CatalogSettings> settings, ICatalogIntegrationEventService catalogIntegrationEventService)
+		public ProductsController(
+			CatalogContext context, 
+			ICatalogIntegrationEventService catalogIntegrationEventService,
+			IMapper mapper)
         {
 			_context = context ?? throw new ArgumentNullException(nameof(context));
 			_catalogIntegrationEventService = catalogIntegrationEventService ?? throw new ArgumentNullException(nameof(catalogIntegrationEventService));
 
-			_settings = settings.Value;
 			((DbContext)context).ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+
+			_mapper = mapper;
 		}
 
 		// GET: api/Products
 		[HttpGet]
-		[ProducesResponseType(typeof(List<Product>), (int)HttpStatusCode.OK)]
+		[ProducesResponseType(typeof(List<ProductDTO>), (int)HttpStatusCode.OK)]
 		public async Task<IActionResult> GetItems(
 			[FromQuery]string name,
 			[FromQuery]int? typeId,
@@ -68,9 +74,8 @@ namespace HMS.Catalog.API.Controllers
 				.Include(i => i.Unit)
 				.OrderBy(c => c.Name)
 				.ToListAsync();
-			ChangeUriPlaceholder(items);
 
-			return Ok(items);
+			return Ok(_mapper.Map<List<ProductDTO>>(items));
 		}
 
 		// GET: api/v1/[controller]/Page
@@ -116,38 +121,38 @@ namespace HMS.Catalog.API.Controllers
 				.Take(pageSize)
 				.ToListAsync();
 
-			ChangeUriPlaceholder(items);
+//			ChangeUriPlaceholder(items);
 
-			PaginatedItemsViewModel<Product> model = new PaginatedItemsViewModel<Product>(
-				pageIndex, pageSize, totalItems, items);
+			PaginatedItemsViewModel<ProductDTO> model = new PaginatedItemsViewModel<ProductDTO>(
+				pageIndex, pageSize, totalItems, _mapper.Map<List<ProductDTO>>(items));
 
 			return Ok(model);
 		}
 
-		private void ChangeUriPlaceholder(List<Product> items)
-		{
-			var baseUri = _settings.PicBaseUrl;
+		//private void ChangeUriPlaceholder(List<Product> items)
+		//{
+		//	var baseUri = _settings.PicBaseUrl;
 
-			items.ForEach(catalogItem =>
-			{
-				ChangeUriPlaceholder(catalogItem);
-			});
-		}
+		//	items.ForEach(catalogItem =>
+		//	{
+		//		ChangeUriPlaceholder(catalogItem);
+		//	});
+		//}
 
-		private void ChangeUriPlaceholder(Product item)
-		{
-			var baseUri = _settings.PicBaseUrl;
+		//private void ChangeUriPlaceholder(Product item)
+		//{
+		//	var baseUri = _settings.PicBaseUrl;
 
-				item.PictureUri = _settings.AzureStorageEnabled
-					? baseUri + item.PictureFileName
-					: baseUri.Replace("[0]", item.Id.ToString());
-		}
+		//		item.PictureUri = _settings.AzureStorageEnabled
+		//			? baseUri + item.PictureFileName
+		//			: baseUri.Replace("[0]", item.Id.ToString());
+		//}
 
 
 		// GET: api/Products/5
 		[HttpGet("{id}")]
 		[ProducesResponseType((int)HttpStatusCode.NotFound)]
-		[ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
+		[ProducesResponseType(typeof(ProductDTO), (int)HttpStatusCode.OK)]
 		public async Task<IActionResult> GetProduct([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -172,9 +177,7 @@ namespace HMS.Catalog.API.Controllers
             {
                 return NotFound();
             }
-			ChangeUriPlaceholder(product);
-
-			return Ok(product);
+			return Ok(_mapper.Map<ProductDTO>(product));
         }
 
         // PUT: api/Products/5
@@ -182,7 +185,7 @@ namespace HMS.Catalog.API.Controllers
 		[Authorize(Roles = "admin")]
 		[ProducesResponseType((int)HttpStatusCode.NotFound)]
 		[ProducesResponseType((int)HttpStatusCode.Created)]
-		public async Task<IActionResult> PutProduct([FromRoute] int id, [FromBody] Product product)
+		public async Task<IActionResult> PutProduct([FromRoute] int id, [FromBody] ProductDTO product)
         {
             if (!ModelState.IsValid)
             {
@@ -206,34 +209,34 @@ namespace HMS.Catalog.API.Controllers
 
 			try
 			{
-				if (product.Types2 != null)
+				if (product.Types != null)
 				{
 					List<ProductCategory> toAdd = new List<ProductCategory>();
 					List<ProductCategory> toDel = new List<ProductCategory>();
 					List<Category> types = await _context.Categories.ToListAsync();
 					List<ProductCategory> current = await _context
 						.ProductCategories
-						.Where(pc => pc.ItemId == id)
+						.Where(pc => pc.ProductId == id)
 						.Include(pc => pc.Category)
 						.ToListAsync();
 
 					foreach (ProductCategory pc in current)
 					{
-						if (!product.Types2.Contains(pc.Category.Name))
+						if (!product.Types.Contains(pc.Category.Name))
 						{
 							toDel.Add(pc);
 						}
 						else
 						{
-							product.Types2.Remove(pc.Category.Name);
+							product.Types.Remove(pc.Category.Name);
 						}
 					}
 
-					foreach (string type in product.Types2)
+					foreach (string type in product.Types)
 					{
 						ProductCategory pc = new ProductCategory()
 						{
-							ItemId = product.Id,
+							ProductId = product.Id,
 							CategoryId = types.Where(t => t.Name == type).SingleOrDefault().Id
 						};
 						toAdd.Add(pc);
@@ -254,9 +257,19 @@ namespace HMS.Catalog.API.Controllers
 					await _catalogIntegrationEventService.PublishThroughEventBusAsync(priceChangedEvent);
 				}
 
-				_context.Entry(product).State = EntityState.Modified;
-				await _context.SaveChangesAsync();
-            }
+				
+				try
+				{
+					Product pr = this._mapper.Map<Product>(product);
+
+					_context.Entry(pr).State = EntityState.Modified;
+					await _context.SaveChangesAsync();
+				}
+				catch (Exception e)
+				{
+
+				}
+			}
             catch (DbUpdateConcurrencyException)
             {
                 if (!ProductExists(id))
@@ -276,14 +289,15 @@ namespace HMS.Catalog.API.Controllers
         [HttpPost]
 		[Authorize(Roles = "admin")]
 		[ProducesResponseType((int)HttpStatusCode.Created)]
-		public async Task<IActionResult> PostProduct([FromBody] Product product)
+		public async Task<IActionResult> PostProduct([FromBody] ProductDTO product)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+			Product p2 = _mapper.Map<Product>(product);
 
-            _context.Products.Add(product);
+            _context.Products.Add(p2);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetProduct", new { id = product.Id }, product);

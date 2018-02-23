@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using HMS.Catalog.API.Model;
 using HMS.Common.API;
+using HMS.Catalog.DTO;
 
 namespace HMS.FunctionalTests.Services.Catalog
 {
@@ -102,24 +103,24 @@ namespace HMS.FunctionalTests.Services.Catalog
 	{
 		public CatalogClient(HttpMessageHandler handler) : base(handler) { }
 
-		public async Task<PaginatedItemsViewModel<Product>> GetCatalogAsync()
+		public async Task<PaginatedItemsViewModel<ProductDTO>> GetCatalogAsync()
 		{
 			var response = await this.GetAsync(CatalogScenariosBase.Get.Page);
 			var items = await response.Content.ReadAsStringAsync();
-			return JsonConvert.DeserializeObject<PaginatedItemsViewModel<Product>>(items);
+			return JsonConvert.DeserializeObject<PaginatedItemsViewModel<ProductDTO>>(items);
 		}
 
-		public async Task<HttpResponseMessage> UpdateProduct(Product product)
+		public async Task<HttpResponseMessage> UpdateProduct(ProductDTO product)
 		{
 			var content = new StringContent(JsonConvert.SerializeObject(product), UTF8Encoding.UTF8, "application/json");
 			return await this.PutAsync(CatalogScenariosBase.Put.UpdateCatalogProduct + $"{product.Id}", content);
 		}
 
-		public async Task<Product> GetCatalogItemAsync(int id)
+		public async Task<ProductDTO> GetCatalogItemAsync(int id)
 		{
 			var response = await this.GetAsync(CatalogScenariosBase.Get.Item + $"/{id}");
 			var items = await response.Content.ReadAsStringAsync();
-			return JsonConvert.DeserializeObject<Product>(items);
+			return JsonConvert.DeserializeObject<ProductDTO>(items);
 		}
 
 	}

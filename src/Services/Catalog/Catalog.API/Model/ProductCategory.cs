@@ -4,10 +4,10 @@ using System.Text;
 
 namespace HMS.Catalog.API.Model
 {
-	public class ProductCategory
+	internal class ProductCategory
 	{
-		public int ItemId { get; set; }
-		public Product Item {get;set;}
+		public int ProductId { get; set; }
+		public Product Product { get;set;}
 
 		public int CategoryId { get; set; }
 		public Category Category { get; set; }

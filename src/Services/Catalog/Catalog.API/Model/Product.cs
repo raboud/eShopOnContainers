@@ -7,46 +7,28 @@ using System.Linq;
 
 namespace HMS.Catalog.API.Model
 {
-    public class Product
+    internal class Product
     {
         public int Id { get; set; }
-
         public string Name { get; set; }
-
         public string Description { get; set; }
-
         public decimal Price { get; set; }
 		public decimal Cost { get; set; }
 		public decimal SuggestPrice { get; set; }
-
 		public int UnitId { get; set; }
 		public Unit Unit { get; set; }
 		public int Count { get; set; }
-
 		public int VendorId { get; set; }
 		public Vendor Vendor { get; set; }
-
         public string PictureFileName { get; set; }
-
-        public string PictureUri { get; set; }
-
 		public List<ProductCategory> ProductCategories { get; set; }
-
-		[NotMapped]
-		public IEnumerable<string> Types => ProductCategories?.Select(e => e.Category.Name);
-
-		[NotMapped]
-		public List<string> Types2 { get; set; }
-
 		public int BrandId { get; set; }
         public Brand Brand { get; set; }
-
         // Quantity in stock
         public int AvailableStock { get; set; }
 
         // Available stock at which we should reorder
         public int RestockThreshold { get; set; }
-
 
         // Maximum number of units that can be in-stock at any time (due to physicial/logistical constraints in warehouses)
         public int MaxStockThreshold { get; set; }
@@ -58,8 +40,9 @@ namespace HMS.Catalog.API.Model
 
 		public bool InActive { get; set; }
 
-
-		public Product() { }
+		public Product() {
+			this.ProductCategories = new List<ProductCategory>();
+		}
 
 
         /// <summary>

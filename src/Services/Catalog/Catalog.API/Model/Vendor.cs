@@ -2,7 +2,7 @@
 
 namespace HMS.Catalog.API.Model
 {
-	public class Vendor
+	internal class Vendor
 	{
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }

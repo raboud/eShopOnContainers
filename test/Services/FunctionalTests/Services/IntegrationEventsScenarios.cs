@@ -15,6 +15,7 @@ using HMS.Common.API;
 using IdentityModel.Client;
 using HMS.FunctionalTests.Services.Identity;
 using Newtonsoft.Json.Linq;
+using HMS.Catalog.DTO;
 
 namespace HMS.FunctionalTests.Services
 {
@@ -100,14 +101,14 @@ namespace HMS.FunctionalTests.Services
             return itemUpdated;
         }
 
-		private Product ChangePrice(BasketItem itemToModify, decimal newPrice, PaginatedItemsViewModel<Product> catalogProducts)
+		private ProductDTO ChangePrice(BasketItem itemToModify, decimal newPrice, PaginatedItemsViewModel<ProductDTO> catalogProducts)
         {
             var catalogProduct = catalogProducts.Data.Single(pr => pr.Id == int.Parse(itemToModify.ProductId));
             catalogProduct.Price = newPrice;
             return catalogProduct;
         }
 
-        private CustomerBasket ComposeBasket(string customerId, IEnumerable<Product> items)
+        private CustomerBasket ComposeBasket(string customerId, IEnumerable<ProductDTO> items)
         {
             var basket = new CustomerBasket(customerId);
             foreach (var item in items)

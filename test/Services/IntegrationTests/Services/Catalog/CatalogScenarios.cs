@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Net;
 using HMS.Catalog.API.Model;
-using HMS.Catalog.API.ViewModel;
 using Microsoft.AspNetCore.TestHost;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
+using HMS.Catalog.DTO;
 
 namespace HMS.IntegrationTests.Services.Catalog
 {
@@ -19,16 +19,16 @@ namespace HMS.IntegrationTests.Services.Catalog
         {
             using (var server = CreateServer())
             {
-				Product[] catalog = await this.GetCatalogAsync(server);
+				ProductDTO[] catalog = await this.GetCatalogAsync(server);
             }
         }
 
-		private async Task<Product[]> GetCatalogAsync(TestServer server)
+		private async Task<ProductDTO[]> GetCatalogAsync(TestServer server)
 		{
 			var response = await server.CreateClient().GetAsync(Get.Items());
 			response.EnsureSuccessStatusCode();
 			string content = await response.Content.ReadAsStringAsync();
-			return await ReadAsAsync<Product[]>(response);
+			return await ReadAsAsync<ProductDTO[]>(response);
 		}
 
 		private async Task<T> ReadAsAsync<T>(HttpResponseMessage response)
@@ -42,11 +42,11 @@ namespace HMS.IntegrationTests.Services.Catalog
         {
             using (var server = CreateServer())
             {
-				Product[] catalog = await this.GetCatalogAsync(server);
+				ProductDTO[] catalog = await this.GetCatalogAsync(server);
 
 				var response = await server.CreateClient().GetAsync(Get.ItemById(catalog[0].Id));
                 response.EnsureSuccessStatusCode();
-				Product p = await ReadAsAsync<Product>(response);
+				ProductDTO p = await ReadAsAsync<ProductDTO>(response);
             }
         }
 

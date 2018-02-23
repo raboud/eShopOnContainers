@@ -8,8 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using HMS.Catalog.API.Infrastructure;
 using HMS.Catalog.API.Model;
 using System.Net;
-using HMS.Catalog.API.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using HMS.Common.API;
+using HMS.Catalog.DTO;
+using AutoMapper;
 
 namespace HMS.Catalog.API.Controllers
 {
@@ -18,15 +20,19 @@ namespace HMS.Catalog.API.Controllers
 	public class CategoriesController : Controller
     {
         private readonly CatalogContext _context;
+		private readonly IMapper _mapper;
 
-        public CategoriesController(CatalogContext context)
+		public CategoriesController(CatalogContext context,
+			IMapper mapper)
         {
             _context = context;
-        }
+			_mapper = mapper;
+		}
 
 		// GET: api/Categories
 		[HttpGet]
-		[ProducesResponseType(typeof(List<Category>), (int)HttpStatusCode.OK)]
+		[ProducesResponseType(typeof(List<CategoryDTO>), (int)HttpStatusCode.OK)]
+		[ResponseCache(Duration = 3600)]
 		public async Task<IActionResult> GetCategories()
 		{
 			List<Category> items = await _context.Categories
@@ -34,13 +40,13 @@ namespace HMS.Catalog.API.Controllers
 				.OrderBy(b => b.Name)
 				.ToListAsync();
 
-			return Ok(items);
+			return Ok(this._mapper.Map<List<CategoryDTO>>(items));
 		}
 
 		// GET: api/v1/[controller]/Page
 		[HttpGet]
 		[Route("[action]")]
-		[ProducesResponseType(typeof(PaginatedItemsViewModel<Category>), (int)HttpStatusCode.OK)]
+		[ProducesResponseType(typeof(PaginatedItemsViewModel<CategoryDTO>), (int)HttpStatusCode.OK)]
 		public async Task<IActionResult> Page([FromQuery]bool? all, [FromQuery]int pageSize = 10, [FromQuery]int pageIndex = 0)
 		{
 			IQueryable<Category> query = _context.Categories;
@@ -60,8 +66,8 @@ namespace HMS.Catalog.API.Controllers
 				.Take(pageSize)
 				.ToListAsync();
 
-			PaginatedItemsViewModel<Category> model = new PaginatedItemsViewModel<Category>(
-				pageIndex, pageSize, totalItems, items);
+			PaginatedItemsViewModel<CategoryDTO> model = new PaginatedItemsViewModel<CategoryDTO>(
+				pageIndex, pageSize, totalItems, this._mapper.Map<List<CategoryDTO>>(items));
 
 			return Ok(model);
 		}
@@ -69,7 +75,7 @@ namespace HMS.Catalog.API.Controllers
 		// GET: api/Categories/5
 		[HttpGet("{id}")]
 		[ProducesResponseType((int)HttpStatusCode.NotFound)]
-		[ProducesResponseType(typeof(Product), (int)HttpStatusCode.OK)]
+		[ProducesResponseType(typeof(CategoryDTO), (int)HttpStatusCode.OK)]
 		public async Task<IActionResult> GetCategory([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -84,7 +90,7 @@ namespace HMS.Catalog.API.Controllers
                 return NotFound();
             }
 
-            return Ok(category);
+            return Ok(this._mapper.Map<List<CategoryDTO>>(category));
         }
 
         // PUT: api/Categories/5
@@ -92,7 +98,7 @@ namespace HMS.Catalog.API.Controllers
 		[Authorize(Roles = "admin")]
 		[ProducesResponseType((int)HttpStatusCode.NotFound)]
 		[ProducesResponseType((int)HttpStatusCode.Created)]
-		public async Task<IActionResult> PutCategory([FromRoute] int id, [FromBody] Category item)
+		public async Task<IActionResult> PutCategory([FromRoute] int id, [FromBody] CategoryDTO item)
         {
 			if (!ModelState.IsValid)
 			{
@@ -104,7 +110,7 @@ namespace HMS.Catalog.API.Controllers
 				return BadRequest();
 			}
 
-			_context.Entry(item).State = EntityState.Modified;
+			_context.Entry(this._mapper.Map<Category>(item)).State = EntityState.Modified;
 
 			try
 			{
@@ -129,14 +135,14 @@ namespace HMS.Catalog.API.Controllers
 		[HttpPost]
 		[Authorize(Roles = "admin")]
 		[ProducesResponseType((int)HttpStatusCode.Created)]
-		public async Task<IActionResult> PostCategory([FromBody] Category category)
+		public async Task<IActionResult> PostCategory([FromBody] CategoryDTO category)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Categories.Add(category);
+            _context.Categories.Add(this._mapper.Map<Category>(category));
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetCategory", new { id = category.Id }, category);
