@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using HMS.Identity.API.Data;
 using System;
 
-namespace Identity.API.Migrations
+namespace HMS.Identity.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20170912114036_Initial")]

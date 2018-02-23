@@ -10,6 +10,7 @@ using FFImageLoading.Forms.Droid;
 using System;
 using Xamarin.Forms.Platform.Android;
 using HMS.Droid.Services;
+using HMS.Core;
 
 namespace HMS.Droid.Activities
 {

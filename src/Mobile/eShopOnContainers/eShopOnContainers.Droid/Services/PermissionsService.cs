@@ -2,15 +2,15 @@
 using Android.App;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
-using eShopOnContainers.Core.Models.Permissions;
-using eShopOnContainers.Core.Services.Permissions;
+using HMS.Core.Models.Permissions;
+using HMS.Core.Services.Permissions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eShopOnContainers.Droid.Services
+namespace HMS.Droid.Services
 {
     public class PermissionsService : IPermissionsService
     {

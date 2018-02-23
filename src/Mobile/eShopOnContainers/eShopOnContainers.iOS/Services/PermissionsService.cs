@@ -1,13 +1,13 @@
 ﻿using CoreLocation;
-using eShopOnContainers.Core.Models.Permissions;
-using eShopOnContainers.Core.Services.Permissions;
+using HMS.Core.Models.Permissions;
+using HMS.Core.Services.Permissions;
 using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace eShopOnContainers.iOS.Services
+namespace HMS.iOS.Services
 {
     public class PermissionsService : IPermissionsService
     {

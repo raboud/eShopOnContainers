@@ -1,11 +1,11 @@
 ﻿using CoreLocation;
-using eShopOnContainers.Core.Models.Location;
+using HMS.Core.Models.Location;
 using Foundation;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace eShopOnContainers.iOS.Services
+namespace HMS.iOS.Services
 {
     internal class GeolocationSingleUpdateDelegate : CLLocationManagerDelegate
     {

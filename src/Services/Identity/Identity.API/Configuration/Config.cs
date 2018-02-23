@@ -14,8 +14,9 @@ namespace HMS.Identity.API.Configuration
                 new ApiResource("orders", "Orders Service"),
                 new ApiResource("basket", "Basket Service"),
                 new ApiResource("marketing", "Marketing Service"),
-                new ApiResource("locations", "Locations Service")
-            };
+                new ApiResource("locations", "Locations Service"),
+				new ApiResource("catalog", "Catalog Service")
+			};
         }
 
         // Identity resources are data like user ID, name, or email address of a user
@@ -34,6 +35,51 @@ namespace HMS.Identity.API.Configuration
         {
             return new List<Client>
             {
+				                // resource owner password grant client
+                new Client
+				{
+					ClientId = "ro.client",
+					AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+
+					ClientSecrets =
+					{
+						new Secret("secret".Sha256())
+					},
+					AllowedScopes =
+					{
+						IdentityServerConstants.StandardScopes.OpenId,
+						IdentityServerConstants.StandardScopes.Profile,
+						"catalog",
+						"orders",
+						"basket",
+						"locations",
+						"marketing"
+					}
+				},
+
+                // JavaScript Client
+                new Client
+				{
+					ClientId = "HMSjs",
+					ClientName = "HMS OpenId Client",
+					AllowedGrantTypes = GrantTypes.ImplicitAndClientCredentials,
+					AllowAccessTokensViaBrowser = true,
+					RedirectUris =           { $"http://localhost:4200/home" },
+					RequireConsent = false,
+					PostLogoutRedirectUris = { $"http://localhost:4200/" },
+					AllowedCorsOrigins =     { $"http://localhost:4200" },
+					AllowedScopes =
+					{
+						IdentityServerConstants.StandardScopes.OpenId,
+						IdentityServerConstants.StandardScopes.Profile,
+						"catalog",
+						"orders",
+						"basket",
+						"locations",
+						"marketing"
+					}
+				},
+
                 // JavaScript Client
                 new Client
                 {
@@ -49,7 +95,8 @@ namespace HMS.Identity.API.Configuration
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "orders",
+						"catalog",
+						"orders",
                         "basket",
                         "locations",
                         "marketing"
@@ -75,7 +122,8 @@ namespace HMS.Identity.API.Configuration
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.OfflineAccess,
-                        "orders",
+						"catalog",
+						"orders",
                         "basket",
                         "locations",
                         "marketing"
@@ -111,7 +159,8 @@ namespace HMS.Identity.API.Configuration
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.OfflineAccess,
-                        "orders",
+						"catalog",
+						"orders",
                         "basket",
                         "locations",
                         "marketing"
@@ -143,13 +192,29 @@ namespace HMS.Identity.API.Configuration
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.OfflineAccess,
-                        "orders",
+						"catalog",
+						"orders",
                         "basket",
                         "locations",
                         "marketing"
                     },
                 },
-                new Client
+				new Client
+				{
+					ClientId = "catalogswaggerui",
+					ClientName = "Catalog Swagger UI",
+					AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+					AllowAccessTokensViaBrowser = true,
+
+					RedirectUris = { $"{clientsUrl["CatalogApi"]}/swagger/o2c.html" },
+					PostLogoutRedirectUris = { $"{clientsUrl["CatalogApi"]}/swagger/" },
+
+					AllowedScopes =
+					{
+						"catalog"
+					}
+				},
+				new Client
                 {
                     ClientId = "locationsswaggerui",
                     ClientName = "Locations Swagger UI",

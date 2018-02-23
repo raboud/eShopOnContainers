@@ -3,7 +3,7 @@
   <Identity Name="ffaee00c-a350-48bb-9a8d-a19c46a0a880" Publisher="CN=Dave" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="ffaee00c-a350-48bb-9a8d-a19c46a0a880" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>eShopOnContainers.TestRunner.Windows</DisplayName>
+    <DisplayName>HMS.TestRunner.Windows</DisplayName>
     <PublisherDisplayName>Dave</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>

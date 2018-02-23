@@ -19,6 +19,7 @@ using Microsoft.Extensions.Logging;
 using StackExchange.Redis;
 using System;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace HMS.Identity.API
 {
@@ -104,10 +105,23 @@ namespace HMS.Identity.API
                                          //Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency 
                                          sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                                      });
+					 options.EnableTokenCleanup = true;
+					 options.TokenCleanupInterval = 30;
                  })
                 .Services.AddTransient<IProfileService, ProfileService>();
+			services.AddSingleton<ApplicationDbContextSeed, ApplicationDbContextSeed>();
+			services.AddSingleton<ConfigurationDbContextSeed, ConfigurationDbContextSeed>();
 
-            var container = new ContainerBuilder();
+			services.AddCors(options =>
+			{
+				options.AddPolicy("CorsPolicy",
+					builder => builder.AllowAnyOrigin()
+					.AllowAnyMethod()
+					.AllowAnyHeader()
+					.AllowCredentials());
+			});
+
+			var container = new ContainerBuilder();
             container.Populate(services);
 
             return new AutofacServiceProvider(container.Build());
@@ -143,7 +157,8 @@ namespace HMS.Identity.API
             app.Map("/liveness", lapp => lapp.Run(async ctx => ctx.Response.StatusCode = 200));
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 
-            app.UseStaticFiles();
+			app.UseCors("CorsPolicy");
+			app.UseStaticFiles();
 
 
             // Make work identity server redirections in Edge and lastest versions of browers. WARN: Not valid in a production environment.
@@ -164,7 +179,7 @@ namespace HMS.Identity.API
             });
         }
 
-        private void RegisterAppInsights(IServiceCollection services)
+		private void RegisterAppInsights(IServiceCollection services)
         {
             services.AddApplicationInsightsTelemetry(Configuration);
             var orchestratorType = Configuration.GetValue<string>("OrchestratorType");

@@ -20,6 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Services\Identity\appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="Services\Location\LocationsScenariosBase.cs" />
     <Compile Include="Services\Location\LocationsTestsStartup.cs" />
     <Compile Include="Services\Marketing\CampaignScenariosBase.cs" />
@@ -36,6 +40,10 @@
     <Content Include="Services\Catalog\appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Services\Identity\appsettings.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Services\Location\appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -45,6 +53,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="IdentityModel" Version="3.0.0" />
+    <PackageReference Include="IdentityServer4.EntityFramework" Version="2.1.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.0.1" />
     <PackageReference Include="xunit" Version="2.3.1" />
@@ -54,6 +64,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Services\Basket\Basket.API\Basket.API.csproj" />
     <ProjectReference Include="..\..\..\src\Services\Catalog\Catalog.API\Catalog.API.csproj" />
+    <ProjectReference Include="..\..\..\src\Services\Identity\Identity.API\Identity.API.csproj" />
     <ProjectReference Include="..\..\..\src\Services\Location\Locations.API\Locations.API.csproj" />
     <ProjectReference Include="..\..\..\src\Services\Marketing\Marketing.API\Marketing.API.csproj" />
     <ProjectReference Include="..\..\..\src\Services\Ordering\Ordering.API\Ordering.API.csproj" />

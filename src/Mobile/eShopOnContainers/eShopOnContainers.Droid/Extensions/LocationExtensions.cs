@@ -1,4 +1,4 @@
-﻿using eShopOnContainers.Core.Models.Location;
+﻿using HMS.Core.Models.Location;
 using System;
 
 namespace HMS.Droid.Extensions

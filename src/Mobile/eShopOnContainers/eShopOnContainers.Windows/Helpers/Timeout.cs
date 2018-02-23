@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace eShopOnContainers.Windows.Helpers
+namespace HMS.Windows.Helpers
 {
     internal class Timeout
     {

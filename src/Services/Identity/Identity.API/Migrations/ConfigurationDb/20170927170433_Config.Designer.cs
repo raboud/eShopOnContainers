@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace Identity.API.Migrations.ConfigurationDb
+namespace HMS.Identity.API.Migrations.ConfigurationDb
 {
     [DbContext(typeof(ConfigurationDbContext))]
     [Migration("20170927170433_Config")]

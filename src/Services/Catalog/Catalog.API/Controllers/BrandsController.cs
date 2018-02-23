@@ -9,6 +9,7 @@ using HMS.Catalog.API.Infrastructure;
 using HMS.Catalog.API.Model;
 using System.Net;
 using HMS.Catalog.API.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HMS.Catalog.API.Controllers
 {
@@ -95,6 +96,7 @@ namespace HMS.Catalog.API.Controllers
 
 		// PUT: api/v1/[controller]/5
 		[HttpPut("{id}")]
+		[Authorize(Roles = "admin")]
 		[ProducesResponseType((int)HttpStatusCode.NotFound)]
 		[ProducesResponseType((int)HttpStatusCode.Created)]
 		public async Task<IActionResult> PutBrand([FromRoute] int id, [FromBody] Brand brand)
@@ -132,6 +134,7 @@ namespace HMS.Catalog.API.Controllers
 
 		// POST: api/v1/[controller]
 		[HttpPost]
+		[Authorize(Roles = "admin")]
 		[ProducesResponseType((int)HttpStatusCode.Created)]
 		public async Task<IActionResult> PostBrand([FromBody] Brand brand)
 		{
@@ -148,6 +151,7 @@ namespace HMS.Catalog.API.Controllers
 
 		// DELETE: api/Brands/5
 		[HttpDelete("{id}")]
+		[Authorize(Roles = "admin")]
 		[ProducesResponseType((int)HttpStatusCode.NoContent)]
 		public async Task<IActionResult> DeleteBrand([FromRoute] int id)
 		{

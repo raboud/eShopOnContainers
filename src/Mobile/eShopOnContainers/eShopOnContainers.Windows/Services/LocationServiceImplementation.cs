@@ -87,8 +87,8 @@ namespace HMS.Windows.Services
 
         public Task<Position> GetPositionAsync(TimeSpan? timeout = null, CancellationToken? cancelToken = null)
         {
-            var timeoutMilliseconds = timeout.HasValue ? (int)timeout.Value.TotalMilliseconds : eShopOnContainers.Windows.Helpers.Timeout.Infinite;
-            if (timeoutMilliseconds < 0 && timeoutMilliseconds != eShopOnContainers.Windows.Helpers.Timeout.Infinite)
+            var timeoutMilliseconds = timeout.HasValue ? (int)timeout.Value.TotalMilliseconds : HMS.Windows.Helpers.Timeout.Infinite;
+            if (timeoutMilliseconds < 0 && timeoutMilliseconds != HMS.Windows.Helpers.Timeout.Infinite)
                 throw new ArgumentOutOfRangeException(nameof(timeout));
 
             if (!cancelToken.HasValue)
@@ -96,7 +96,7 @@ namespace HMS.Windows.Services
 
             var pos = _locator.GetGeopositionAsync(TimeSpan.FromTicks(0), TimeSpan.FromDays(365));
             cancelToken.Value.Register(o => ((IAsyncOperation<Geoposition>)o).Cancel(), pos);
-            var timer = new eShopOnContainers.Windows.Helpers.Timeout(timeoutMilliseconds, pos.Cancel);
+            var timer = new HMS.Windows.Helpers.Timeout(timeoutMilliseconds, pos.Cancel);
             var tcs = new TaskCompletionSource<Position>();
 
             pos.Completed = (op, s) =>

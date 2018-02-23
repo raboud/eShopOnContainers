@@ -29,6 +29,14 @@ using RabbitMQ.Client;
 using System;
 using System.Data.Common;
 using System.Reflection;
+using System.Collections.Generic;
+using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.AspNetCore.Http;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using IdentityServer4.AccessTokenValidation;
+using HMS.Catalog.API.Infrastructure.Middlewares;
+using HMS.Catalog.API.Services;
 
 namespace HMS.Catalog.API
 {
@@ -43,11 +51,26 @@ namespace HMS.Catalog.API
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
+			RegisterAppInsights(services);
 
-            RegisterAppInsights(services);
+			// Add framework services.
+			services.AddMvc(options =>
+			{
+				options.Filters.Add(typeof(HttpGlobalExceptionFilter<CatalogDomainException>));
+			}).AddControllersAsServices()
+			.AddJsonOptions(
+				options => {
+					options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+					options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+				}
+			);
 
-            services.AddHealthChecks(checks =>
+			services.AddMvcCore()
+			.AddAuthorization();
+
+			ConfigureAuthService(services);
+
+			services.AddHealthChecks(checks =>
             {
                 var minutes = 1;
                 if (int.TryParse(Configuration["HealthCheck:Timeout"], out var minutesParsed))
@@ -64,19 +87,7 @@ namespace HMS.Catalog.API
                 }
             });
 
-            services.AddMvc(options =>
-            {
-                options.Filters.Add(typeof(HttpGlobalExceptionFilter<CatalogDomainException>));
-            })
-			.AddControllersAsServices()
-			.AddJsonOptions(
-				options => {
-					options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-					options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-				}
-			);
-
-			services.AddDbContext<CatalogContext>(options =>
+            services.AddDbContext<CatalogContext>(options =>
             {
                 options.UseSqlServer(Configuration["ConnectionString"],
                                      sqlServerOptionsAction: sqlOptions =>
@@ -116,7 +127,21 @@ namespace HMS.Catalog.API
                     Description = "The Catalog Microservice HTTP API. This is a Data-Driven/CRUD microservice sample",
                     TermsOfService = "Terms Of Service"
                 });
-            });
+
+				options.AddSecurityDefinition("oauth2", new OAuth2Scheme
+				{
+					Type = "oauth2",
+					Flow = "implicit",
+					AuthorizationUrl = $"{Configuration.GetValue<string>("IdentityUrlExternal")}/connect/authorize",
+					TokenUrl = $"{Configuration.GetValue<string>("IdentityUrlExternal")}/connect/token",
+					Scopes = new Dictionary<string, string>()
+					{
+						{ "catalog", "Catalog API" }
+					}
+				});
+
+				options.OperationFilter<AuthorizeCheckOperationFilter>();
+			});
 
             services.AddCors(options =>
             {
@@ -126,8 +151,10 @@ namespace HMS.Catalog.API
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
+			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+			services.AddTransient<IIdentityService, IdentityService>();
 
-            services.AddTransient<Func<DbConnection, IIntegrationEventLogService>>(
+			services.AddTransient<Func<DbConnection, IIntegrationEventLogService>>(
                 sp => (DbConnection c) => new IntegrationEventLogService(c));
 
             services.AddTransient<ICatalogIntegrationEventService, CatalogIntegrationEventService>();
@@ -187,7 +214,6 @@ namespace HMS.Catalog.API
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             //Configure logs
-
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
             loggerFactory.AddAzureWebAppDiagnostics();
@@ -206,13 +232,16 @@ namespace HMS.Catalog.API
 
             app.UseCors("CorsPolicy");
 
-            app.UseMvcWithDefaultRoute();
+			ConfigureAuth(app);
+
+			app.UseMvcWithDefaultRoute();
 
             app.UseSwagger()
               .UseSwaggerUI(c =>
               {
-                  c.SwaggerEndpoint($"{ (!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty) }/swagger/v1/swagger.json", "Catalog.API V1");                  
-              });
+                  c.SwaggerEndpoint($"{ (!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty) }/swagger/v1/swagger.json", "Catalog.API V1");
+//				  c.ConfigureOAuth2("catalogswaggerui", "", "", "Catalog Swagger UI");
+			  });
 
             ConfigureEventBus(app);
         }
@@ -235,7 +264,40 @@ namespace HMS.Catalog.API
             }
         }
 
-        private void RegisterEventBus(IServiceCollection services)
+		private void ConfigureAuthService(IServiceCollection services)
+		{
+			// prevent from mapping "sub" claim to nameidentifier.
+			JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
+			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+				.AddIdentityServerAuthentication(options =>
+				{
+					setIS4Options(options);
+				});
+		}
+
+		virtual public void setIS4Options(IdentityServerAuthenticationOptions options)
+		{
+			var identityUrl = Configuration.GetValue<string>("IdentityUrl");
+
+			options.Authority = identityUrl;
+			options.RequireHttpsMetadata = false;
+			options.SupportedTokens = SupportedTokens.Jwt;
+			options.ApiName = "catalog";
+		}
+
+		protected virtual void ConfigureAuth(IApplicationBuilder app)
+		{
+			if (Configuration.GetValue<bool>("UseLoadTest"))
+			{
+				app.UseMiddleware<ByPassAuthMiddleware>();
+			}
+
+			app.UseAuthentication();
+		}
+
+
+		private void RegisterEventBus(IServiceCollection services)
         {
             var subscriptionClientName = Configuration["SubscriptionClientName"];
 

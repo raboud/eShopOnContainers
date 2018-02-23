@@ -1,9 +1,9 @@
 ﻿using CoreLocation;
-using eShopOnContainers.Core.Models.Location;
-using eShopOnContainers.Core.Models.Permissions;
-using eShopOnContainers.Core.Services.Location;
-using eShopOnContainers.Core.Services.Permissions;
-using eShopOnContainers.iOS.Services;
+using HMS.Core.Models.Location;
+using HMS.Core.Models.Permissions;
+using HMS.Core.Services.Location;
+using HMS.Core.Services.Permissions;
+using HMS.iOS.Services;
 using Foundation;
 using System;
 using System.Threading;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using UIKit;
 
 [assembly: Xamarin.Forms.Dependency(typeof(LocationServiceImplementation))]
-namespace eShopOnContainers.iOS.Services
+namespace HMS.iOS.Services
 {
     public class LocationServiceImplementation : ILocationServiceImplementation
     {

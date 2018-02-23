@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using HMS.Identity.API.Data;
 using System;
 
-namespace Identity.API.Migrations
+namespace HMS.Identity.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot

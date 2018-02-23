@@ -12,6 +12,9 @@ using Xunit;
 using System.Net.Http;
 using System.Threading;
 using HMS.Common.API;
+using IdentityModel.Client;
+using HMS.FunctionalTests.Services.Identity;
+using Newtonsoft.Json.Linq;
 
 namespace HMS.FunctionalTests.Services
 {
@@ -23,46 +26,50 @@ namespace HMS.FunctionalTests.Services
             decimal priceModification = 0.15M;
             string userId = "JohnId";
 
-            using (var catalogServer = new CatalogScenariosBase().CreateServer())
-            using (var basketServer = new BasketScenariosBase().CreateServer())
-            {
-                var catalogClient = catalogServer.CreateClient();
-                var basketClient = basketServer.CreateClient();
+			using (var idServer = new IdentityScenariosBase().CreateServer())
+			using (var catalogServer = new CatalogScenariosBase(idServer))
+			using (var basketServer = new BasketScenariosBase().CreateServer())
+			{
+				var accessToken = await idServer.GetTokenAsync("demoadmin@microsoft.com", "Pass@word1", "ro.client", "secret");
 
-                // GIVEN a product catalog list                           
-                var originalCatalogProducts = await GetCatalogAsync(catalogClient);
+				var catalogClient = catalogServer.CreateClient();
+				catalogClient.SetBearerToken(accessToken);
+				var basketClient = basketServer.CreateClient();
 
-                // AND a user basket filled with products   
-                var basket = ComposeBasket(userId, originalCatalogProducts.Data.Take(3));
-                var res = await basketClient.PostAsync(
-                    BasketScenariosBase.Post.CreateBasket,
-                    new StringContent(JsonConvert.SerializeObject(basket), UTF8Encoding.UTF8, "application/json")
-                    );
+				// GIVEN a product catalog list                           
+				var originalCatalogProducts = await catalogClient.GetCatalogAsync();
 
-                // WHEN the price of one product is modified in the catalog
-                var itemToModify = basket.Items[2];
-                var oldPrice = itemToModify.UnitPrice;
-                var newPrice = oldPrice + priceModification;
-                var pRes = await catalogClient.PutAsync(CatalogScenariosBase.Put.UpdateCatalogProduct + itemToModify.ProductId.ToString(), new StringContent(ChangePrice(itemToModify, newPrice, originalCatalogProducts), UTF8Encoding.UTF8, "application/json"));
-				string t = await pRes.Content.ReadAsStringAsync();                                
-                var modifiedCatalogProducts = await GetCatalogAsync(catalogClient);               
+				// AND a user basket filled with products   
+				var basket = ComposeBasket(userId, originalCatalogProducts.Data.Take(3));
+				var res = await basketClient.PostAsync(
+					BasketScenariosBase.Post.CreateBasket,
+					new StringContent(JsonConvert.SerializeObject(basket), UTF8Encoding.UTF8, "application/json")
+					);
 
-                var itemUpdated = await GetUpdatedBasketItem(newPrice, itemToModify.ProductId, userId, basketClient);
+				// WHEN the price of one product is modified in the catalog
+				var itemToModify = basket.Items[2];
+				var oldPrice = itemToModify.UnitPrice;
+				var newPrice = oldPrice + priceModification;
+				var pRes = await catalogClient.UpdateProduct(ChangePrice(itemToModify, newPrice, originalCatalogProducts));
 
-                if (itemUpdated == null)
-                {
-                    Assert.False(true, $"The basket service has not been updated.");
-                }
-                else
-                {
-                    //THEN the product price changes in the catalog 
-                    Assert.Equal(newPrice, modifiedCatalogProducts.Data.Single(it => it.Id == int.Parse(itemToModify.ProductId)).Price);
+				var modifiedCatalogProducts = await catalogClient.GetCatalogAsync();
 
-                    // AND the products in the basket reflects the changed priced and the original price
-                    Assert.Equal(newPrice, itemUpdated.UnitPrice);
-                    Assert.Equal(oldPrice, itemUpdated.OldUnitPrice);
-                }
-            }
+				var itemUpdated = await GetUpdatedBasketItem(newPrice, itemToModify.ProductId, userId, basketClient);
+
+				if (itemUpdated == null)
+				{
+					Assert.False(true, $"The basket service has not been updated.");
+				}
+				else
+				{
+					//THEN the product price changes in the catalog 
+					Assert.Equal(newPrice, modifiedCatalogProducts.Data.Single(it => it.Id == int.Parse(itemToModify.ProductId)).Price);
+
+					// AND the products in the basket reflects the changed priced and the original price
+					Assert.Equal(newPrice, itemUpdated.UnitPrice);
+					Assert.Equal(oldPrice, itemUpdated.OldUnitPrice);
+				}
+			}
         }
 
         private async Task<BasketItem> GetUpdatedBasketItem(decimal newPrice, string productId, string userId, HttpClient basketClient)
@@ -93,20 +100,11 @@ namespace HMS.FunctionalTests.Services
             return itemUpdated;
         }
 
-        private async  Task<PaginatedItemsViewModel<Product>> GetCatalogAsync(HttpClient catalogClient)
-        {
-            var response = await catalogClient.GetAsync(CatalogScenariosBase.Get.Items);
-            var items = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<PaginatedItemsViewModel<Product>>(items);
-        }
-
-        private string ChangePrice(BasketItem itemToModify, decimal newPrice, PaginatedItemsViewModel<Product> catalogProducts)
+		private Product ChangePrice(BasketItem itemToModify, decimal newPrice, PaginatedItemsViewModel<Product> catalogProducts)
         {
             var catalogProduct = catalogProducts.Data.Single(pr => pr.Id == int.Parse(itemToModify.ProductId));
             catalogProduct.Price = newPrice;
-
-			string output = JsonConvert.SerializeObject(catalogProduct);
-			return output;
+            return catalogProduct;
         }
 
         private CustomerBasket ComposeBasket(string customerId, IEnumerable<Product> items)
