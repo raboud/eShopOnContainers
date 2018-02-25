@@ -1,5 +1,6 @@
 ﻿using FFImageLoading.Forms.Touch;
 using Foundation;
+using HMS.Core;
 using UIKit;
 
 namespace HMS.iOS

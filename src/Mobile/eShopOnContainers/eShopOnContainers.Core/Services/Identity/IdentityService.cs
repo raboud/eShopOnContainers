@@ -7,8 +7,6 @@ using HMS.Core.Services.RequestProvider;
 using HMS.Core.Models.Token;
 using HMS.Core.Helpers;
 using IdentityModel;
-using PCLCrypto;
-using static PCLCrypto.WinRTCrypto;
 
 namespace HMS.Core.Services.Identity
 {
@@ -68,12 +66,10 @@ namespace HMS.Core.Services.Identity
 
         private string CreateCodeChallenge()
         {
-            _codeVerifier = RandomNumberGenerator.CreateUniqueId();
-            var sha256 = HashAlgorithmProvider.OpenAlgorithm(HashAlgorithm.Sha256);
-            var challengeBuffer = sha256.HashData(CryptographicBuffer.CreateFromByteArray(Encoding.UTF8.GetBytes(_codeVerifier)));
-            byte[] challengeBytes;
-            CryptographicBuffer.CopyToByteArray(challengeBuffer, out challengeBytes);
-            return Base64Url.Encode(challengeBytes);
+			_codeVerifier = Guid.NewGuid().ToString();
+
+			System.Security.Cryptography.SHA256CryptoServiceProvider sHA256CryptoServiceProvider = new System.Security.Cryptography.SHA256CryptoServiceProvider();
+			return Base64Url.Encode(sHA256CryptoServiceProvider.ComputeHash(Encoding.UTF8.GetBytes(_codeVerifier)));
         }
     }
 }

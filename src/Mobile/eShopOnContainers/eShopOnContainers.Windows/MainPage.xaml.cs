@@ -10,7 +10,7 @@ namespace HMS.UWP
         {
             this.InitializeComponent();
 
-            LoadApplication(new HMS.App());
+            LoadApplication(new HMS.Core.App());
 
             NativeCustomize();
         }

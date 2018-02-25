@@ -36,6 +36,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basket.API", "src\Services\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.API", "src\Services\Catalog\Catalog.API\Catalog.API.csproj", "{42681D9D-750A-4DF7-BD9F-9292CFD5C253}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.DTO", "src\Services\Catalog\Catalog.DTO\Catalog.DTO.csproj", "{5847AA3B-EF37-45E1-9FD3-29CD1CDE0E83}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.Client", "src\Services\Catalog\Catalog.Client\Catalog.Client.csproj", "{D6517D45-2D21-42AD-B103-5533CA74094A}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.API", "src\Services\Ordering\Ordering.API\Ordering.API.csproj", "{231226CE-690B-4979-8870-9A79D80928E2}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7AB9E95E-8C48-4F92-AD23-0327F9D1AF66} = {7AB9E95E-8C48-4F92-AD23-0327F9D1AF66}
@@ -152,10 +156,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\BuildingBlocks\Infrastructure\Infrastructure.csproj", "{D1DD672B-7AE6-4B7A-9D83-F2CB03D60A5E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Extensions.Linq", "src\BuildingBlocks\Linq\Microsoft.Extensions.Linq\Microsoft.Extensions.Linq.csproj", "{2465E200-CB7D-4F38-BD74-19FC9BBE30B6}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.DTO", "..\Catalog.DTO\Catalog.DTO.csproj", "{5847AA3B-EF37-45E1-9FD3-29CD1CDE0E83}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.Client", "Catalog.Client\Catalog.Client.csproj", "{D6517D45-2D21-42AD-B103-5533CA74094A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

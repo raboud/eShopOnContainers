@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using HMS.Core.Services.Dependency;
-using HMS.Core.Services.Location;
 
 namespace HMS.Core.ViewModels
 {
