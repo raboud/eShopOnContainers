@@ -1,21 +1,19 @@
-﻿using IdentityServer4.EntityFramework.DbContexts;
+﻿using HMS.Identity.API.Data;
+using IdentityServer4.EntityFramework.DbContexts;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using HMS.Identity.API.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System.IO;
 
 namespace HMS.Identity.API
 {
-    public class Program
+	public class Program
     {
         public static void Main(string[] args)
         {
              BuildWebHost(args)
-
                 .MigrateDbContext<PersistedGrantDbContext>((_, __) => { })
                 .MigrateDbContext<ApplicationDbContext>((context, services) =>
                 {

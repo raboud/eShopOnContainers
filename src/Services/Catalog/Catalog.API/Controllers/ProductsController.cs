@@ -48,7 +48,7 @@ namespace HMS.Catalog.API.Controllers
 			[FromQuery]int? brandId
 		)
         {
-			var root = (IQueryable<Product>)_context.Products;
+			IQueryable<Product> root = (IQueryable<Product>)_context.Products;
 
 			if (!string.IsNullOrEmpty(name))
 			{
@@ -89,7 +89,7 @@ namespace HMS.Catalog.API.Controllers
 			[FromQuery]int pageSize = 10, 
 			[FromQuery]int pageIndex = 0)
 		{
-			var root = (IQueryable<Product>)_context.Products;
+			IQueryable<Product> root = (IQueryable<Product>)_context.Products;
 
 			if (!string.IsNullOrEmpty(name))
 			{
@@ -165,7 +165,7 @@ namespace HMS.Catalog.API.Controllers
 				return BadRequest();
 			}
 
-			var product = await _context.Products
+			Product product = await _context.Products
 				.Include(i => i.Brand)
 				.Include(i => i.ProductCategories)
 				.ThenInclude(t => t.Category)
@@ -248,7 +248,7 @@ namespace HMS.Catalog.API.Controllers
 				if (raiseProductPriceChangedEvent) // Save product's data and publish integration event through the Event Bus if price has changed
 				{
 					//Create Integration Event to be published through the Event Bus
-					var priceChangedEvent = new ProductPriceChangedIntegrationEvent(product.Id, product.Price, p.Price);
+					ProductPriceChangedIntegrationEvent priceChangedEvent = new ProductPriceChangedIntegrationEvent(product.Id, product.Price, p.Price);
 
 					// Achieving atomicity between original Catalog database operation and the IntegrationEventLog thanks to a local transaction
 					await _catalogIntegrationEventService.SaveEventAndCatalogContextChangesAsync(priceChangedEvent);
@@ -260,7 +260,7 @@ namespace HMS.Catalog.API.Controllers
 				
 				try
 				{
-					Product pr = this._mapper.Map<Product>(product);
+					Product pr = _mapper.Map<Product>(product);
 
 					_context.Entry(pr).State = EntityState.Modified;
 					await _context.SaveChangesAsync();
@@ -314,7 +314,7 @@ namespace HMS.Catalog.API.Controllers
                 return BadRequest(ModelState);
             }
 
-			var item = await _context.Products.SingleOrDefaultAsync(m => m.Id == id);
+			Product item = await _context.Products.SingleOrDefaultAsync(m => m.Id == id);
 			if (item == null)
 			{
 				return NotFound();

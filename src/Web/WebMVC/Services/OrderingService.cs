@@ -29,23 +29,23 @@ namespace HMS.WebMVC.Services
 
         async public Task<Order> GetOrder(ApplicationUser user, string id)
         {
-            var token = await GetUserTokenAsync();
-            var getOrderUri = API.Order.GetOrder(_remoteServiceBaseUrl, id);
+			string token = await GetUserTokenAsync();
+			string getOrderUri = API.Order.GetOrder(_remoteServiceBaseUrl, id);
 
-            var dataString = await _apiClient.GetStringAsync(getOrderUri, token);
+			string dataString = await _apiClient.GetStringAsync(getOrderUri, token);
 
-            var response = JsonConvert.DeserializeObject<Order>(dataString);
+			Order response = JsonConvert.DeserializeObject<Order>(dataString);
 
             return response;
         }
 
         async public Task<List<Order>> GetMyOrders(ApplicationUser user)
         {
-            var token = await GetUserTokenAsync();
-            var allMyOrdersUri = API.Order.GetAllMyOrders(_remoteServiceBaseUrl);
+			string token = await GetUserTokenAsync();
+			string allMyOrdersUri = API.Order.GetAllMyOrders(_remoteServiceBaseUrl);
 
-            var dataString = await _apiClient.GetStringAsync(allMyOrdersUri, token);
-            var response = JsonConvert.DeserializeObject<List<Order>>(dataString);
+			string dataString = await _apiClient.GetStringAsync(allMyOrdersUri, token);
+			List<Order> response = JsonConvert.DeserializeObject<List<Order>>(dataString);
 
             return response;
         }
@@ -68,15 +68,15 @@ namespace HMS.WebMVC.Services
 
         async public Task CancelOrder(string orderId)
         {
-            var token = await GetUserTokenAsync();
-            var order = new OrderDTO()
+			string token = await GetUserTokenAsync();
+			OrderDTO order = new OrderDTO()
             {
                 OrderNumber = orderId
             };
 
-            var cancelOrderUri = API.Order.CancelOrder(_remoteServiceBaseUrl);
-            
-            var response = await _apiClient.PutAsync(cancelOrderUri, order, token, Guid.NewGuid().ToString());
+			string cancelOrderUri = API.Order.CancelOrder(_remoteServiceBaseUrl);
+
+			System.Net.Http.HttpResponseMessage response = await _apiClient.PutAsync(cancelOrderUri, order, token, Guid.NewGuid().ToString());
 
             if (response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
             {
@@ -88,15 +88,15 @@ namespace HMS.WebMVC.Services
 
         async public Task ShipOrder(string orderId)
         {
-            var token = await GetUserTokenAsync();
-            var order = new OrderDTO()
+			string token = await GetUserTokenAsync();
+			OrderDTO order = new OrderDTO()
             {
                 OrderNumber = orderId
             };
 
-            var shipOrderUri = API.Order.ShipOrder(_remoteServiceBaseUrl);
+			string shipOrderUri = API.Order.ShipOrder(_remoteServiceBaseUrl);
 
-            var response = await _apiClient.PutAsync(shipOrderUri, order, token, Guid.NewGuid().ToString());
+			System.Net.Http.HttpResponseMessage response = await _apiClient.PutAsync(shipOrderUri, order, token, Guid.NewGuid().ToString());
 
             if (response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
             {
@@ -143,13 +143,13 @@ namespace HMS.WebMVC.Services
 
         void SetFakeIdToProducts(Order order)
         {
-            var id = 1;
+			int id = 1;
             order.OrderItems.ForEach(x => { x.ProductId = id; id++; });
         }
 
         async Task<string> GetUserTokenAsync()
         {
-            var context = _httpContextAccesor.HttpContext;
+			HttpContext context = _httpContextAccesor.HttpContext;
 
             return await context.GetTokenAsync("access_token");
         }        

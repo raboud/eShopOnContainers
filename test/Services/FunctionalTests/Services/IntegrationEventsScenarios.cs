@@ -27,35 +27,35 @@ namespace HMS.FunctionalTests.Services
             decimal priceModification = 0.15M;
             string userId = "JohnId";
 
-			using (var idServer = new IdentityScenariosBase().CreateServer())
-			using (var catalogServer = new CatalogScenariosBase(idServer))
-			using (var basketServer = new BasketScenariosBase().CreateServer())
+			using (IdentityServer idServer = new IdentityScenariosBase().CreateServer())
+			using (CatalogScenariosBase catalogServer = new CatalogScenariosBase(idServer))
+			using (Microsoft.AspNetCore.TestHost.TestServer basketServer = new BasketScenariosBase().CreateServer())
 			{
-				var accessToken = await idServer.GetTokenAsync("demoadmin@microsoft.com", "Pass@word1", "ro.client", "secret");
+				string accessToken = await idServer.GetTokenAsync("demoadmin@microsoft.com", "Pass@word1", "ro.client", "secret");
 
-				var catalogClient = catalogServer.CreateClient();
+				CatalogClient catalogClient = catalogServer.CreateClient();
 				catalogClient.SetBearerToken(accessToken);
-				var basketClient = basketServer.CreateClient();
+				HttpClient basketClient = basketServer.CreateClient();
 
 				// GIVEN a product catalog list                           
-				var originalCatalogProducts = await catalogClient.GetCatalogAsync();
+				PaginatedItemsViewModel<ProductDTO> originalCatalogProducts = await catalogClient.GetCatalogAsync();
 
 				// AND a user basket filled with products   
-				var basket = ComposeBasket(userId, originalCatalogProducts.Data.Take(3));
-				var res = await basketClient.PostAsync(
+				CustomerBasket basket = ComposeBasket(userId, originalCatalogProducts.Data.Take(3));
+				HttpResponseMessage res = await basketClient.PostAsync(
 					BasketScenariosBase.Post.CreateBasket,
 					new StringContent(JsonConvert.SerializeObject(basket), UTF8Encoding.UTF8, "application/json")
 					);
 
 				// WHEN the price of one product is modified in the catalog
-				var itemToModify = basket.Items[2];
-				var oldPrice = itemToModify.UnitPrice;
-				var newPrice = oldPrice + priceModification;
-				var pRes = await catalogClient.UpdateProduct(ChangePrice(itemToModify, newPrice, originalCatalogProducts));
+				BasketItem itemToModify = basket.Items[2];
+				decimal oldPrice = itemToModify.UnitPrice;
+				decimal newPrice = oldPrice + priceModification;
+				HttpResponseMessage pRes = await catalogClient.UpdateProduct(ChangePrice(itemToModify, newPrice, originalCatalogProducts));
 
-				var modifiedCatalogProducts = await catalogClient.GetCatalogAsync();
+				PaginatedItemsViewModel<ProductDTO> modifiedCatalogProducts = await catalogClient.GetCatalogAsync();
 
-				var itemUpdated = await GetUpdatedBasketItem(newPrice, itemToModify.ProductId, userId, basketClient);
+				BasketItem itemUpdated = await GetUpdatedBasketItem(newPrice, itemToModify.ProductId, userId, basketClient);
 
 				if (itemUpdated == null)
 				{
@@ -76,14 +76,14 @@ namespace HMS.FunctionalTests.Services
         private async Task<BasketItem> GetUpdatedBasketItem(decimal newPrice, string productId, string userId, HttpClient basketClient)
         {
             bool continueLoop = true;
-            var counter = 0;
+			int counter = 0;
             BasketItem itemUpdated = null;
 
             while (continueLoop && counter < 20)
-            {                
-                //get the basket and verify that the price of the modified product is updated
-                var basketGetResponse = await basketClient.GetAsync(BasketScenariosBase.Get.GetBasketByCustomer(userId));
-                var basketUpdated = JsonConvert.DeserializeObject<CustomerBasket>(await basketGetResponse.Content.ReadAsStringAsync());
+            {
+				//get the basket and verify that the price of the modified product is updated
+				HttpResponseMessage basketGetResponse = await basketClient.GetAsync(BasketScenariosBase.Get.GetBasketByCustomer(userId));
+				CustomerBasket basketUpdated = JsonConvert.DeserializeObject<CustomerBasket>(await basketGetResponse.Content.ReadAsStringAsync());
 
                 itemUpdated = basketUpdated.Items.Single(pr => pr.ProductId == productId);
 
@@ -103,15 +103,15 @@ namespace HMS.FunctionalTests.Services
 
 		private ProductDTO ChangePrice(BasketItem itemToModify, decimal newPrice, PaginatedItemsViewModel<ProductDTO> catalogProducts)
         {
-            var catalogProduct = catalogProducts.Data.Single(pr => pr.Id == int.Parse(itemToModify.ProductId));
+			ProductDTO catalogProduct = catalogProducts.Data.Single(pr => pr.Id == int.Parse(itemToModify.ProductId));
             catalogProduct.Price = newPrice;
             return catalogProduct;
         }
 
         private CustomerBasket ComposeBasket(string customerId, IEnumerable<ProductDTO> items)
         {
-            var basket = new CustomerBasket(customerId);
-            foreach (var item in items)
+			CustomerBasket basket = new CustomerBasket(customerId);
+            foreach (ProductDTO item in items)
             {
                 basket.Items.Add(new BasketItem()
                 {

@@ -16,21 +16,21 @@ namespace HMS.FunctionalTests.Services.Catalog
 		[Fact]
 		public async Task SettingPriceAdmin()
 		{
-			using (var idServer = new IdentityScenariosBase().CreateServer())
-			using (var catalogServer = new CatalogScenariosBase(idServer))
+			using (IdentityServer idServer = new IdentityScenariosBase().CreateServer())
+			using (CatalogScenariosBase catalogServer = new CatalogScenariosBase(idServer))
 			{
-				var accessToken = await idServer.GetTokenAsync("demoadmin@microsoft.com", "Pass@word1", "ro.client", "secret");
+				string accessToken = await idServer.GetTokenAsync("demoadmin@microsoft.com", "Pass@word1", "ro.client", "secret");
 
-				var catalogClient = catalogServer.CreateClient();
+				CatalogClient catalogClient = catalogServer.CreateClient();
 				catalogClient.SetBearerToken(accessToken);
 
-				var originalCatalogProducts = await catalogClient.GetCatalogAsync();
+				Common.API.PaginatedItemsViewModel<HMS.Catalog.DTO.ProductDTO> originalCatalogProducts = await catalogClient.GetCatalogAsync();
 
-				var product = originalCatalogProducts.Data.First();
+				HMS.Catalog.DTO.ProductDTO product = originalCatalogProducts.Data.First();
 				product.Price += 2;
-				var resp = await catalogClient.UpdateProduct(product);
+				HttpResponseMessage resp = await catalogClient.UpdateProduct(product);
 				Assert.Equal(HttpStatusCode.NoContent, resp.StatusCode);
-				var p2 = await catalogClient.GetCatalogItemAsync(product.Id);
+				HMS.Catalog.DTO.ProductDTO p2 = await catalogClient.GetCatalogItemAsync(product.Id);
 
 				Assert.Equal(product.Price, p2.Price);
 
@@ -45,19 +45,19 @@ namespace HMS.FunctionalTests.Services.Catalog
 		[Fact]
 		public async Task SettingPriceUser()
 		{
-			using (var idServer = new IdentityScenariosBase().CreateServer())
-			using (var catalogServer = new CatalogScenariosBase(idServer))
+			using (IdentityServer idServer = new IdentityScenariosBase().CreateServer())
+			using (CatalogScenariosBase catalogServer = new CatalogScenariosBase(idServer))
 			{
-				var accessToken = await idServer.GetTokenAsync("demouser@microsoft.com", "Pass@word1", "ro.client", "secret");
+				string accessToken = await idServer.GetTokenAsync("demouser@microsoft.com", "Pass@word1", "ro.client", "secret");
 
-				var catalogClient = catalogServer.CreateClient();
+				CatalogClient catalogClient = catalogServer.CreateClient();
 				catalogClient.SetBearerToken(accessToken);
 
-				var originalCatalogProducts = await catalogClient.GetCatalogAsync();
+				Common.API.PaginatedItemsViewModel<HMS.Catalog.DTO.ProductDTO> originalCatalogProducts = await catalogClient.GetCatalogAsync();
 
-				var product = originalCatalogProducts.Data.First();
+				HMS.Catalog.DTO.ProductDTO product = originalCatalogProducts.Data.First();
 				product.Price += 2;
-				var resp = await catalogClient.UpdateProduct(product);
+				HttpResponseMessage resp = await catalogClient.UpdateProduct(product);
 				Assert.Equal(HttpStatusCode.Forbidden, resp.StatusCode);
 			}
 		}
@@ -65,16 +65,16 @@ namespace HMS.FunctionalTests.Services.Catalog
 		[Fact]
 		public async Task SettingPriceAnonymous()
 		{
-			using (var idServer = new IdentityScenariosBase().CreateServer())
-			using (var catalogServer = new CatalogScenariosBase(idServer))
+			using (IdentityServer idServer = new IdentityScenariosBase().CreateServer())
+			using (CatalogScenariosBase catalogServer = new CatalogScenariosBase(idServer))
 			{
-				var catalogClient = catalogServer.CreateClient();
+				CatalogClient catalogClient = catalogServer.CreateClient();
 
-				var originalCatalogProducts = await catalogClient.GetCatalogAsync();
+				Common.API.PaginatedItemsViewModel<HMS.Catalog.DTO.ProductDTO> originalCatalogProducts = await catalogClient.GetCatalogAsync();
 
-				var product = originalCatalogProducts.Data.First();
+				HMS.Catalog.DTO.ProductDTO product = originalCatalogProducts.Data.First();
 				product.Price += 2;
-				var resp = await catalogClient.UpdateProduct(product);
+				HttpResponseMessage resp = await catalogClient.UpdateProduct(product);
 				Assert.Equal(HttpStatusCode.Unauthorized, resp.StatusCode);
 			}
 		}

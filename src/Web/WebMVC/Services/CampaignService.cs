@@ -33,25 +33,25 @@ namespace HMS.WebMVC.Services
 
         public async Task<PaginatedItemsViewModel<CampaignItem>> GetCampaigns(int pageSize, int pageIndex)
         {
-            var allCampaignItemsUri = API.Marketing.GetAllCampaigns(_remoteServiceBaseUrl, 
+			string allCampaignItemsUri = API.Marketing.GetAllCampaigns(_remoteServiceBaseUrl, 
                 pageSize, pageIndex);
 
-            var authorizationToken = await GetUserTokenAsync();
-            var dataString = await _apiClient.GetStringAsync(allCampaignItemsUri, authorizationToken);
+			string authorizationToken = await GetUserTokenAsync();
+			string dataString = await _apiClient.GetStringAsync(allCampaignItemsUri, authorizationToken);
 
-            var response = JsonConvert.DeserializeObject<PaginatedItemsViewModel<CampaignItem>>(dataString);
+			PaginatedItemsViewModel<CampaignItem> response = JsonConvert.DeserializeObject<PaginatedItemsViewModel<CampaignItem>>(dataString);
 
             return response;
         }
 
         public async Task<CampaignItem> GetCampaignById(int id)
         {
-            var campaignByIdItemUri = API.Marketing.GetAllCampaignById(_remoteServiceBaseUrl, id);
+			string campaignByIdItemUri = API.Marketing.GetAllCampaignById(_remoteServiceBaseUrl, id);
 
-            var authorizationToken = await GetUserTokenAsync();
-            var dataString = await _apiClient.GetStringAsync(campaignByIdItemUri, authorizationToken);
+			string authorizationToken = await GetUserTokenAsync();
+			string dataString = await _apiClient.GetStringAsync(campaignByIdItemUri, authorizationToken);
 
-            var response = JsonConvert.DeserializeObject<CampaignItem>(dataString);
+			CampaignItem response = JsonConvert.DeserializeObject<CampaignItem>(dataString);
 
             return response;
         }
@@ -63,7 +63,7 @@ namespace HMS.WebMVC.Services
 
         private async Task<string> GetUserTokenAsync()
         {
-            var context = _httpContextAccesor.HttpContext;
+			HttpContext context = _httpContextAccesor.HttpContext;
             return await context.GetTokenAsync("access_token");
         }
     }

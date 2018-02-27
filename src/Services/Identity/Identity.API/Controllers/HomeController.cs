@@ -28,10 +28,14 @@ namespace HMS.Identity.API.Controllers
 
         public IActionResult ReturnToOriginalApplication(string returnUrl)
         {
-            if (returnUrl != null)
-                return Redirect(_redirectSvc.ExtractRedirectUriFromReturnUrl(returnUrl));
-            else
-                return RedirectToAction("Index", "Home");
+			if (returnUrl != null)
+			{
+				return Redirect(_redirectSvc.ExtractRedirectUriFromReturnUrl(returnUrl));
+			}
+			else
+			{
+				return RedirectToAction("Index", "Home");
+			}
         }
 
         /// <summary>
@@ -39,10 +43,10 @@ namespace HMS.Identity.API.Controllers
         /// </summary>
         public async Task<IActionResult> Error(string errorId)
         {
-            var vm = new ErrorViewModel();
+			ErrorViewModel vm = new ErrorViewModel();
 
-            // retrieve error details from identityserver
-            var message = await _interaction.GetErrorContextAsync(errorId);
+			// retrieve error details from identityserver
+			IdentityServer4.Models.ErrorMessage message = await _interaction.GetErrorContextAsync(errorId);
             if (message != null)
             {
                 vm.Error = message;

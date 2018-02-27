@@ -21,10 +21,10 @@ namespace HMS.Catalog.API.Infrastructure.Middlewares
 
         public async Task Invoke(HttpContext context)
         {
-            var path = context.Request.Path;
+			PathString path = context.Request.Path;
             if (path == "/noauth")
             {
-                var userid = context.Request.Query["userid"];
+				StringValues userid = context.Request.Query["userid"];
                 if (!string.IsNullOrEmpty(userid))
                 {
                     _currentUserId = userid;
@@ -43,12 +43,12 @@ namespace HMS.Catalog.API.Infrastructure.Middlewares
             }
             else
             {
-                var currentUserId = _currentUserId;
+				string currentUserId = _currentUserId;
 
-                var authHeader = context.Request.Headers["Authorization"];
+				StringValues authHeader = context.Request.Headers["Authorization"];
                 if (authHeader != StringValues.Empty)
                 {
-                    var header = authHeader.FirstOrDefault();
+					string header = authHeader.FirstOrDefault();
                     if (!string.IsNullOrEmpty(header) && header.StartsWith("Email ") && header.Length > "Email ".Length)
                     {
                         currentUserId = header.Substring("Email ".Length);
@@ -58,7 +58,7 @@ namespace HMS.Catalog.API.Infrastructure.Middlewares
 
                 if (!string.IsNullOrEmpty(currentUserId))
                 {
-                    var user = new ClaimsIdentity(new[] {
+					ClaimsIdentity user = new ClaimsIdentity(new[] {
                     new Claim("emails", currentUserId),
                     new Claim("name", "Test user"),
                     new Claim("nonce", Guid.NewGuid().ToString()),

@@ -24,7 +24,7 @@ namespace HMS.FunctionalTests.Services.Catalog
 {
     public class CatalogScenariosBase : IDisposable
     {
-		private TestServer testServer { get; set; }
+		private TestServer _testServer { get; set; }
 
 		public CatalogScenariosBase(IdentityServer idServer)
 		{
@@ -33,24 +33,24 @@ namespace HMS.FunctionalTests.Services.Catalog
 
 		public CatalogClient CreateClient()
 		{
-			return new CatalogClient(this.testServer.CreateHandler()) { BaseAddress = this.testServer.BaseAddress };
+			return new CatalogClient(_testServer.CreateHandler()) { BaseAddress = _testServer.BaseAddress };
 		}
 
 		private void CreateServer(IdentityServer idServer)
         {
 			TestStartup.BackChannelHandler = idServer.CreateHandler();
-			var webHostBuilder = WebHost.CreateDefaultBuilder();
+			IWebHostBuilder webHostBuilder = WebHost.CreateDefaultBuilder();
             webHostBuilder.UseContentRoot(Directory.GetCurrentDirectory() + "\\Services\\Catalog");
             webHostBuilder.UseStartup<TestStartup>();
 
-            this.testServer = new TestServer(webHostBuilder);
+            _testServer = new TestServer(webHostBuilder);
 
-            this.testServer.Host
+            _testServer.Host
                 .MigrateDbContext<CatalogContext>((context, services) =>
                 {
-                    var env = services.GetService<IHostingEnvironment>();
-                    var settings = services.GetService<IOptions<CatalogSettings>>();
-                    var logger = services.GetService<ILogger<CatalogContextSeed>>();
+					IHostingEnvironment env = services.GetService<IHostingEnvironment>();
+					IOptions<CatalogSettings> settings = services.GetService<IOptions<CatalogSettings>>();
+					ILogger<CatalogContextSeed> logger = services.GetService<ILogger<CatalogContextSeed>>();
 
                     new CatalogContextSeed()
                     .SeedAsync(context, env, settings, logger)
@@ -61,7 +61,7 @@ namespace HMS.FunctionalTests.Services.Catalog
 
 		public void Dispose()
 		{
-			this.testServer.Dispose();
+			_testServer.Dispose();
 		}
 
 		public static class Get
@@ -105,21 +105,21 @@ namespace HMS.FunctionalTests.Services.Catalog
 
 		public async Task<PaginatedItemsViewModel<ProductDTO>> GetCatalogAsync()
 		{
-			var response = await this.GetAsync(CatalogScenariosBase.Get.Page);
-			var items = await response.Content.ReadAsStringAsync();
+			HttpResponseMessage response = await GetAsync(CatalogScenariosBase.Get.Page);
+			string items = await response.Content.ReadAsStringAsync();
 			return JsonConvert.DeserializeObject<PaginatedItemsViewModel<ProductDTO>>(items);
 		}
 
 		public async Task<HttpResponseMessage> UpdateProduct(ProductDTO product)
 		{
-			var content = new StringContent(JsonConvert.SerializeObject(product), UTF8Encoding.UTF8, "application/json");
-			return await this.PutAsync(CatalogScenariosBase.Put.UpdateCatalogProduct + $"{product.Id}", content);
+			StringContent content = new StringContent(JsonConvert.SerializeObject(product), UTF8Encoding.UTF8, "application/json");
+			return await PutAsync(CatalogScenariosBase.Put.UpdateCatalogProduct + $"{product.Id}", content);
 		}
 
 		public async Task<ProductDTO> GetCatalogItemAsync(int id)
 		{
-			var response = await this.GetAsync(CatalogScenariosBase.Get.Item + $"/{id}");
-			var items = await response.Content.ReadAsStringAsync();
+			HttpResponseMessage response = await GetAsync(CatalogScenariosBase.Get.Item + $"/{id}");
+			string items = await response.Content.ReadAsStringAsync();
 			return JsonConvert.DeserializeObject<ProductDTO>(items);
 		}
 

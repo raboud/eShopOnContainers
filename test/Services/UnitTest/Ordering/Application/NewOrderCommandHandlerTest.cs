@@ -33,26 +33,33 @@ namespace HMS.UnitTest.Ordering.Application
         [Fact]
         public async Task Handle_return_false_if_order_is_not_persisted()
         {
-            var buyerId = "1234";
+			try
+			{
+				var buyerId = "1234";
 
-            var fakeOrderCmd = FakeOrderRequestWithBuyer(new Dictionary<string, object>
-            { ["cardExpiration"] = DateTime.Now.AddYears(1) });
+				var fakeOrderCmd = FakeOrderRequestWithBuyer(new Dictionary<string, object>
+				{ ["cardExpiration"] = DateTime.Now.AddYears(1) });
 
-            _orderRepositoryMock.Setup(orderRepo => orderRepo.GetAsync(It.IsAny<int>()))
-               .Returns(Task.FromResult<Order>(FakeOrder()));
+				_orderRepositoryMock.Setup(orderRepo => orderRepo.GetAsync(It.IsAny<int>()))
+				   .Returns(Task.FromResult<Order>(FakeOrder()));
 
-            _orderRepositoryMock.Setup(buyerRepo => buyerRepo.UnitOfWork.SaveChangesAsync(default(CancellationToken)))
-                .Returns(Task.FromResult(1));
+				_orderRepositoryMock.Setup(buyerRepo => buyerRepo.UnitOfWork.SaveChangesAsync(default(CancellationToken)))
+					.Returns(Task.FromResult(1));
 
-            _identityServiceMock.Setup(svc => svc.GetUserIdentity()).Returns(buyerId);
+				_identityServiceMock.Setup(svc => svc.GetUserIdentity()).Returns(buyerId);
 
-            //Act
-            var handler = new CreateOrderCommandHandler(_mediator.Object, _orderRepositoryMock.Object, _identityServiceMock.Object);
-            var cltToken = new System.Threading.CancellationToken();
-            var result = await handler.Handle(fakeOrderCmd, cltToken);
+				//Act
+				var handler = new CreateOrderCommandHandler(_mediator.Object, _orderRepositoryMock.Object, _identityServiceMock.Object);
+				var cltToken = new System.Threading.CancellationToken();
+				var result = await handler.Handle(fakeOrderCmd, cltToken);
 
-            //Assert
-            Assert.False(result);
+				//Assert
+				Assert.False(result);
+			}
+			catch(Exception e)
+			{
+				Assert.Equal("this", "that");
+			}
         }
 
         [Fact]

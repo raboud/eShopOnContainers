@@ -26,10 +26,8 @@ namespace HMS.Identity.API.Data
 		private ILogger<ApplicationDbContextSeed> _logger;
 		private IHostingEnvironment _env;
 		private IOptions<AppSettings> _settings;
-		private ApplicationDbContext _context;
 
 		public ApplicationDbContextSeed(
-			ApplicationDbContext context,
 			RoleManager<IdentityRole> roleManager, 
 			UserManager<ApplicationUser> userManager, 
 			ILogger<ApplicationDbContextSeed> logger,
@@ -37,7 +35,6 @@ namespace HMS.Identity.API.Data
 			IOptions<AppSettings> settings
 			)
 		{
-			this._context = context;
 			this._roleManager = roleManager;
 			this._userManager = userManager;
 			this._logger = logger;

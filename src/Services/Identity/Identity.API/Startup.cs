@@ -1,5 +1,5 @@
-﻿using Autofac;
-using Autofac.Extensions.DependencyInjection;
+﻿//using Autofac;
+//using Autofac.Extensions.DependencyInjection;
 using IdentityServer4.Services;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.ServiceFabric;
@@ -20,6 +20,8 @@ using StackExchange.Redis;
 using System;
 using System.Reflection;
 using System.Threading.Tasks;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 
 namespace HMS.Identity.API
 {

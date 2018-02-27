@@ -33,16 +33,16 @@ namespace HMS.WebMVC.Services
 
         public async Task CreateOrUpdateUserLocation(LocationDTO location)
         {
-            var createOrUpdateUserLocationUri = API.Locations.CreateOrUpdateUserLocation(_remoteServiceBaseUrl);
+			string createOrUpdateUserLocationUri = API.Locations.CreateOrUpdateUserLocation(_remoteServiceBaseUrl);
 
-            var authorizationToken = await GetUserTokenAsync();
-            var response = await _apiClient.PostAsync(createOrUpdateUserLocationUri, location, authorizationToken);
+			string authorizationToken = await GetUserTokenAsync();
+			System.Net.Http.HttpResponseMessage response = await _apiClient.PostAsync(createOrUpdateUserLocationUri, location, authorizationToken);
             response.EnsureSuccessStatusCode();
         }      
 
         private async Task<string> GetUserTokenAsync()
         {
-            var context = _httpContextAccesor.HttpContext;
+			HttpContext context = _httpContextAccesor.HttpContext;
             return await context.GetTokenAsync("access_token");
         }
     }

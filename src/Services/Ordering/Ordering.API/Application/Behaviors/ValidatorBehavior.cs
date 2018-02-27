@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace HMS.Ordering.API.Infrastructure.Behaviors
 {
@@ -15,7 +16,7 @@ namespace HMS.Ordering.API.Infrastructure.Behaviors
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
-            var failures = _validators
+			List<FluentValidation.Results.ValidationFailure> failures = _validators
                 .Select(v => v.Validate(request))
                 .SelectMany(result => result.Errors)
                 .Where(error => error != null)
