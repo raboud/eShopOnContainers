@@ -51,7 +51,7 @@ namespace Microsoft.BuildingBlocks.EventBusRabbitMQ
                 _persistentConnection.TryConnect();
             }
 
-            using (var channel = _persistentConnection.CreateModel())
+            using (IModel channel = _persistentConnection.CreateModel())
             {
                 channel.QueueUnbind(queue: _queueName,
                     exchange: BROKER_NAME,
@@ -72,27 +72,27 @@ namespace Microsoft.BuildingBlocks.EventBusRabbitMQ
                 _persistentConnection.TryConnect();
             }
 
-            var policy = RetryPolicy.Handle<BrokerUnreachableException>()
+			RetryPolicy policy = RetryPolicy.Handle<BrokerUnreachableException>()
                 .Or<SocketException>()
                 .WaitAndRetry(_retryCount, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (ex, time) =>
                 {
                     _logger.LogWarning(ex.ToString());
                 });
 
-            using (var channel = _persistentConnection.CreateModel())
+            using (IModel channel = _persistentConnection.CreateModel())
             {
-                var eventName = @event.GetType()
+				string eventName = @event.GetType()
                     .Name;
 
                 channel.ExchangeDeclare(exchange: BROKER_NAME,
                                     type: "direct");
 
-                var message = JsonConvert.SerializeObject(@event);
-                var body = Encoding.UTF8.GetBytes(message);
+				string message = JsonConvert.SerializeObject(@event);
+				byte[] body = Encoding.UTF8.GetBytes(message);
 
                 policy.Execute(() =>
                 {
-                    var properties = channel.CreateBasicProperties();
+					IBasicProperties properties = channel.CreateBasicProperties();
                     properties.DeliveryMode = 2; // persistent
 
                     channel.BasicPublish(exchange: BROKER_NAME,
@@ -115,14 +115,14 @@ namespace Microsoft.BuildingBlocks.EventBusRabbitMQ
             where T : IntegrationEvent
             where TH : IIntegrationEventHandler<T>
         {
-            var eventName = _subsManager.GetEventKey<T>();
+			string eventName = _subsManager.GetEventKey<T>();
             DoInternalSubscription(eventName);
             _subsManager.AddSubscription<T, TH>();
         }
 
         private void DoInternalSubscription(string eventName)
         {
-            var containsKey = _subsManager.HasSubscriptionsForEvent(eventName);
+			bool containsKey = _subsManager.HasSubscriptionsForEvent(eventName);
             if (!containsKey)
             {
                 if (!_persistentConnection.IsConnected)
@@ -130,7 +130,7 @@ namespace Microsoft.BuildingBlocks.EventBusRabbitMQ
                     _persistentConnection.TryConnect();
                 }
 
-                using (var channel = _persistentConnection.CreateModel())
+                using (IModel channel = _persistentConnection.CreateModel())
                 {
                     channel.QueueBind(queue: _queueName,
                                       exchange: BROKER_NAME,
@@ -169,7 +169,7 @@ namespace Microsoft.BuildingBlocks.EventBusRabbitMQ
                 _persistentConnection.TryConnect();
             }
 
-            var channel = _persistentConnection.CreateModel();
+			IModel channel = _persistentConnection.CreateModel();
 
             channel.ExchangeDeclare(exchange: BROKER_NAME,
                                  type: "direct");
@@ -181,11 +181,11 @@ namespace Microsoft.BuildingBlocks.EventBusRabbitMQ
                                  arguments: null);
 
 
-            var consumer = new EventingBasicConsumer(channel);
+			EventingBasicConsumer consumer = new EventingBasicConsumer(channel);
             consumer.Received += async (model, ea) =>
             {
-                var eventName = ea.RoutingKey;
-                var message = Encoding.UTF8.GetString(ea.Body);
+				string eventName = ea.RoutingKey;
+				string message = Encoding.UTF8.GetString(ea.Body);
 
                 await ProcessEvent(eventName, message);
 
@@ -209,23 +209,23 @@ namespace Microsoft.BuildingBlocks.EventBusRabbitMQ
         {
             if (_subsManager.HasSubscriptionsForEvent(eventName))
             {
-                using (var scope = _autofac.BeginLifetimeScope(AUTOFAC_SCOPE_NAME))
+                using (ILifetimeScope scope = _autofac.BeginLifetimeScope(AUTOFAC_SCOPE_NAME))
                 {
-                    var subscriptions = _subsManager.GetHandlersForEvent(eventName);
-                    foreach (var subscription in subscriptions)
+					System.Collections.Generic.IEnumerable<InMemoryEventBusSubscriptionsManager.SubscriptionInfo> subscriptions = _subsManager.GetHandlersForEvent(eventName);
+                    foreach (InMemoryEventBusSubscriptionsManager.SubscriptionInfo subscription in subscriptions)
                     {
                         if (subscription.IsDynamic)
-                        { 
-                            var handler = scope.ResolveOptional(subscription.HandlerType) as IDynamicIntegrationEventHandler;
+                        {
+							IDynamicIntegrationEventHandler handler = scope.ResolveOptional(subscription.HandlerType) as IDynamicIntegrationEventHandler;
                             dynamic eventData = JObject.Parse(message);
                             await handler.Handle(eventData);
                         }
                         else
                         {
-                            var eventType = _subsManager.GetEventTypeByName(eventName);
-                            var integrationEvent = JsonConvert.DeserializeObject(message, eventType);
-                            var handler = scope.ResolveOptional(subscription.HandlerType);
-                            var concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
+							Type eventType = _subsManager.GetEventTypeByName(eventName);
+							object integrationEvent = JsonConvert.DeserializeObject(message, eventType);
+							object handler = scope.ResolveOptional(subscription.HandlerType);
+							Type concreteType = typeof(IIntegrationEventHandler<>).MakeGenericType(eventType);
                             await (Task)concreteType.GetMethod("Handle").Invoke(handler, new object[] { integrationEvent });
                         }
                     }

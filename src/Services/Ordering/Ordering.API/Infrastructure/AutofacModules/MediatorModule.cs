@@ -36,17 +36,17 @@ namespace HMS.Ordering.API.Infrastructure.AutofacModules
 
             builder.Register<SingleInstanceFactory>(context =>
             {
-                var componentContext = context.Resolve<IComponentContext>();
-                return t => { object o; return componentContext.TryResolve(t, out o) ? o : null; };
+				IComponentContext componentContext = context.Resolve<IComponentContext>();
+                return t => { return componentContext.TryResolve(t, out object o) ? o : null; };
             });
 
             builder.Register<MultiInstanceFactory>(context =>
             {
-                var componentContext = context.Resolve<IComponentContext>();
+				IComponentContext componentContext = context.Resolve<IComponentContext>();
 
                 return t =>
                 {
-                    var resolved = (IEnumerable<object>)componentContext.Resolve(typeof(IEnumerable<>).MakeGenericType(t));
+					IEnumerable<object> resolved = (IEnumerable<object>)componentContext.Resolve(typeof(IEnumerable<>).MakeGenericType(t));
                     return resolved;
                 };
             });

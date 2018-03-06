@@ -10,7 +10,7 @@ namespace HMS.Droid.Extensions
 
         internal static Position ToPosition(this Android.Locations.Location location)
         {
-            var p = new Position();
+			Position p = new Position();
             if (location.HasAccuracy)
                 p.Accuracy = location.Accuracy;
             if (location.HasAltitude)
@@ -32,7 +32,7 @@ namespace HMS.Droid.Extensions
             {
                 return new DateTimeOffset(Epoch.AddMilliseconds(location.Time));
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return new DateTimeOffset(Epoch);
             }

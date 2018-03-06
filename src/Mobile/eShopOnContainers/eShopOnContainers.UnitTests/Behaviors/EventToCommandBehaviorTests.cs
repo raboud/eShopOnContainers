@@ -10,11 +10,11 @@ namespace HMS.UnitTests
 		[Fact]
 		public void InvalidEventNameShouldThrowArgumentExceptionText()
 		{
-			var behavior = new MockEventToCommandBehavior
+			MockEventToCommandBehavior behavior = new MockEventToCommandBehavior
 			{
 				EventName = "OnItemTapped"
 			};
-			var listView = new ListView();
+			ListView listView = new ListView();
 
 			Assert.Throws<ArgumentException>(() => listView.Behaviors.Add(behavior));
 		}
@@ -23,7 +23,7 @@ namespace HMS.UnitTests
 		public void CommandExecutedWhenEventFiresText()
 		{
 			bool executedCommand = false;
-			var behavior = new MockEventToCommandBehavior
+			MockEventToCommandBehavior behavior = new MockEventToCommandBehavior
 			{
 				EventName = "ItemTapped",
 				Command = new Command(() =>
@@ -31,7 +31,7 @@ namespace HMS.UnitTests
 					executedCommand = true;
 				})
 			};
-			var listView = new ListView();
+			ListView listView = new ListView();
 			listView.Behaviors.Add(behavior);
 
 			behavior.RaiseEvent(listView, null);
@@ -42,12 +42,12 @@ namespace HMS.UnitTests
 		[Fact]
 		public void CommandCanExecuteTest()
 		{
-			var behavior = new MockEventToCommandBehavior
+			MockEventToCommandBehavior behavior = new MockEventToCommandBehavior
 			{
 				EventName = "ItemTapped",
 				Command = new Command(() => Assert.True(false), () => false)
 			};
-			var listView = new ListView();
+			ListView listView = new ListView();
 			listView.Behaviors.Add(behavior);
 
 			behavior.RaiseEvent(listView, null);
@@ -57,13 +57,13 @@ namespace HMS.UnitTests
 		public void CommandCanExecuteWithParameterShouldNotExecuteTest()
 		{
 			bool shouldExecute = false;
-			var behavior = new MockEventToCommandBehavior
+			MockEventToCommandBehavior behavior = new MockEventToCommandBehavior
 			{
 				EventName = "ItemTapped",
 				CommandParameter = shouldExecute,
 				Command = new Command<string>(o => Assert.True(false), o => o.Equals(true))
 			};
-			var listView = new ListView();
+			ListView listView = new ListView();
 			listView.Behaviors.Add(behavior);
 
 			behavior.RaiseEvent(listView, null);
@@ -74,7 +74,7 @@ namespace HMS.UnitTests
 		{
 			const string item = "ItemProperty";
 			bool executedCommand = false;
-			var behavior = new MockEventToCommandBehavior
+			MockEventToCommandBehavior behavior = new MockEventToCommandBehavior
 			{
 				EventName = "ItemTapped",
 				EventArgsConverter = new ItemTappedEventArgsConverter(false),
@@ -85,7 +85,7 @@ namespace HMS.UnitTests
 					Assert.Equal(item, o);
 				})
 			};
-			var listView = new ListView();
+			ListView listView = new ListView();
 			listView.Behaviors.Add(behavior);
 
 			behavior.RaiseEvent(listView, new ItemTappedEventArgs(listView, item));

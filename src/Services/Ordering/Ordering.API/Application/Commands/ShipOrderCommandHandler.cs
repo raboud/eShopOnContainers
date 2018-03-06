@@ -25,7 +25,7 @@ namespace HMS.Ordering.API.Application.Commands
         /// <returns></returns>
         public async Task<bool> Handle(ShipOrderCommand command, CancellationToken cancellationToken)
         {
-            var orderToUpdate = await _orderRepository.GetAsync(command.OrderNumber);
+			Order orderToUpdate = await _orderRepository.GetAsync(command.OrderNumber);
             if(orderToUpdate == null)
             {
                 return false;

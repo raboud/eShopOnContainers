@@ -33,7 +33,7 @@ namespace HMS.Basket.API.Controllers
         [ProducesResponseType(typeof(CustomerBasket), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get(string id)
         {
-            var basket = await _repository.GetBasketAsync(id);
+			CustomerBasket basket = await _repository.GetBasketAsync(id);
 
             return Ok(basket);
         }
@@ -44,7 +44,7 @@ namespace HMS.Basket.API.Controllers
         public async Task<IActionResult> Post([FromBody]CustomerBasket value)
         {
 			value.Items = value.Items.Where(x => x.Quantity > 0).ToList();
-            var basket = await _repository.UpdateBasketAsync(value);
+			CustomerBasket basket = await _repository.UpdateBasketAsync(value);
 
             return Ok(basket);
         }
@@ -55,18 +55,18 @@ namespace HMS.Basket.API.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Checkout([FromBody]BasketCheckout basketCheckout, [FromHeader(Name = "x-requestid")] string requestId)
         {
-            var userId = _identitySvc.GetUserIdentity();
+			string userId = _identitySvc.GetUserIdentity();
             basketCheckout.RequestId = (Guid.TryParse(requestId, out Guid guid) && guid != Guid.Empty) ?
                 guid : basketCheckout.RequestId;
 
-            var basket = await _repository.GetBasketAsync(userId);
+			CustomerBasket basket = await _repository.GetBasketAsync(userId);
 
             if (basket == null)
             {
                 return BadRequest();
             }
 
-            var eventMessage = new UserCheckoutAcceptedIntegrationEvent(userId, basketCheckout.City, basketCheckout.Street,
+			UserCheckoutAcceptedIntegrationEvent eventMessage = new UserCheckoutAcceptedIntegrationEvent(userId, basketCheckout.City, basketCheckout.Street,
                 basketCheckout.State, basketCheckout.Country, basketCheckout.ZipCode, basketCheckout.CardNumber, basketCheckout.CardHolderName,
                 basketCheckout.CardExpiration, basketCheckout.CardSecurityNumber, basketCheckout.CardTypeId, basketCheckout.Buyer, basketCheckout.RequestId, basket);
 

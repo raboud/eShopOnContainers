@@ -12,19 +12,19 @@ namespace Microsoft.AspNetCore.Hosting
     {
         public static IWebHost MigrateDbContext<TContext>(this IWebHost webHost, Action<TContext,IServiceProvider> seeder) where TContext : DbContext
         {
-            using (var scope = webHost.Services.CreateScope())
+            using (IServiceScope scope = webHost.Services.CreateScope())
             {
-                var services = scope.ServiceProvider;
+				IServiceProvider services = scope.ServiceProvider;
 
-                var logger = services.GetRequiredService<ILogger<TContext>>();
+				ILogger<TContext> logger = services.GetRequiredService<ILogger<TContext>>();
 
-                var context = services.GetService<TContext>();
+                TContext context = services.GetService<TContext>();
 
                 try
                 {
                     logger.LogInformation($"Migrating database associated with context {typeof(TContext).Name}");
 
-                    var retry = Policy.Handle<SqlException>()
+					RetryPolicy retry = Policy.Handle<SqlException>()
                          .WaitAndRetry(new TimeSpan[]
                          {
                              TimeSpan.FromSeconds(5),

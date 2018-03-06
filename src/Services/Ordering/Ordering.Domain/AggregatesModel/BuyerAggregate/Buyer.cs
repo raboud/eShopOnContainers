@@ -29,7 +29,7 @@ namespace HMS.Ordering.Domain.AggregatesModel.BuyerAggregate
             int cardTypeId, string alias, string cardNumber, 
             string securityNumber, string cardHolderName, DateTime expiration, int orderId)
         {
-            var existingPayment = _paymentMethods.Where(p => p.IsEqualTo(cardTypeId, cardNumber, expiration))
+			PaymentMethod existingPayment = _paymentMethods.Where(p => p.IsEqualTo(cardTypeId, cardNumber, expiration))
                 .SingleOrDefault();
 
             if (existingPayment != null)
@@ -40,7 +40,7 @@ namespace HMS.Ordering.Domain.AggregatesModel.BuyerAggregate
             }
             else
             {
-                var payment = new PaymentMethod(cardTypeId, alias, cardNumber, securityNumber, cardHolderName, expiration);
+				PaymentMethod payment = new PaymentMethod(cardTypeId, alias, cardNumber, securityNumber, cardHolderName, expiration);
 
                 _paymentMethods.Add(payment);
 

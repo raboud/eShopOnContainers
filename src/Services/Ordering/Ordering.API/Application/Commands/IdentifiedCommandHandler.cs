@@ -40,7 +40,7 @@ namespace HMS.Ordering.API.Application.Commands
         /// <returns>Return value of inner command or default value if request same ID was found</returns>
         public async Task<R> Handle(IdentifiedCommand<T, R> message, CancellationToken cancellationToken)
         {
-            var alreadyExists = await _requestManager.ExistAsync(message.Id);
+			bool alreadyExists = await _requestManager.ExistAsync(message.Id);
             if (alreadyExists)
             {
                 return CreateResultForDuplicateRequest();
@@ -50,7 +50,7 @@ namespace HMS.Ordering.API.Application.Commands
                 await _requestManager.CreateRequestForCommandAsync<T>(message.Id);
 
                 // Send the embeded business command to mediator so it runs its related CommandHandler 
-                var result = await _mediator.Send(message.Command);
+                R result = await _mediator.Send(message.Command);
                 
                 return result;
             }

@@ -11,7 +11,7 @@ namespace HMS.IntegrationTests.Services.Basket
 
         public TestServer CreateServer()
         {
-            var webHostBuilder = WebHost.CreateDefaultBuilder();
+			IWebHostBuilder webHostBuilder = WebHost.CreateDefaultBuilder();
             webHostBuilder.UseContentRoot(Directory.GetCurrentDirectory() + "\\Services\\basket");
             webHostBuilder.UseStartup<BasketTestsStartup>();           
 

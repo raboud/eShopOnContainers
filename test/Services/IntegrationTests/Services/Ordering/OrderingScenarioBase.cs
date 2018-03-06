@@ -17,7 +17,7 @@
     {
         public TestServer CreateServer()
         {
-            var webHostBuilder = WebHost.CreateDefaultBuilder();
+			IWebHostBuilder webHostBuilder = WebHost.CreateDefaultBuilder();
             webHostBuilder.UseContentRoot(Directory.GetCurrentDirectory() + "\\Services\\Ordering");
             webHostBuilder.UseStartup<OrderingTestsStartup>();
             webHostBuilder.ConfigureAppConfiguration((builderContext, config) =>
@@ -25,14 +25,14 @@
                 config.AddJsonFile("settings.json");
             });
 
-            var testServer = new TestServer(webHostBuilder);
+			TestServer testServer = new TestServer(webHostBuilder);
 
             testServer.Host
                 .MigrateDbContext<OrderingContext>((context, services) =>
                 {
-                    var env = services.GetService<IHostingEnvironment>();
-                    var settings = services.GetService<IOptions<OrderingSettings>>();
-                    var logger = services.GetService<ILogger<OrderingContextSeed>>();
+					IHostingEnvironment env = services.GetService<IHostingEnvironment>();
+					IOptions<OrderingSettings> settings = services.GetService<IOptions<OrderingSettings>>();
+					ILogger<OrderingContextSeed> logger = services.GetService<ILogger<OrderingContextSeed>>();
 
                     new OrderingContextSeed()
                         .SeedAsync(context, env, settings, logger)

@@ -60,14 +60,20 @@
     <Reference Include="FormsViewGroup, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\Xamarin.Forms.2.5.0.280555\lib\MonoAndroid10\FormsViewGroup.dll</HintPath>
     </Reference>
-    <Reference Include="IdentityModel, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\packages\IdentityModel.3.2.0\lib\netstandard2.0\IdentityModel.dll</HintPath>
+    <Reference Include="IdentityModel, Version=3.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\IdentityModel.3.3.1\lib\netstandard2.0\IdentityModel.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\Newtonsoft.Json.11.0.1\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SlideOverKit, Version=2.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\SlideOverKit.2.1.6\lib\MonoAndroid10\SlideOverKit.dll</HintPath>
+    </Reference>
+    <Reference Include="SlideOverKit.Droid, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\SlideOverKit.2.1.6\lib\MonoAndroid10\SlideOverKit.Droid.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -176,12 +182,6 @@
     </Reference>
     <Reference Include="xunit.execution.dotnet">
       <HintPath>..\..\..\..\packages\xunit.extensibility.execution.2.3.1\lib\netstandard1.1\xunit.execution.dotnet.dll</HintPath>
-    </Reference>
-    <Reference Include="SlideOverKit">
-      <HintPath>..\..\..\..\packages\SlideOverKit.2.1.5\lib\MonoAndroid10\SlideOverKit.dll</HintPath>
-    </Reference>
-    <Reference Include="SlideOverKit.Droid">
-      <HintPath>..\..\..\..\packages\SlideOverKit.2.1.5\lib\MonoAndroid10\SlideOverKit.Droid.dll</HintPath>
     </Reference>
     <Reference Include="Acr.Support.Android">
       <HintPath>..\..\..\..\packages\Acr.Support.2.1.0\lib\MonoAndroid10\Acr.Support.Android.dll</HintPath>

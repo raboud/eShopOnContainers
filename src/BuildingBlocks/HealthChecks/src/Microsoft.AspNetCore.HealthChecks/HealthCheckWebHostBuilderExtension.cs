@@ -21,7 +21,7 @@ namespace Microsoft.AspNetCore.Hosting
 
             builder.ConfigureServices(services =>
             {
-                var existingUrl = builder.GetSetting(WebHostDefaults.ServerUrlsKey);
+				string existingUrl = builder.GetSetting(WebHostDefaults.ServerUrlsKey);
                 builder.UseSetting(WebHostDefaults.ServerUrlsKey, $"{existingUrl};http://localhost:{port}");
 
                 services.AddSingleton<IStartupFilter>(new HealthCheckStartupFilter(port, timeout));

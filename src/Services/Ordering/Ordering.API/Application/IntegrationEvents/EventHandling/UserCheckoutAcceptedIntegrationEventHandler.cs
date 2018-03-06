@@ -33,20 +33,20 @@ namespace HMS.Ordering.API.Application.IntegrationEvents.EventHandling
         /// <returns></returns>
         public async Task Handle(UserCheckoutAcceptedIntegrationEvent eventMsg)
         {
-            var result = false;
+			bool result = false;
 
-            // Send Integration event to clean basket once basket is converted to Order and before starting with the order creation process
-            var orderStartedIntegrationEvent = new OrderStartedIntegrationEvent(eventMsg.UserId);
+			// Send Integration event to clean basket once basket is converted to Order and before starting with the order creation process
+			OrderStartedIntegrationEvent orderStartedIntegrationEvent = new OrderStartedIntegrationEvent(eventMsg.UserId);
             await _orderingIntegrationEventService.PublishThroughEventBusAsync(orderStartedIntegrationEvent);
 
             if (eventMsg.RequestId != Guid.Empty)
             {
-                var createOrderCommand = new CreateOrderCommand(eventMsg.Basket.Items, eventMsg.UserId, eventMsg.City, eventMsg.Street, 
+				CreateOrderCommand createOrderCommand = new CreateOrderCommand(eventMsg.Basket.Items, eventMsg.UserId, eventMsg.City, eventMsg.Street, 
                     eventMsg.State, eventMsg.Country, eventMsg.ZipCode,
                     eventMsg.CardNumber, eventMsg.CardHolderName, eventMsg.CardExpiration,
                     eventMsg.CardSecurityNumber, eventMsg.CardTypeId);
 
-                var requestCreateOrder = new IdentifiedCommand<CreateOrderCommand, bool>(createOrderCommand, eventMsg.RequestId);
+				IdentifiedCommand<CreateOrderCommand, bool> requestCreateOrder = new IdentifiedCommand<CreateOrderCommand, bool>(createOrderCommand, eventMsg.RequestId);
                 result = await _mediator.Send(requestCreateOrder);
             }            
 

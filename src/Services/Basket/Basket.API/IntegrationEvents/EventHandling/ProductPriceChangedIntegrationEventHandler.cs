@@ -4,6 +4,7 @@ using HMS.Basket.API.Model;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace HMS.Basket.API.IntegrationEvents.EventHandling
 {
@@ -18,11 +19,11 @@ namespace HMS.Basket.API.IntegrationEvents.EventHandling
 
 		public async Task Handle(ProductPriceChangedIntegrationEvent @event)
 		{
-			var userIds = _repository.GetUsers();
+			System.Collections.Generic.IEnumerable<string> userIds = _repository.GetUsers();
 
-			foreach (var id in userIds)
+			foreach (string id in userIds)
 			{
-				var basket = await _repository.GetBasketAsync(id);
+				CustomerBasket basket = await _repository.GetBasketAsync(id);
 
 				await UpdatePriceInBasketItems(@event.ProductId, @event.NewPrice, @event.OldPrice, basket);
 			}
@@ -31,15 +32,15 @@ namespace HMS.Basket.API.IntegrationEvents.EventHandling
 		private async Task UpdatePriceInBasketItems(int productId, decimal newPrice, decimal oldPrice, CustomerBasket basket)
 		{
 			string match = productId.ToString();
-			var itemsToUpdate = basket?.Items?.Where(x => x.ProductId == match).ToList();
+			List<BasketItem> itemsToUpdate = basket?.Items?.Where(x => x.ProductId == match).ToList();
 
 			if (itemsToUpdate != null)
 			{
-				foreach (var item in itemsToUpdate)
+				foreach (BasketItem item in itemsToUpdate)
 				{
 					if (item.UnitPrice == oldPrice)
 					{
-						var originalPrice = item.UnitPrice;
+						decimal originalPrice = item.UnitPrice;
 						item.UnitPrice = newPrice;
 						item.OldUnitPrice = originalPrice;
 					}
