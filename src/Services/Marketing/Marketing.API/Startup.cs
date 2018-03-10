@@ -29,9 +29,9 @@ using Microsoft.Extensions.Logging;
 using HMS.Marketing.API.Infrastructure.Repositories;
 using HMS.Marketing.API.Infrastructure.Services;
 using HMS.Marketing.API.IntegrationEvents.Handlers;
-using HMS.Marketing.API.IntegrationEvents.Events;
 using Microsoft.Extensions.HealthChecks;
 using Microsoft.BuildingBlocks.Infrastructure.Middlewares;
+using HMS.IntegrationEvents.Events;
 
 namespace HMS.Marketing.API
 {
@@ -64,8 +64,8 @@ namespace HMS.Marketing.API
             {
                 checks.AddValueTaskCheck("HTTP Endpoint", () => new ValueTask<IHealthCheckResult>(HealthCheckResult.Healthy("Ok")));
 
-                var accountName = Configuration.GetValue<string>("AzureStorageAccountName");
-                var accountKey = Configuration.GetValue<string>("AzureStorageAccountKey");
+				string accountName = Configuration.GetValue<string>("AzureStorageAccountName");
+				string accountKey = Configuration.GetValue<string>("AzureStorageAccountKey");
                 if (!string.IsNullOrEmpty(accountName) && !string.IsNullOrEmpty(accountKey))
                 {
                     checks.AddAzureBlobStorageCheck(accountName, accountKey);
@@ -92,10 +92,10 @@ namespace HMS.Marketing.API
             {
                 services.AddSingleton<IServiceBusPersisterConnection>(sp =>
                 {
-                    var logger = sp.GetRequiredService<ILogger<DefaultServiceBusPersisterConnection>>();
+					ILogger<DefaultServiceBusPersisterConnection> logger = sp.GetRequiredService<ILogger<DefaultServiceBusPersisterConnection>>();
 
-                    var serviceBusConnectionString = Configuration["EventBusConnection"];
-                    var serviceBusConnection = new ServiceBusConnectionStringBuilder(serviceBusConnectionString);
+					string serviceBusConnectionString = Configuration["EventBusConnection"];
+					ServiceBusConnectionStringBuilder serviceBusConnection = new ServiceBusConnectionStringBuilder(serviceBusConnectionString);
 
                     return new DefaultServiceBusPersisterConnection(serviceBusConnection, logger);
                 });
@@ -104,9 +104,9 @@ namespace HMS.Marketing.API
             {
                 services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
                 {
-                    var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
+					ILogger<DefaultRabbitMQPersistentConnection> logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
 
-                    var factory = new ConnectionFactory()
+					ConnectionFactory factory = new ConnectionFactory()
                     {
                         HostName = Configuration["EventBusConnection"]
                     };
@@ -121,7 +121,7 @@ namespace HMS.Marketing.API
                         factory.Password = Configuration["EventBusPassword"];
                     }
 
-                    var retryCount = 5;
+					int retryCount = 5;
                     if (!string.IsNullOrEmpty(Configuration["EventBusRetryCount"]))
                     {
                         retryCount = int.Parse(Configuration["EventBusRetryCount"]);
@@ -175,8 +175,8 @@ namespace HMS.Marketing.API
 
             services.AddOptions();
 
-            //configure autofac
-            var container = new ContainerBuilder();
+			//configure autofac
+			ContainerBuilder container = new ContainerBuilder();
             container.Populate(services);
 
             return new AutofacServiceProvider(container.Build());
@@ -188,7 +188,7 @@ namespace HMS.Marketing.API
             loggerFactory.AddAzureWebAppDiagnostics();
             loggerFactory.AddApplicationInsights(app.ApplicationServices, LogLevel.Trace);
 
-            var pathBase = Configuration["PATH_BASE"];
+			string pathBase = Configuration["PATH_BASE"];
 
             if (!string.IsNullOrEmpty(pathBase))
             {
@@ -220,7 +220,7 @@ namespace HMS.Marketing.API
         private void RegisterAppInsights(IServiceCollection services)
         {
             services.AddApplicationInsightsTelemetry(Configuration);
-            var orchestratorType = Configuration.GetValue<string>("OrchestratorType");
+			string orchestratorType = Configuration.GetValue<string>("OrchestratorType");
 
             if (orchestratorType?.ToUpper() == "K8S")
             {
@@ -255,16 +255,16 @@ namespace HMS.Marketing.API
 
         private void RegisterEventBus(IServiceCollection services)
         {
-            var subscriptionClientName = Configuration["SubscriptionClientName"];
+			string subscriptionClientName = Configuration["SubscriptionClientName"];
 
             if (Configuration.GetValue<bool>("AzureServiceBusEnabled"))
             {
                 services.AddSingleton<IEventBus, EventBusServiceBus>(sp =>
                 {
-                    var serviceBusPersisterConnection = sp.GetRequiredService<IServiceBusPersisterConnection>();
-                    var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
-                    var logger = sp.GetRequiredService<ILogger<EventBusServiceBus>>();
-                    var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();                    
+					IServiceBusPersisterConnection serviceBusPersisterConnection = sp.GetRequiredService<IServiceBusPersisterConnection>();
+					ILifetimeScope iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
+					ILogger<EventBusServiceBus> logger = sp.GetRequiredService<ILogger<EventBusServiceBus>>();
+					IEventBusSubscriptionsManager eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();                    
 
                     return new EventBusServiceBus(serviceBusPersisterConnection, logger,
                         eventBusSubcriptionsManager, subscriptionClientName, iLifetimeScope);
@@ -274,12 +274,12 @@ namespace HMS.Marketing.API
             {
                 services.AddSingleton<IEventBus, EventBusRabbitMQ>(sp =>
                 {
-                    var rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();
-                    var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
-                    var logger = sp.GetRequiredService<ILogger<EventBusRabbitMQ>>();
-                    var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
+					IRabbitMQPersistentConnection rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();
+					ILifetimeScope iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
+					ILogger<EventBusRabbitMQ> logger = sp.GetRequiredService<ILogger<EventBusRabbitMQ>>();
+					IEventBusSubscriptionsManager eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
 
-                    var retryCount = 5;
+					int retryCount = 5;
                     if (!string.IsNullOrEmpty(Configuration["EventBusRetryCount"]))
                     {
                         retryCount = int.Parse(Configuration["EventBusRetryCount"]);
@@ -295,7 +295,7 @@ namespace HMS.Marketing.API
 
         private void ConfigureEventBus(IApplicationBuilder app)
         {
-            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+			IEventBus eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
             eventBus.Subscribe<UserLocationUpdatedIntegrationEvent, UserLocationUpdatedIntegrationEventHandler>();
         }
 

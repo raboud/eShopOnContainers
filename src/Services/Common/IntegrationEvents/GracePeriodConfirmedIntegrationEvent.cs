@@ -1,7 +1,7 @@
-﻿namespace HMS.Ordering.API.Application.IntegrationEvents.Events
-{
-    using Microsoft.BuildingBlocks.EventBus.Events;
+﻿using Microsoft.BuildingBlocks.EventBus.Events;
 
+namespace HMS.IntegrationEvents
+{
     public class GracePeriodConfirmedIntegrationEvent : IntegrationEvent
     {
         public int OrderId { get; }

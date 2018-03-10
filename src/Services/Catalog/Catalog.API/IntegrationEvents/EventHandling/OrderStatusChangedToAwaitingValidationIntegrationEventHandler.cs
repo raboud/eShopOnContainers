@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.BuildingBlocks.EventBus.Abstractions;
 using HMS.Catalog.API.Infrastructure;
-using HMS.Catalog.API.IntegrationEvents.Events;
 using Microsoft.BuildingBlocks.EventBus.Events;
+using HMS.IntegrationEvents.Events;
 
 namespace HMS.Catalog.API.IntegrationEvents.EventHandling
 {
@@ -22,24 +22,29 @@ namespace HMS.Catalog.API.IntegrationEvents.EventHandling
         }
 
         public async Task Handle(OrderStatusChangedToAwaitingValidationIntegrationEvent command)
-        {
-            var confirmedOrderStockItems = new List<ConfirmedOrderStockItem>();
+		{
+			List<ConfirmedOrderStockItem> confirmedOrderStockItems = new List<ConfirmedOrderStockItem>();
 
-            foreach (var orderStockItem in command.OrderStockItems)
-            {
-                var catalogItem = _catalogContext.Products.Find(orderStockItem.ProductId);
-                var hasStock = catalogItem.AvailableStock >= orderStockItem.Units;
-                var confirmedOrderStockItem = new ConfirmedOrderStockItem(catalogItem.Id, hasStock);
+			foreach (OrderStockItem orderStockItem in command.OrderStockItems)
+			{
+				Model.Product catalogItem = _catalogContext.Products.Find(orderStockItem.ProductId);
+				bool hasStock = catalogItem.AvailableStock >= orderStockItem.Units;
+				ConfirmedOrderStockItem confirmedOrderStockItem = new ConfirmedOrderStockItem(catalogItem.Id, hasStock);
 
-                confirmedOrderStockItems.Add(confirmedOrderStockItem);
-            }
+				confirmedOrderStockItems.Add(confirmedOrderStockItem);
+			}
 
-            var confirmedIntegrationEvent = confirmedOrderStockItems.Any(c => !c.HasStock)
-                ? (IntegrationEvent) new OrderStockRejectedIntegrationEvent(command.OrderId, confirmedOrderStockItems)
-                : new OrderStockConfirmedIntegrationEvent(command.OrderId);
+			IntegrationEvent confirmedIntegrationEvent = confirmedOrderStockItems.Any(c => !c.HasStock)
+				? (IntegrationEvent)new OrderStockRejectedIntegrationEvent(command.OrderId, confirmedOrderStockItems)
+				: new OrderStockConfirmedIntegrationEvent(command.OrderId);
 
-            await _catalogIntegrationEventService.SaveEventAndCatalogContextChangesAsync(confirmedIntegrationEvent);
-            await _catalogIntegrationEventService.PublishThroughEventBusAsync(confirmedIntegrationEvent);
-        }
-    }
+			await NewMethod(confirmedIntegrationEvent);
+			await _catalogIntegrationEventService.PublishThroughEventBusAsync(confirmedIntegrationEvent);
+		}
+
+		private async Task NewMethod(IntegrationEvent confirmedIntegrationEvent)
+		{
+			await _catalogIntegrationEventService.SaveEventAndCatalogContextChangesAsync(confirmedIntegrationEvent);
+		}
+	}
 }

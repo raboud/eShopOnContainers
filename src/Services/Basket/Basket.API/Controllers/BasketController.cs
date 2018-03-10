@@ -1,5 +1,4 @@
-﻿using HMS.Basket.API.IntegrationEvents.Events;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.BuildingBlocks.EventBus.Abstractions;
 using HMS.Basket.API.Model;
@@ -8,6 +7,8 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.Linq;
+using HMS.IntegrationEvents;
+using HMS.IntegrationEvents.Events;
 
 namespace HMS.Basket.API.Controllers
 {
@@ -44,6 +45,15 @@ namespace HMS.Basket.API.Controllers
         public async Task<IActionResult> Post([FromBody]CustomerBasket value)
         {
 			value.Items = value.Items.Where(x => x.Quantity > 0).ToList();
+
+			value.Items = value.Items
+				.GroupBy(l => l.ProductId)
+				.Select(cl => {
+					int sum = cl.Sum(c => c.Quantity);
+					cl.First().Quantity = sum;
+					return cl.First();
+
+				}).ToList();
 			CustomerBasket basket = await _repository.UpdateBasketAsync(value);
 
             return Ok(basket);

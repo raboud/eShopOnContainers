@@ -88,9 +88,9 @@ namespace HMS.FunctionalTests.Services.Catalog
 
 			public static HttpMessageHandler BackChannelHandler { get; set; }
 
-			public override void setIS4Options(IdentityServerAuthenticationOptions options)
+			public override void SetIS4Options(IdentityServerAuthenticationOptions options)
 			{
-				base.setIS4Options(options);
+				base.SetIS4Options(options);
 				options.IntrospectionBackChannelHandler = BackChannelHandler;
 				options.IntrospectionDiscoveryHandler = BackChannelHandler;
 				options.JwtBackChannelHandler = BackChannelHandler;

@@ -3,14 +3,14 @@
     using Microsoft.BuildingBlocks.EventBus.Abstractions;
     using HMS.Locations.API.Infrastructure.Exceptions;
     using HMS.Locations.API.Infrastructure.Repositories;
-    using HMS.Locations.API.IntegrationEvents.Events;
     using HMS.Locations.API.Model;
     using HMS.Locations.API.ViewModel;
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+	using HMS.IntegrationEvents.Events;
 
-    public class LocationsService : ILocationsService
+	public class LocationsService : ILocationsService
     {
         private readonly ILocationsRepository _locationsRepository;
         private readonly IEventBus _eventBus;
@@ -37,18 +37,18 @@
         }
 
         public async Task<bool> AddOrUpdateUserLocation(string userId, LocationRequest currentPosition)
-        {            
-            // Get the list of ordered regions the user currently is within
-            var currentUserAreaLocationList = await _locationsRepository.GetCurrentUserRegionsListAsync(currentPosition);
+        {
+			// Get the list of ordered regions the user currently is within
+			List<Locations> currentUserAreaLocationList = await _locationsRepository.GetCurrentUserRegionsListAsync(currentPosition);
                       
             if(currentUserAreaLocationList is null)
             {
                 throw new LocationDomainException("User current area not found");
             }
 
-            // If current area found, then update user location
-            var locationAncestors = new List<string>();
-            var userLocation = await _locationsRepository.GetUserLocationAsync(userId);
+			// If current area found, then update user location
+			List<string> locationAncestors = new List<string>();
+			UserLocation userLocation = await _locationsRepository.GetUserLocationAsync(userId);
             userLocation = userLocation ?? new UserLocation();
             userLocation.UserId = userId;
             userLocation.LocationId = currentUserAreaLocationList[0].LocationId;
@@ -64,14 +64,14 @@
 
         private void PublishNewUserLocationPositionIntegrationEvent(string userId, List<Locations> newLocations)
         {
-            var newUserLocations = MapUserLocationDetails(newLocations);
-            var @event = new UserLocationUpdatedIntegrationEvent(userId, newUserLocations);
+			List<UserLocationDetails> newUserLocations = MapUserLocationDetails(newLocations);
+			UserLocationUpdatedIntegrationEvent @event = new IntegrationEvents.Events.UserLocationUpdatedIntegrationEvent(userId, newUserLocations);
             _eventBus.Publish(@event);
         }
 
         private List<UserLocationDetails> MapUserLocationDetails(List<Locations> newLocations)
         {
-            var result = new List<UserLocationDetails>();
+			List<UserLocationDetails> result = new List<UserLocationDetails>();
             newLocations.ForEach(location => {
                 result.Add(new UserLocationDetails()
                 {

@@ -1,12 +1,13 @@
-﻿namespace HMS.Marketing.API.IntegrationEvents.Handlers
+﻿using HMS.Marketing.API.Model;
+using Microsoft.BuildingBlocks.EventBus.Abstractions;
+using HMS.Marketing.API.Infrastructure.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using HMS.IntegrationEvents.Events;
+
+namespace HMS.Marketing.API.IntegrationEvents.Handlers
 {
-    using Marketing.API.IntegrationEvents.Events;
-    using Marketing.API.Model;
-    using Microsoft.BuildingBlocks.EventBus.Abstractions;
-    using HMS.Marketing.API.Infrastructure.Repositories;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     public class UserLocationUpdatedIntegrationEventHandler 
         : IIntegrationEventHandler<UserLocationUpdatedIntegrationEvent>
@@ -20,7 +21,7 @@
 
         public async Task Handle(UserLocationUpdatedIntegrationEvent @event)
         {
-            var userMarketingData = await _marketingDataRepository.GetAsync(@event.UserId);
+			MarketingData userMarketingData = await _marketingDataRepository.GetAsync(@event.UserId);
             userMarketingData = userMarketingData ?? 
                 new MarketingData() { UserId = @event.UserId };
 
@@ -30,7 +31,7 @@
 
         private List<Location> MapUpdatedUserLocations(List<UserLocationDetails> newUserLocations)
         {
-            var result = new List<Location>();
+			List<Location> result = new List<Location>();
             newUserLocations.ForEach(location => {
                 result.Add(new Location()
                 {

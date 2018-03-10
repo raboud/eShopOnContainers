@@ -1,4 +1,4 @@
-﻿namespace HMS.Marketing.API.Model
+﻿namespace HMS.IntegrationEvents.Events
 {
     public class UserLocationDetails
     {

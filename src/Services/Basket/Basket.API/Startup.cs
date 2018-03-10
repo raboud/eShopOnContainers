@@ -3,7 +3,6 @@ using Autofac.Extensions.DependencyInjection;
 using HMS.Basket.API.Infrastructure.Exceptions;
 using HMS.Basket.API.Infrastructure.Middlewares;
 using HMS.Basket.API.IntegrationEvents.EventHandling;
-using HMS.Basket.API.IntegrationEvents.Events;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.ServiceFabric;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -31,6 +30,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
+using HMS.IntegrationEvents.Events;
 
 namespace HMS.Basket.API
 {
@@ -76,8 +76,8 @@ namespace HMS.Basket.API
             //penalty.
             services.AddSingleton<ConnectionMultiplexer>(sp =>
             {
-                var settings = sp.GetRequiredService<IOptions<BasketSettings>>().Value;
-                var configuration = ConfigurationOptions.Parse(settings.ConnectionString, true);
+				BasketSettings settings = sp.GetRequiredService<IOptions<BasketSettings>>().Value;
+				ConfigurationOptions configuration = ConfigurationOptions.Parse(settings.ConnectionString, true);
 
                 configuration.ResolveDns = true;
 
@@ -89,10 +89,10 @@ namespace HMS.Basket.API
             {
                 services.AddSingleton<IServiceBusPersisterConnection>(sp =>
                 {
-                    var logger = sp.GetRequiredService<ILogger<DefaultServiceBusPersisterConnection>>();
+					ILogger<DefaultServiceBusPersisterConnection> logger = sp.GetRequiredService<ILogger<DefaultServiceBusPersisterConnection>>();
 
-                    var serviceBusConnectionString = Configuration["EventBusConnection"];
-                    var serviceBusConnection = new ServiceBusConnectionStringBuilder(serviceBusConnectionString);
+					string serviceBusConnectionString = Configuration["EventBusConnection"];
+					ServiceBusConnectionStringBuilder serviceBusConnection = new ServiceBusConnectionStringBuilder(serviceBusConnectionString);
 
                     return new DefaultServiceBusPersisterConnection(serviceBusConnection, logger);
                 });
@@ -101,9 +101,9 @@ namespace HMS.Basket.API
             {
                 services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
                 {
-                    var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
+					ILogger<DefaultRabbitMQPersistentConnection> logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
 
-                    var factory = new ConnectionFactory()
+					ConnectionFactory factory = new ConnectionFactory()
                     {
                         HostName = Configuration["EventBusConnection"]
                     };
@@ -118,7 +118,7 @@ namespace HMS.Basket.API
                         factory.Password = Configuration["EventBusPassword"];
                     }
 
-                    var retryCount = 5;
+					int retryCount = 5;
                     if (!string.IsNullOrEmpty(Configuration["EventBusRetryCount"]))
                     {
                         retryCount = int.Parse(Configuration["EventBusRetryCount"]);
@@ -170,7 +170,7 @@ namespace HMS.Basket.API
 
             services.AddOptions();
 
-            var container = new ContainerBuilder();
+			ContainerBuilder container = new ContainerBuilder();
             container.Populate(services);
 
             return new AutofacServiceProvider(container.Build());
@@ -183,7 +183,7 @@ namespace HMS.Basket.API
             loggerFactory.AddAzureWebAppDiagnostics();
             loggerFactory.AddApplicationInsights(app.ApplicationServices, LogLevel.Trace);
 
-            var pathBase = Configuration["PATH_BASE"];
+			string pathBase = Configuration["PATH_BASE"];
             if (!string.IsNullOrEmpty(pathBase))
             {
                 app.UsePathBase(pathBase);
@@ -217,7 +217,7 @@ namespace HMS.Basket.API
         private void RegisterAppInsights(IServiceCollection services)
         {
             services.AddApplicationInsightsTelemetry(Configuration);
-            var orchestratorType = Configuration.GetValue<string>("OrchestratorType");
+			string orchestratorType = Configuration.GetValue<string>("OrchestratorType");
             
             if (orchestratorType?.ToUpper() == "K8S")
             {
@@ -237,7 +237,7 @@ namespace HMS.Basket.API
             // prevent from mapping "sub" claim to nameidentifier.
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-            var identityUrl = Configuration.GetValue<string>("IdentityUrl"); 
+			string identityUrl = Configuration.GetValue<string>("IdentityUrl"); 
                 
             services.AddAuthentication(options =>
             {
@@ -264,16 +264,16 @@ namespace HMS.Basket.API
 
         private void RegisterEventBus(IServiceCollection services)
         {
-            var subscriptionClientName = Configuration["SubscriptionClientName"];
+			string subscriptionClientName = Configuration["SubscriptionClientName"];
 
             if (Configuration.GetValue<bool>("AzureServiceBusEnabled"))
             {
                 services.AddSingleton<IEventBus, EventBusServiceBus>(sp =>
                 {
-                    var serviceBusPersisterConnection = sp.GetRequiredService<IServiceBusPersisterConnection>();
-                    var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
-                    var logger = sp.GetRequiredService<ILogger<EventBusServiceBus>>();
-                    var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();                    
+					IServiceBusPersisterConnection serviceBusPersisterConnection = sp.GetRequiredService<IServiceBusPersisterConnection>();
+					ILifetimeScope iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
+					ILogger<EventBusServiceBus> logger = sp.GetRequiredService<ILogger<EventBusServiceBus>>();
+					IEventBusSubscriptionsManager eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();                    
 
                     return new EventBusServiceBus(serviceBusPersisterConnection, logger,
                         eventBusSubcriptionsManager, subscriptionClientName, iLifetimeScope);
@@ -283,12 +283,12 @@ namespace HMS.Basket.API
             {
                 services.AddSingleton<IEventBus, EventBusRabbitMQ>(sp =>
                 {
-                    var rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();
-                    var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
-                    var logger = sp.GetRequiredService<ILogger<EventBusRabbitMQ>>();
-                    var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
+					IRabbitMQPersistentConnection rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();
+					ILifetimeScope iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
+					ILogger<EventBusRabbitMQ> logger = sp.GetRequiredService<ILogger<EventBusRabbitMQ>>();
+					IEventBusSubscriptionsManager eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
 
-                    var retryCount = 5;
+					int retryCount = 5;
                     if (!string.IsNullOrEmpty(Configuration["EventBusRetryCount"]))
                     {
                         retryCount = int.Parse(Configuration["EventBusRetryCount"]);
@@ -306,7 +306,7 @@ namespace HMS.Basket.API
 
         private void ConfigureEventBus(IApplicationBuilder app)
         {
-            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+			IEventBus eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
 
             eventBus.Subscribe<ProductPriceChangedIntegrationEvent, ProductPriceChangedIntegrationEventHandler>();
             eventBus.Subscribe<OrderStartedIntegrationEvent, OrderStartedIntegrationEventHandler>();

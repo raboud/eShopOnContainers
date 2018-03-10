@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace HMS.Basket.API.Model
+namespace HMS.IntegrationEvents
 {
     public class BasketItem : IValidatableObject
     {
@@ -14,7 +14,7 @@ namespace HMS.Basket.API.Model
         public string PictureUrl { get; set; }
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            var results = new List<ValidationResult>();
+			List<ValidationResult> results = new List<ValidationResult>();
 
             if (Quantity < 1)
             {

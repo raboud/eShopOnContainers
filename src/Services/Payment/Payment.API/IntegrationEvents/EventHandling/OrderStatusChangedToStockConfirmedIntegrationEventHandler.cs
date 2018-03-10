@@ -1,11 +1,11 @@
-﻿namespace HMS.Payment.API.IntegrationEvents.EventHandling
-{
-    using Microsoft.BuildingBlocks.EventBus.Abstractions;
-    using Microsoft.BuildingBlocks.EventBus.Events;
-    using Microsoft.Extensions.Options;
-    using Payment.API.IntegrationEvents.Events;
-    using System.Threading.Tasks;
+﻿using HMS.IntegrationEvents.Events;
+using Microsoft.BuildingBlocks.EventBus.Abstractions;
+using Microsoft.BuildingBlocks.EventBus.Events;
+using Microsoft.Extensions.Options;
+using System.Threading.Tasks;
 
+namespace HMS.Payment.API.IntegrationEvents.EventHandling
+{
     public class OrderStatusChangedToStockConfirmedIntegrationEventHandler : 
         IIntegrationEventHandler<OrderStatusChangedToStockConfirmedIntegrationEvent>
     {

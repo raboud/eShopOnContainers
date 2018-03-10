@@ -2,10 +2,10 @@
 using HMS.Catalog.API;
 using HMS.Catalog.API.Infrastructure;
 using HMS.Catalog.API.IntegrationEvents;
-using HMS.Catalog.API.IntegrationEvents.Events;
 using HMS.Catalog.API.Model;
 using HMS.Catalog.DTO;
 using HMS.Common.API;
+using HMS.IntegrationEvents.Events;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

@@ -1,12 +1,13 @@
 ﻿using Microsoft.BuildingBlocks.EventBus.Events;
-using HMS.Ordering.API.Application.Models;
 using System;
 
-namespace HMS.Ordering.API.Application.IntegrationEvents.Events
+namespace HMS.IntegrationEvents.Events
 {
     public class UserCheckoutAcceptedIntegrationEvent : IntegrationEvent
     {
         public string UserId { get; }
+
+        public int OrderNumber { get; set; }
 
         public string City { get; set; }
 

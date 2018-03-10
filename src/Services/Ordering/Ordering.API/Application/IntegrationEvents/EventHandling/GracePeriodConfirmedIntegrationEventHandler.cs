@@ -1,7 +1,7 @@
 ﻿using Microsoft.BuildingBlocks.EventBus.Abstractions;
 using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
-using HMS.Ordering.API.Application.IntegrationEvents.Events;
 using System.Threading.Tasks;
+using HMS.IntegrationEvents;
 
 namespace HMS.Ordering.API.Application.IntegrationEvents.EventHandling
 {
@@ -24,7 +24,7 @@ namespace HMS.Ordering.API.Application.IntegrationEvents.EventHandling
         /// <returns></returns>
         public async Task Handle(GracePeriodConfirmedIntegrationEvent @event)
         {
-            var orderToUpdate = await _orderRepository.GetAsync(@event.OrderId);
+			Order orderToUpdate = await _orderRepository.GetAsync(@event.OrderId);
             orderToUpdate.SetAwaitingValidationStatus();
             await _orderRepository.UnitOfWork.SaveEntitiesAsync();
         }

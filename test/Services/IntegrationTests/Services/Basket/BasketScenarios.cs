@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using HMS.WebMVC.Models;
 using Xunit;
 using Microsoft.AspNetCore.TestHost;
+using HMS.IntegrationEvents;
 
 namespace HMS.IntegrationTests.Services.Basket
 {

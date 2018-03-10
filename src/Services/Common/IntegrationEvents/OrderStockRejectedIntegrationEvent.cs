@@ -1,7 +1,8 @@
-﻿namespace HMS.Ordering.API.Application.IntegrationEvents.Events
+﻿using Microsoft.BuildingBlocks.EventBus.Events;
+using System.Collections.Generic;
+
+namespace HMS.IntegrationEvents.Events
 {
-    using Microsoft.BuildingBlocks.EventBus.Events;
-    using System.Collections.Generic;
 
     public class OrderStockRejectedIntegrationEvent : IntegrationEvent
     {

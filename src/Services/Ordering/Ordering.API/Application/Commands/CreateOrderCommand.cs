@@ -3,7 +3,7 @@ using MediatR;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Collections;
-using HMS.Ordering.API.Application.Models;
+using HMS.IntegrationEvents;
 
 namespace HMS.Ordering.API.Application.Commands
 {
@@ -85,7 +85,7 @@ namespace HMS.Ordering.API.Application.Commands
 
         private List<OrderItemDTO> MapToOrderItems(List<BasketItem> basketItems)
         {
-            var result = new List<OrderItemDTO>();
+			List<OrderItemDTO> result = new List<OrderItemDTO>();
             basketItems.ForEach((item) => {
                 result.Add(new OrderItemDTO() {
                     ProductId = int.TryParse(item.ProductId, out int id) ? id : -1,

@@ -1,17 +1,18 @@
-﻿using MediatR;
-using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
-using Microsoft.Extensions.Logging;
-using HMS.Ordering.Domain.Events;
-using System;
-using System.Threading.Tasks;
+﻿using HMS.IntegrationEvents.Events;
 using HMS.Ordering.API.Application.IntegrationEvents;
+using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
+using HMS.Ordering.Domain.Events;
+using MediatR;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using HMS.Ordering.API.Application.IntegrationEvents.Events;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace HMS.Ordering.API.Application.DomainEventHandlers.OrderGracePeriodConfirmed
 {
-    public class OrderStatusChangedToAwaitingValidationDomainEventHandler
+	public class OrderStatusChangedToAwaitingValidationDomainEventHandler
                    : INotificationHandler<OrderStatusChangedToAwaitingValidationDomainEvent>
     {
         private readonly IOrderRepository _orderRepository;
@@ -33,10 +34,10 @@ namespace HMS.Ordering.API.Application.DomainEventHandlers.OrderGracePeriodConfi
                   .LogTrace($"Order with Id: {orderStatusChangedToAwaitingValidationDomainEvent.OrderId} has been successfully updated with " +
                             $"a status order id: {OrderStatus.AwaitingValidation.Id}");
 
-            var orderStockList = orderStatusChangedToAwaitingValidationDomainEvent.OrderItems
+			IEnumerable<OrderStockItem> orderStockList = orderStatusChangedToAwaitingValidationDomainEvent.OrderItems
                 .Select(orderItem => new OrderStockItem(orderItem.ProductId, orderItem.GetUnits()));
 
-            var orderStatusChangedToAwaitingValidationIntegrationEvent = new OrderStatusChangedToAwaitingValidationIntegrationEvent(
+			OrderStatusChangedToAwaitingValidationIntegrationEvent orderStatusChangedToAwaitingValidationIntegrationEvent = new OrderStatusChangedToAwaitingValidationIntegrationEvent(
                 orderStatusChangedToAwaitingValidationDomainEvent.OrderId, orderStockList);
             await _orderingIntegrationEventService.PublishThroughEventBusAsync(orderStatusChangedToAwaitingValidationIntegrationEvent);
         }

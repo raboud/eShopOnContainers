@@ -46,6 +46,7 @@
     <ProjectReference Include="..\..\..\BuildingBlocks\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\WebHostCustomization\WebHost.Customization\WebHost.Customization.csproj" />
     <ProjectReference Include="..\..\Common\Common.API\Common.API.csproj" />
+    <ProjectReference Include="..\..\Common\IntegrationEvents\IntegrationEvents.csproj" />
   </ItemGroup>
 
   <ItemGroup>

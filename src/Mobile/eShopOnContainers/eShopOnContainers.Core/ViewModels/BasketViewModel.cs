@@ -4,6 +4,7 @@ using HMS.Core.Services.Basket;
 using HMS.Core.Services.Settings;
 using HMS.Core.Services.User;
 using HMS.Core.ViewModels.Base;
+using HMS.IntegrationEvents;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -69,20 +70,22 @@ namespace HMS.Core.ViewModels
         public override async Task InitializeAsync(object navigationData)
         {
             if (BasketItems == null)
-                BasketItems = new ObservableCollection<BasketItem>();
+			{
+				BasketItems = new ObservableCollection<BasketItem>();
+			}
 
-            var authToken = _settingsService.AuthAccessToken;
-            var userInfo = await _userService.GetUserInfoAsync(authToken);
+			string authToken = _settingsService.AuthAccessToken;
+			Models.User.UserInfo userInfo = await _userService.GetUserInfoAsync(authToken);
 
-            // Update Basket
-            var basket = await _basketService.GetBasketAsync(userInfo.UserId, authToken);
+			// Update Basket
+			CustomerBasket basket = await _basketService.GetBasketAsync(userInfo.UserId, authToken);
 
             if (basket != null && basket.Items != null && basket.Items.Any())
             {
                 BadgeCount = 0;
                 BasketItems.Clear();
 
-                foreach (var basketItem in basket.Items)
+                foreach (BasketItem basketItem in basket.Items)
                 {
                     BadgeCount += basketItem.Quantity;
                     await AddBasketItemAsync(basketItem);
@@ -136,17 +139,16 @@ namespace HMS.Core.ViewModels
                 return;
             }
 
-            foreach (var orderItem in BasketItems)
+            foreach (BasketItem orderItem in BasketItems)
             {
                 Total += (orderItem.Quantity * orderItem.UnitPrice);
             }
 
-            var authToken = _settingsService.AuthAccessToken;
-            var userInfo = await _userService.GetUserInfoAsync(authToken);
+			string authToken = _settingsService.AuthAccessToken;
+			Models.User.UserInfo userInfo = await _userService.GetUserInfoAsync(authToken);
 
-            await _basketService.UpdateBasketAsync(new CustomerBasket
+            await _basketService.UpdateBasketAsync(new CustomerBasket(userInfo.UserId)
             {
-                BuyerId = userInfo.UserId,
                 Items = BasketItems.ToList()
             }, authToken);
         }

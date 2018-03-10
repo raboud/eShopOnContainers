@@ -9,8 +9,9 @@
     using Xunit;
     using Moq;
     using StackExchange.Redis;
+	using HMS.IntegrationEvents;
 
-    public class RedisBasketRepositoryTests
+	public class RedisBasketRepositoryTests
     {
         private Mock<IOptionsSnapshot<BasketSettings>> _optionsMock;
 
@@ -22,9 +23,9 @@
         [Fact]
         public async Task UpdateBasket_return_and_add_basket()
         {
-            var redisBasketRepository = BuildBasketRepository();
+			RedisBasketRepository redisBasketRepository = BuildBasketRepository();
 
-            var basket = await redisBasketRepository.UpdateBasketAsync(new CustomerBasket("customerId")
+			CustomerBasket basket = await redisBasketRepository.UpdateBasketAsync(new CustomerBasket("customerId")
             {
                 BuyerId = "buyerId",
                 Items = BuildBasketItems()
@@ -37,17 +38,17 @@
         [Fact]
         public async Task Delete_Basket_return_null()
         {
-            var redisBasketRepository = BuildBasketRepository();
+			RedisBasketRepository redisBasketRepository = BuildBasketRepository();
 
-            var basket = await redisBasketRepository.UpdateBasketAsync(new CustomerBasket("customerId")
+			CustomerBasket basket = await redisBasketRepository.UpdateBasketAsync(new CustomerBasket("customerId")
             {
                 BuyerId = "buyerId",
                 Items = BuildBasketItems()
             });
 
-            var deleteResult = await redisBasketRepository.DeleteBasketAsync("buyerId");
+			bool deleteResult = await redisBasketRepository.DeleteBasketAsync("buyerId");
 
-            var result = await redisBasketRepository.GetBasketAsync(basket.BuyerId);
+			CustomerBasket result = await redisBasketRepository.GetBasketAsync(basket.BuyerId);
 
             Assert.True(deleteResult);
             Assert.Null(result);
@@ -55,8 +56,8 @@
 
         RedisBasketRepository BuildBasketRepository()
         {
-            var loggerFactory = new LoggerFactory();            
-            var configuration = ConfigurationOptions.Parse("127.0.0.1", true);
+			LoggerFactory loggerFactory = new LoggerFactory();
+			ConfigurationOptions configuration = ConfigurationOptions.Parse("127.0.0.1", true);
             configuration.ResolveDns = true;
             return new RedisBasketRepository(loggerFactory, ConnectionMultiplexer.Connect(configuration));
         }

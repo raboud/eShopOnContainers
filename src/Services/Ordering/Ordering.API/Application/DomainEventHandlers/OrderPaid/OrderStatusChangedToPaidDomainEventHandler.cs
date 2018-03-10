@@ -6,8 +6,9 @@ using System;
 using System.Threading.Tasks;
 using HMS.Ordering.API.Application.IntegrationEvents;
 using System.Linq;
-using HMS.Ordering.API.Application.IntegrationEvents.Events;
 using System.Threading;
+using HMS.IntegrationEvents.Events;
+using System.Collections.Generic;
 
 namespace HMS.Ordering.API.Application.DomainEventHandlers.OrderPaid
 {
@@ -34,10 +35,10 @@ namespace HMS.Ordering.API.Application.DomainEventHandlers.OrderPaid
              .LogTrace($"Order with Id: {orderStatusChangedToPaidDomainEvent.OrderId} has been successfully updated with " +
                        $"a status order id: {OrderStatus.Paid.Id}");
 
-            var orderStockList = orderStatusChangedToPaidDomainEvent.OrderItems
+			IEnumerable<OrderStockItem> orderStockList = orderStatusChangedToPaidDomainEvent.OrderItems
                 .Select(orderItem => new OrderStockItem(orderItem.ProductId, orderItem.GetUnits()));
 
-            var orderStatusChangedToPaidIntegrationEvent = new OrderStatusChangedToPaidIntegrationEvent(orderStatusChangedToPaidDomainEvent.OrderId,
+			OrderStatusChangedToPaidIntegrationEvent orderStatusChangedToPaidIntegrationEvent = new OrderStatusChangedToPaidIntegrationEvent(orderStatusChangedToPaidDomainEvent.OrderId,
                 orderStockList);
             await _orderingIntegrationEventService.PublishThroughEventBusAsync(orderStatusChangedToPaidIntegrationEvent);
         }

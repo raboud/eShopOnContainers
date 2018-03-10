@@ -1,6 +1,6 @@
 ﻿using Microsoft.BuildingBlocks.EventBus.Events;
 
-namespace HMS.Basket.API.IntegrationEvents.Events
+namespace HMS.IntegrationEvents.Events
 {
     // Integration Events notes: 
     // An Event is “something that has happened in the past”, therefore its name has to be   

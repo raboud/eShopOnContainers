@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System;
+using HMS.IntegrationEvents;
 
 namespace HMS.Core.Services.Basket
 {
     public class BasketMockService : IBasketService
     {
-        private CustomerBasket MockCustomBasket = new CustomerBasket
+        private CustomerBasket MockCustomBasket = new CustomerBasket("9245fe4a-d402-451c-b9ed-9c1a04247482")
         {
-            BuyerId = "9245fe4a-d402-451c-b9ed-9c1a04247482",
             Items = new List<BasketItem>
                 {
                 new BasketItem { Id = "1", PictureUrl = Device.RuntimePlatform != Device.UWP ? "fake_product_01.png" : "Assets/fake_product_01.png", ProductId = Common.Common.MockCatalogItemId01, ProductName = ".NET Bot Blue Sweatshirt (M)", Quantity = 1, UnitPrice = 19.50M },
@@ -24,7 +24,7 @@ namespace HMS.Core.Services.Basket
 
             if (string.IsNullOrEmpty(guidUser) || string.IsNullOrEmpty(token))
             {
-                return new CustomerBasket();
+                return new CustomerBasket(guidUser);
             }
 
             return MockCustomBasket;
@@ -36,7 +36,7 @@ namespace HMS.Core.Services.Basket
 
             if (string.IsNullOrEmpty(token))
             {
-                return new CustomerBasket();
+                return new CustomerBasket(customerBasket.BuyerId);
             }
 
             MockCustomBasket = customerBasket;

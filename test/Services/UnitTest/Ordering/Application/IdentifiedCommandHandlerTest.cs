@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using HMS.Ordering.API.Application.Models;
 using MediatR;
 using HMS.Ordering.API.Application.Commands;
 using HMS.Ordering.Infrastructure.Idempotency;
@@ -9,6 +8,7 @@ using Moq;
 using System.Collections;
 using System.Threading.Tasks;
 using Xunit;
+using HMS.IntegrationEvents;
 
 namespace HMS.UnitTest.Ordering.Application
 {
@@ -26,9 +26,9 @@ namespace HMS.UnitTest.Ordering.Application
         [Fact]
         public async Task Handler_sends_command_when_order_no_exists()
         {
-            // Arrange
-            var fakeGuid = Guid.NewGuid();
-            var fakeOrderCmd = new IdentifiedCommand<CreateOrderCommand, bool>(FakeOrderRequest(), fakeGuid);
+			// Arrange
+			Guid fakeGuid = Guid.NewGuid();
+			IdentifiedCommand<CreateOrderCommand, bool> fakeOrderCmd = new IdentifiedCommand<CreateOrderCommand, bool>(FakeOrderRequest(), fakeGuid);
 
             _requestManager.Setup(x => x.ExistAsync(It.IsAny<Guid>()))
                .Returns(Task.FromResult(false));
@@ -36,10 +36,10 @@ namespace HMS.UnitTest.Ordering.Application
             _mediator.Setup(x => x.Send(It.IsAny<IRequest<bool>>(),default(System.Threading.CancellationToken)))
                .Returns(Task.FromResult(true));
 
-            //Act
-            var handler = new IdentifiedCommandHandler<CreateOrderCommand, bool>(_mediator.Object, _requestManager.Object);
-            var cltToken = new System.Threading.CancellationToken();
-            var result = await handler.Handle(fakeOrderCmd, cltToken);
+			//Act
+			IdentifiedCommandHandler<CreateOrderCommand, bool> handler = new IdentifiedCommandHandler<CreateOrderCommand, bool>(_mediator.Object, _requestManager.Object);
+			System.Threading.CancellationToken cltToken = new System.Threading.CancellationToken();
+			bool result = await handler.Handle(fakeOrderCmd, cltToken);
 
             //Assert
             Assert.True(result);
@@ -49,9 +49,9 @@ namespace HMS.UnitTest.Ordering.Application
         [Fact]
         public async Task Handler_sends_no_command_when_order_already_exists()
         {
-            // Arrange
-            var fakeGuid = Guid.NewGuid();
-            var fakeOrderCmd = new IdentifiedCommand<CreateOrderCommand, bool>(FakeOrderRequest(), fakeGuid);
+			// Arrange
+			Guid fakeGuid = Guid.NewGuid();
+			IdentifiedCommand<CreateOrderCommand, bool> fakeOrderCmd = new IdentifiedCommand<CreateOrderCommand, bool>(FakeOrderRequest(), fakeGuid);
 
             _requestManager.Setup(x => x.ExistAsync(It.IsAny<Guid>()))
                .Returns(Task.FromResult(true));
@@ -59,10 +59,10 @@ namespace HMS.UnitTest.Ordering.Application
             _mediator.Setup(x => x.Send(It.IsAny<IRequest<bool>>(), default(System.Threading.CancellationToken)))
                .Returns(Task.FromResult(true));
 
-            //Act
-            var handler = new IdentifiedCommandHandler<CreateOrderCommand, bool>(_mediator.Object, _requestManager.Object);
-            var cltToken = new System.Threading.CancellationToken();
-            var result = await handler.Handle(fakeOrderCmd, cltToken);
+			//Act
+			IdentifiedCommandHandler<CreateOrderCommand, bool> handler = new IdentifiedCommandHandler<CreateOrderCommand, bool>(_mediator.Object, _requestManager.Object);
+			System.Threading.CancellationToken cltToken = new System.Threading.CancellationToken();
+			bool result = await handler.Handle(fakeOrderCmd, cltToken);
 
             //Assert
             Assert.False(result);

@@ -1,7 +1,7 @@
 ﻿using Microsoft.BuildingBlocks.EventBus.Events;
 using System.Collections.Generic;
 
-namespace HMS.Catalog.API.IntegrationEvents.Events
+namespace HMS.IntegrationEvents.Events
 {
     public class OrderStatusChangedToAwaitingValidationIntegrationEvent : IntegrationEvent
     {

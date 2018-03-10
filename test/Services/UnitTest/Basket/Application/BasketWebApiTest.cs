@@ -1,5 +1,4 @@
-﻿using HMS.Basket.API.IntegrationEvents.Events;
-using HMS.Basket.API.Model;
+﻿using HMS.Basket.API.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.BuildingBlocks.EventBus.Abstractions;
 using HMS.Basket.API.Controllers;
@@ -9,6 +8,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 using IBasketIdentityService = HMS.Basket.API.Services.IIdentityService;
+using HMS.IntegrationEvents.Events;
+using HMS.IntegrationEvents;
 
 namespace HMS.UnitTest.Basket.Application
 {
@@ -28,19 +29,19 @@ namespace HMS.UnitTest.Basket.Application
         [Fact]
         public async Task Get_customer_basket_success()
         {
-            //Arrange
-            var fakeCustomerId = "1";
-            var fakeCustomerBasket = GetCustomerBasketFake(fakeCustomerId);
+			//Arrange
+			string fakeCustomerId = "1";
+			CustomerBasket fakeCustomerBasket = GetCustomerBasketFake(fakeCustomerId);
 
             _basketRepositoryMock.Setup(x => x.GetBasketAsync(It.IsAny<string>()))
                 .Returns(Task.FromResult(fakeCustomerBasket));
             _identityServiceMock.Setup(x => x.GetUserIdentity()).Returns(fakeCustomerId);
 
             _serviceBusMock.Setup(x => x.Publish(It.IsAny<UserCheckoutAcceptedIntegrationEvent>()));
-            //Act
-            var basketController = new BasketController(
+			//Act
+			BasketController basketController = new BasketController(
                 _basketRepositoryMock.Object, _identityServiceMock.Object, _serviceBusMock.Object);
-            var actionResult = await basketController.Get(fakeCustomerId) as OkObjectResult;
+			OkObjectResult actionResult = await basketController.Get(fakeCustomerId) as OkObjectResult;
 
             //Assert
             Assert.Equal(actionResult.StatusCode, (int)System.Net.HttpStatusCode.OK);
@@ -50,19 +51,19 @@ namespace HMS.UnitTest.Basket.Application
         [Fact]
         public async Task Post_customer_basket_success()
         {
-            //Arrange
-            var fakeCustomerId = "1";
-            var fakeCustomerBasket = GetCustomerBasketFake(fakeCustomerId);
+			//Arrange
+			string fakeCustomerId = "1";
+			CustomerBasket fakeCustomerBasket = GetCustomerBasketFake(fakeCustomerId);
 
             _basketRepositoryMock.Setup(x => x.UpdateBasketAsync(It.IsAny<CustomerBasket>()))
                 .Returns(Task.FromResult(fakeCustomerBasket));
             _identityServiceMock.Setup(x => x.GetUserIdentity()).Returns(fakeCustomerId);
             _serviceBusMock.Setup(x => x.Publish(It.IsAny<UserCheckoutAcceptedIntegrationEvent>()));
-            //Act
-            var basketController = new BasketController(
+			//Act
+			BasketController basketController = new BasketController(
                 _basketRepositoryMock.Object, _identityServiceMock.Object, _serviceBusMock.Object);
 
-            var actionResult = await basketController.Post(fakeCustomerBasket) as OkObjectResult;
+			OkObjectResult actionResult = await basketController.Post(fakeCustomerBasket) as OkObjectResult;
 
             //Assert
             Assert.Equal(actionResult.StatusCode, (int)System.Net.HttpStatusCode.OK);
@@ -72,31 +73,31 @@ namespace HMS.UnitTest.Basket.Application
         [Fact]
         public async Task Doing_Checkout_Without_Basket_Should_Return_Bad_Request()
         {
-            var fakeCustomerId = "2";
+			string fakeCustomerId = "2";
             _basketRepositoryMock.Setup(x => x.GetBasketAsync(It.IsAny<string>()))
                 .Returns(Task.FromResult((CustomerBasket)null));
             _identityServiceMock.Setup(x => x.GetUserIdentity()).Returns(fakeCustomerId);
-            //Act
-            var basketController = new BasketController(
+			//Act
+			BasketController basketController = new BasketController(
                 _basketRepositoryMock.Object, _identityServiceMock.Object, _serviceBusMock.Object);
 
-            var result = await basketController.Checkout(new BasketCheckout(), Guid.NewGuid().ToString()) as BadRequestResult;
+			BadRequestResult result = await basketController.Checkout(new BasketCheckout(), Guid.NewGuid().ToString()) as BadRequestResult;
             Assert.NotNull(result);
         }
 
         [Fact]
         public async Task Doing_Checkout_Wit_Basket_Should_Publish_UserCheckoutAccepted_Integration_Event()
         {
-            var fakeCustomerId = "1";
-            var fakeCustomerBasket = GetCustomerBasketFake(fakeCustomerId);
+			string fakeCustomerId = "1";
+			CustomerBasket fakeCustomerBasket = GetCustomerBasketFake(fakeCustomerId);
             _basketRepositoryMock.Setup(x => x.GetBasketAsync(It.IsAny<string>()))
                  .Returns(Task.FromResult(fakeCustomerBasket));
             _identityServiceMock.Setup(x => x.GetUserIdentity()).Returns(fakeCustomerId);
-            //Act
-            var basketController = new BasketController(
+			//Act
+			BasketController basketController = new BasketController(
                 _basketRepositoryMock.Object, _identityServiceMock.Object, _serviceBusMock.Object);
 
-            var result = await basketController.Checkout(new BasketCheckout(), Guid.NewGuid().ToString()) as AcceptedResult;
+			AcceptedResult result = await basketController.Checkout(new BasketCheckout(), Guid.NewGuid().ToString()) as AcceptedResult;
             _serviceBusMock.Verify(mock => mock.Publish(It.IsAny<UserCheckoutAcceptedIntegrationEvent>()), Times.Once);
             Assert.NotNull(result);
         }

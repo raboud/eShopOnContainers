@@ -22,9 +22,8 @@ namespace HMS.Windows.Renderers
         protected override void OnElementChanged(ElementChangedEventArgs<Page> e)
         {
             base.OnElementChanged(e);
-            if (OnElementChangedEvent != null)
-                OnElementChangedEvent(e);
-        }
+			OnElementChangedEvent?.Invoke(e);
+		}
 
         protected override void Dispose(bool disposing)
         {

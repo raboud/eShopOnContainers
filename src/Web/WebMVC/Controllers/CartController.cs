@@ -6,6 +6,7 @@ using Polly.CircuitBreaker;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using HMS.IntegrationEvents;
 
 namespace HMS.WebMVC.Controllers
 {
@@ -27,8 +28,8 @@ namespace HMS.WebMVC.Controllers
         {
             try
             {
-                var user = _appUserParser.Parse(HttpContext.User);
-                var vm = await _basketSvc.GetBasket(user);
+				ApplicationUser user = _appUserParser.Parse(HttpContext.User);
+				Basket vm = await _basketSvc.GetBasket(user);
 
                 return View(vm);
             }
@@ -47,13 +48,13 @@ namespace HMS.WebMVC.Controllers
         {
             try
             {
-                var user = _appUserParser.Parse(HttpContext.User);
-                var basket = await _basketSvc.SetQuantities(user, quantities);
-                var vm = await _basketSvc.UpdateBasket(basket);
+				ApplicationUser user = _appUserParser.Parse(HttpContext.User);
+				Basket basket = await _basketSvc.SetQuantities(user, quantities);
+				Basket vm = await _basketSvc.UpdateBasket(basket);
 
                 if (action == "[ Checkout ]")
                 {
-                    var order = _basketSvc.MapBasketToOrder(basket);
+					Order order = _basketSvc.MapBasketToOrder(basket);
                     return RedirectToAction("Create", "Order");
                 }
             }
@@ -72,8 +73,8 @@ namespace HMS.WebMVC.Controllers
             {
                 if (productDetails.Id != null)
                 {
-                    var user = _appUserParser.Parse(HttpContext.User);
-                    var product = new BasketItem()
+					ApplicationUser user = _appUserParser.Parse(HttpContext.User);
+					BasketItem product = new BasketItem()
                     {
                         Id = Guid.NewGuid().ToString(),
                         Quantity = 1,

@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using HMS.Catalog.API.IntegrationEvents.Events;
 using Microsoft.BuildingBlocks.EventBus.Events;
 
-namespace HMS.Catalog.API.IntegrationEvents.Events
+namespace HMS.IntegrationEvents.Events
 {
 
     public class OrderStatusChangedToPaidIntegrationEvent : IntegrationEvent

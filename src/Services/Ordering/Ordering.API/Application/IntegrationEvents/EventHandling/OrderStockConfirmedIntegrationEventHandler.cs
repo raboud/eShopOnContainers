@@ -1,10 +1,10 @@
-﻿namespace HMS.Ordering.API.Application.IntegrationEvents.EventHandling
-{
-    using Microsoft.BuildingBlocks.EventBus.Abstractions;
-    using System.Threading.Tasks;
-    using Events;
-    using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
+﻿using Microsoft.BuildingBlocks.EventBus.Abstractions;
+using System.Threading.Tasks;
+using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
+using HMS.IntegrationEvents.Events;
 
+namespace HMS.Ordering.API.Application.IntegrationEvents.EventHandling
+{
     public class OrderStockConfirmedIntegrationEventHandler : 
         IIntegrationEventHandler<OrderStockConfirmedIntegrationEvent>
     {
@@ -17,7 +17,7 @@
 
         public async Task Handle(OrderStockConfirmedIntegrationEvent @event)
         {
-            var orderToUpdate = await _orderRepository.GetAsync(@event.OrderId);
+			Order orderToUpdate = await _orderRepository.GetAsync(@event.OrderId);
 
             orderToUpdate.SetStockConfirmedStatus();
 

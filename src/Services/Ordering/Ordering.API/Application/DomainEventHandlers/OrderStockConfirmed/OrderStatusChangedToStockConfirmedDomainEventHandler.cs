@@ -1,15 +1,15 @@
-﻿namespace HMS.Ordering.API.Application.DomainEventHandlers.OrderStockConfirmed
-{
-    using MediatR;
-    using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
-    using Microsoft.Extensions.Logging;
-    using HMS.Ordering.Domain.Events;
-    using System;
-    using System.Threading.Tasks;
-    using HMS.Ordering.API.Application.IntegrationEvents;
-    using HMS.Ordering.API.Application.IntegrationEvents.Events;
-    using System.Threading;
+﻿using MediatR;
+using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
+using Microsoft.Extensions.Logging;
+using HMS.Ordering.Domain.Events;
+using System;
+using System.Threading.Tasks;
+using HMS.Ordering.API.Application.IntegrationEvents;
+using System.Threading;
+using HMS.IntegrationEvents.Events;
 
+namespace HMS.Ordering.API.Application.DomainEventHandlers.OrderStockConfirmed
+{
     public class OrderStatusChangedToStockConfirmedDomainEventHandler
                    : INotificationHandler<OrderStatusChangedToStockConfirmedDomainEvent>
     {
@@ -32,7 +32,7 @@
                 .LogTrace($"Order with Id: {orderStatusChangedToStockConfirmedDomainEvent.OrderId} has been successfully updated with " +
                           $"a status order id: {OrderStatus.StockConfirmed.Id}");
 
-            var orderStatusChangedToStockConfirmedIntegrationEvent = new OrderStatusChangedToStockConfirmedIntegrationEvent(orderStatusChangedToStockConfirmedDomainEvent.OrderId);
+			OrderStatusChangedToStockConfirmedIntegrationEvent orderStatusChangedToStockConfirmedIntegrationEvent = new OrderStatusChangedToStockConfirmedIntegrationEvent(orderStatusChangedToStockConfirmedDomainEvent.OrderId);
             await _orderingIntegrationEventService.PublishThroughEventBusAsync(orderStatusChangedToStockConfirmedIntegrationEvent);
         }
     }  

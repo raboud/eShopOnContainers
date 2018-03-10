@@ -1,8 +1,8 @@
-﻿namespace HMS.Marketing.API.IntegrationEvents.Events
+﻿using Microsoft.BuildingBlocks.EventBus.Events;
+using System.Collections.Generic;
+
+namespace HMS.IntegrationEvents.Events
 {
-    using Marketing.API.Model;
-    using Microsoft.BuildingBlocks.EventBus.Events;
-    using System.Collections.Generic;
 
     public class UserLocationUpdatedIntegrationEvent : IntegrationEvent
     {

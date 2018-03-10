@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using BasketModel = HMS.WebMVC.ViewModels.Basket;
+using HMS.IntegrationEvents;
 
 namespace HMS.UnitTest.Basket.Application
 {
@@ -31,11 +32,11 @@ namespace HMS.UnitTest.Basket.Application
         [Fact]
         public async Task Post_cart_success()
         {
-            //Arrange
-            var fakeBuyerId = "1";
-            var action = string.Empty;
-            var fakeBasket = GetFakeBasket(fakeBuyerId);
-            var fakeQuantities = new Dictionary<string, int>()
+			//Arrange
+			string fakeBuyerId = "1";
+			string action = string.Empty;
+			BasketModel fakeBasket = GetFakeBasket(fakeBuyerId);
+			Dictionary<string, int> fakeQuantities = new Dictionary<string, int>()
             {
                 ["fakeProdA"] = 1,
                 ["fakeProdB"] = 2
@@ -47,23 +48,23 @@ namespace HMS.UnitTest.Basket.Application
             _basketServiceMock.Setup(x => x.UpdateBasket(It.IsAny<BasketModel>()))
                 .Returns(Task.FromResult(fakeBasket));
 
-            //Act
-            var cartController = new CartController(_basketServiceMock.Object, _catalogServiceMock.Object, _identityParserMock.Object);
+			//Act
+			CartController cartController = new CartController(_basketServiceMock.Object, _catalogServiceMock.Object, _identityParserMock.Object);
             cartController.ControllerContext.HttpContext = _contextMock.Object;
-            var actionResult = await cartController.Index(fakeQuantities, action);
+			IActionResult actionResult = await cartController.Index(fakeQuantities, action);
 
-            //Assert
-            var viewResult = Assert.IsType<ViewResult>(actionResult);
+			//Assert
+			ViewResult viewResult = Assert.IsType<ViewResult>(actionResult);
         }
 
         [Fact]
         public async Task Post_cart_checkout_success()
         {
-            //Arrange
-            var fakeBuyerId = "1";
-            var action = "[ Checkout ]";
-            var fakeBasket = GetFakeBasket(fakeBuyerId);
-            var fakeQuantities = new Dictionary<string, int>()
+			//Arrange
+			string fakeBuyerId = "1";
+			string action = "[ Checkout ]";
+			BasketModel fakeBasket = GetFakeBasket(fakeBuyerId);
+			Dictionary<string, int> fakeQuantities = new Dictionary<string, int>()
             {
                 ["fakeProdA"] = 1,
                 ["fakeProdB"] = 2
@@ -75,13 +76,13 @@ namespace HMS.UnitTest.Basket.Application
             _basketServiceMock.Setup(x => x.UpdateBasket(It.IsAny<BasketModel>()))
                 .Returns(Task.FromResult(fakeBasket));
 
-            //Act
-            var orderController = new CartController(_basketServiceMock.Object, _catalogServiceMock.Object, _identityParserMock.Object);
+			//Act
+			CartController orderController = new CartController(_basketServiceMock.Object, _catalogServiceMock.Object, _identityParserMock.Object);
             orderController.ControllerContext.HttpContext = _contextMock.Object;
-            var actionResult = await orderController.Index(fakeQuantities, action);
+			IActionResult actionResult = await orderController.Index(fakeQuantities, action);
 
-            //Assert
-            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(actionResult);
+			//Assert
+			RedirectToActionResult redirectToActionResult = Assert.IsType<RedirectToActionResult>(actionResult);
             Assert.Equal("Order", redirectToActionResult.ControllerName);
             Assert.Equal("Create", redirectToActionResult.ActionName);
         }
@@ -89,19 +90,19 @@ namespace HMS.UnitTest.Basket.Application
         [Fact]
         public async Task Add_to_cart_success()
         {
-            //Arrange
-            var fakeCatalogItem = GetFakeCatalogItem();
+			//Arrange
+			CatalogItem fakeCatalogItem = GetFakeCatalogItem();
 
             _basketServiceMock.Setup(x => x.AddItemToBasket(It.IsAny<ApplicationUser>(), It.IsAny<BasketItem>()))
                 .Returns(Task.FromResult(1));
 
-            //Act
-            var orderController = new CartController(_basketServiceMock.Object, _catalogServiceMock.Object, _identityParserMock.Object);
+			//Act
+			CartController orderController = new CartController(_basketServiceMock.Object, _catalogServiceMock.Object, _identityParserMock.Object);
             orderController.ControllerContext.HttpContext = _contextMock.Object;
-            var actionResult = await orderController.AddToCart(fakeCatalogItem);
+			IActionResult actionResult = await orderController.AddToCart(fakeCatalogItem);
 
-            //Assert
-            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(actionResult);
+			//Assert
+			RedirectToActionResult redirectToActionResult = Assert.IsType<RedirectToActionResult>(actionResult);
             Assert.Equal("Catalog", redirectToActionResult.ControllerName);
             Assert.Equal("Index", redirectToActionResult.ActionName);
         }

@@ -1,4 +1,5 @@
 ﻿using HMS.Core.Models.Basket;
+using HMS.IntegrationEvents;
 using System.Threading.Tasks;
 
 namespace HMS.Core.Services.Basket

@@ -6,12 +6,12 @@ using Moq;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using HMS.Ordering.API.Application.Models;
 using MediatR;
 using System.Collections;
 using System.Collections.Generic;
 using Xunit;
 using static HMS.Ordering.API.Application.Commands.CreateOrderCommand;
+using HMS.IntegrationEvents;
 
 namespace HMS.UnitTest.Ordering.Application
 {

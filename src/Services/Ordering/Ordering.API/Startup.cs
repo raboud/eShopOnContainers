@@ -2,7 +2,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using HMS.Ordering.API.Application.IntegrationEvents;
-using HMS.Ordering.API.Application.IntegrationEvents.Events;
 using HMS.Ordering.API.Infrastructure.AutofacModules;
 using Microsoft.BuildingBlocks.Infrastructure.Filters;
 using HMS.Ordering.API.Infrastructure.Services;
@@ -34,6 +33,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
 using HMS.Ordering.Domain.Exceptions;
 using Microsoft.BuildingBlocks.Infrastructure.Middlewares;
+using HMS.IntegrationEvents.Events;
+using HMS.IntegrationEvents;
 
 namespace HMS.Ordering.API
 {

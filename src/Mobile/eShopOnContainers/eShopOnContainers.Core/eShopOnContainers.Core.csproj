@@ -19,4 +19,7 @@
     <Folder Include="Services\Permissions\" />
     <Folder Include="Models\Permissions\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Services\Common\IntegrationEvents\IntegrationEvents.csproj" />
+  </ItemGroup>
 </Project>

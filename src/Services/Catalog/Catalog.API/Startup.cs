@@ -4,7 +4,6 @@ using HMS.Catalog.API.Infrastructure;
 using HMS.Catalog.API.Infrastructure.Exceptions;
 using HMS.Catalog.API.IntegrationEvents;
 using HMS.Catalog.API.IntegrationEvents.EventHandling;
-using HMS.Catalog.API.IntegrationEvents.Events;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.ServiceFabric;
 using Microsoft.AspNetCore.Builder;
@@ -38,6 +37,7 @@ using IdentityServer4.AccessTokenValidation;
 using HMS.Catalog.API.Infrastructure.Middlewares;
 using HMS.Catalog.API.Services;
 using AutoMapper;
+using HMS.IntegrationEvents.Events;
 
 namespace HMS.Catalog.API
 {
@@ -73,15 +73,15 @@ namespace HMS.Catalog.API
 
 			services.AddHealthChecks(checks =>
             {
-                var minutes = 1;
-                if (int.TryParse(Configuration["HealthCheck:Timeout"], out var minutesParsed))
+				int minutes = 1;
+                if (int.TryParse(Configuration["HealthCheck:Timeout"], out int minutesParsed))
                 {
                     minutes = minutesParsed;
                 }
                 checks.AddSqlCheck("CatalogDb", Configuration["ConnectionString"], TimeSpan.FromMinutes(minutes));
 
-                var accountName = Configuration.GetValue<string>("AzureStorageAccountName");
-                var accountKey = Configuration.GetValue<string>("AzureStorageAccountKey");
+				string accountName = Configuration.GetValue<string>("AzureStorageAccountName");
+				string accountKey = Configuration.GetValue<string>("AzureStorageAccountKey");
                 if (!string.IsNullOrEmpty(accountName) && !string.IsNullOrEmpty(accountKey))
                 {
                     checks.AddAzureBlobStorageCheck(accountName, accountKey);
@@ -164,10 +164,10 @@ namespace HMS.Catalog.API
             {
                 services.AddSingleton<IServiceBusPersisterConnection>(sp =>
                 {
-                    var settings = sp.GetRequiredService<IOptions<CatalogSettings>>().Value;
-                    var logger = sp.GetRequiredService<ILogger<DefaultServiceBusPersisterConnection>>();
+					CatalogSettings settings = sp.GetRequiredService<IOptions<CatalogSettings>>().Value;
+					ILogger<DefaultServiceBusPersisterConnection> logger = sp.GetRequiredService<ILogger<DefaultServiceBusPersisterConnection>>();
 
-                    var serviceBusConnection = new ServiceBusConnectionStringBuilder(settings.EventBusConnection);
+					ServiceBusConnectionStringBuilder serviceBusConnection = new ServiceBusConnectionStringBuilder(settings.EventBusConnection);
 
                     return new DefaultServiceBusPersisterConnection(serviceBusConnection, logger);
                 });
@@ -176,10 +176,10 @@ namespace HMS.Catalog.API
             {
                 services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
                 {
-                    var settings = sp.GetRequiredService<IOptions<CatalogSettings>>().Value;
-                    var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
+					CatalogSettings settings = sp.GetRequiredService<IOptions<CatalogSettings>>().Value;
+					ILogger<DefaultRabbitMQPersistentConnection> logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
 
-                    var factory = new ConnectionFactory()
+					ConnectionFactory factory = new ConnectionFactory()
                     {
                         HostName = Configuration["EventBusConnection"]
                     };
@@ -194,7 +194,7 @@ namespace HMS.Catalog.API
                         factory.Password = Configuration["EventBusPassword"];
                     }
 
-                    var retryCount = 5;
+					int retryCount = 5;
                     if (!string.IsNullOrEmpty(Configuration["EventBusRetryCount"]))
                     {
                         retryCount = int.Parse(Configuration["EventBusRetryCount"]);
@@ -208,7 +208,7 @@ namespace HMS.Catalog.API
 
             RegisterEventBus(services);
 
-            var container = new ContainerBuilder();
+			ContainerBuilder container = new ContainerBuilder();
             container.Populate(services);
             return new AutofacServiceProvider(container.Build());
 
@@ -222,7 +222,7 @@ namespace HMS.Catalog.API
             loggerFactory.AddAzureWebAppDiagnostics();
             loggerFactory.AddApplicationInsights(app.ApplicationServices, LogLevel.Trace);
 
-            var pathBase = Configuration["PATH_BASE"];
+			string pathBase = Configuration["PATH_BASE"];
             if (!string.IsNullOrEmpty(pathBase))
             {
                 loggerFactory.CreateLogger("init").LogDebug($"Using PATH BASE '{pathBase}'");
@@ -254,7 +254,7 @@ namespace HMS.Catalog.API
         private void RegisterAppInsights(IServiceCollection services)
         {
             services.AddApplicationInsightsTelemetry(Configuration);
-            var orchestratorType = Configuration.GetValue<string>("OrchestratorType");
+			string orchestratorType = Configuration.GetValue<string>("OrchestratorType");
 
             if (orchestratorType?.ToUpper() == "K8S")
             {
@@ -277,13 +277,13 @@ namespace HMS.Catalog.API
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 				.AddIdentityServerAuthentication(options =>
 				{
-					setIS4Options(options);
+					SetIS4Options(options);
 				});
 		}
 
-		virtual public void setIS4Options(IdentityServerAuthenticationOptions options)
+		virtual public void SetIS4Options(IdentityServerAuthenticationOptions options)
 		{
-			var identityUrl = Configuration.GetValue<string>("IdentityUrl");
+			string identityUrl = Configuration.GetValue<string>("IdentityUrl");
 
 			options.Authority = identityUrl;
 			options.RequireHttpsMetadata = false;
@@ -304,16 +304,16 @@ namespace HMS.Catalog.API
 
 		private void RegisterEventBus(IServiceCollection services)
         {
-            var subscriptionClientName = Configuration["SubscriptionClientName"];
+			string subscriptionClientName = Configuration["SubscriptionClientName"];
 
             if (Configuration.GetValue<bool>("AzureServiceBusEnabled"))
             {
                 services.AddSingleton<IEventBus, EventBusServiceBus>(sp =>
                 {
-                    var serviceBusPersisterConnection = sp.GetRequiredService<IServiceBusPersisterConnection>();
-                    var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
-                    var logger = sp.GetRequiredService<ILogger<EventBusServiceBus>>();
-                    var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
+					IServiceBusPersisterConnection serviceBusPersisterConnection = sp.GetRequiredService<IServiceBusPersisterConnection>();
+					ILifetimeScope iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
+					ILogger<EventBusServiceBus> logger = sp.GetRequiredService<ILogger<EventBusServiceBus>>();
+					IEventBusSubscriptionsManager eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
 
                     return new EventBusServiceBus(serviceBusPersisterConnection, logger,
                         eventBusSubcriptionsManager, subscriptionClientName, iLifetimeScope);
@@ -324,12 +324,12 @@ namespace HMS.Catalog.API
             {
                 services.AddSingleton<IEventBus, EventBusRabbitMQ>(sp =>
                 {
-                    var rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();
-                    var iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
-                    var logger = sp.GetRequiredService<ILogger<EventBusRabbitMQ>>();
-                    var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
+					IRabbitMQPersistentConnection rabbitMQPersistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();
+					ILifetimeScope iLifetimeScope = sp.GetRequiredService<ILifetimeScope>();
+					ILogger<EventBusRabbitMQ> logger = sp.GetRequiredService<ILogger<EventBusRabbitMQ>>();
+					IEventBusSubscriptionsManager eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
 
-                    var retryCount = 5;
+					int retryCount = 5;
                     if (!string.IsNullOrEmpty(Configuration["EventBusRetryCount"]))
                     {
                         retryCount = int.Parse(Configuration["EventBusRetryCount"]);
@@ -345,7 +345,7 @@ namespace HMS.Catalog.API
         }
         protected virtual void ConfigureEventBus(IApplicationBuilder app)
         {
-            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+			IEventBus eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
             eventBus.Subscribe<OrderStatusChangedToAwaitingValidationIntegrationEvent, OrderStatusChangedToAwaitingValidationIntegrationEventHandler>();
             eventBus.Subscribe<OrderStatusChangedToPaidIntegrationEvent, OrderStatusChangedToPaidIntegrationEventHandler>();
         }

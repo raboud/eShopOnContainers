@@ -10,7 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.HealthChecks;
 using Microsoft.Extensions.Logging;
 using HMS.Payment.API.IntegrationEvents.EventHandling;
-using HMS.Payment.API.IntegrationEvents.Events;
 using RabbitMQ.Client;
 using System;
 using System.Threading.Tasks;
@@ -18,6 +17,7 @@ using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.ServiceFabric;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using HMS.IntegrationEvents.Events;
 
 namespace HMS.Payment.API
 {

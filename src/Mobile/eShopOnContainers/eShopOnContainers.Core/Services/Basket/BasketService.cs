@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using HMS.Core.Services.RequestProvider;
 using HMS.Core.Models.Basket;
 using HMS.Core.Services.FixUri;
+using HMS.IntegrationEvents;
 
 namespace HMS.Core.Services.Basket
 {
@@ -21,12 +22,12 @@ namespace HMS.Core.Services.Basket
 
         public async Task<CustomerBasket> GetBasketAsync(string guidUser, string token)
         {
-            var builder = new UriBuilder(GlobalSetting.Instance.BasketEndpoint)
+			UriBuilder builder = new UriBuilder(GlobalSetting.Instance.BasketEndpoint)
             {
                 Path = $"{ApiUrlBase}/{guidUser}"
             };
 
-            var uri = builder.ToString();
+			string uri = builder.ToString();
 
             CustomerBasket basket =
                     await _requestProvider.GetAsync<CustomerBasket>(uri, token);
@@ -37,35 +38,35 @@ namespace HMS.Core.Services.Basket
 
         public async Task<CustomerBasket> UpdateBasketAsync(CustomerBasket customerBasket, string token)
         {
-            var builder = new UriBuilder(GlobalSetting.Instance.BasketEndpoint)
+			UriBuilder builder = new UriBuilder(GlobalSetting.Instance.BasketEndpoint)
             {
                 Path = ApiUrlBase
             };
 
-            var uri = builder.ToString();
-            var result = await _requestProvider.PostAsync(uri, customerBasket, token);
+			string uri = builder.ToString();
+			CustomerBasket result = await _requestProvider.PostAsync(uri, customerBasket, token);
             return result;
         }
 
         public async Task CheckoutAsync(BasketCheckout basketCheckout, string token)
         {
-            var builder = new UriBuilder(GlobalSetting.Instance.BasketEndpoint)
+			UriBuilder builder = new UriBuilder(GlobalSetting.Instance.BasketEndpoint)
             {
                 Path = $"{ApiUrlBase}/checkout"
             };
 
-            var uri = builder.ToString();
+			string uri = builder.ToString();
             await _requestProvider.PostAsync(uri, basketCheckout, token);
         }
 
         public async Task ClearBasketAsync(string guidUser, string token)
         {
-            var builder = new UriBuilder(GlobalSetting.Instance.BasketEndpoint)
+			UriBuilder builder = new UriBuilder(GlobalSetting.Instance.BasketEndpoint)
             {
                 Path = $"{ApiUrlBase}/{guidUser}"
             };
 
-            var uri = builder.ToString();
+			string uri = builder.ToString();
             await _requestProvider.DeleteAsync(uri, token);
         }
     }

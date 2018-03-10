@@ -1,8 +1,8 @@
-﻿using HMS.Basket.API.IntegrationEvents.Events;
-using Microsoft.BuildingBlocks.EventBus.Abstractions;
+﻿using Microsoft.BuildingBlocks.EventBus.Abstractions;
 using HMS.Basket.API.Model;
 using System;
 using System.Threading.Tasks;
+using HMS.IntegrationEvents.Events;
 
 namespace HMS.Basket.API.IntegrationEvents.EventHandling
 {

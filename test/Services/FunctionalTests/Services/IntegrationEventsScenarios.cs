@@ -16,6 +16,7 @@ using IdentityModel.Client;
 using HMS.FunctionalTests.Services.Identity;
 using Newtonsoft.Json.Linq;
 using HMS.Catalog.DTO;
+using HMS.IntegrationEvents;
 
 namespace HMS.FunctionalTests.Services
 {

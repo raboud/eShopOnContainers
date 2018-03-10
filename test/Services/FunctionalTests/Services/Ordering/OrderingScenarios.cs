@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HMS.WebMVC.Models;
 using Xunit;
+using HMS.IntegrationEvents;
 
 namespace HMS.FunctionalTests.Services.Ordering
 {
@@ -88,19 +89,21 @@ namespace HMS.FunctionalTests.Services.Ordering
 
         string BuildBasket()
         {
-			CustomerBasket order = new CustomerBasket("9e3163b9-1ae6-4652-9dc6-7898ab7b7a00");
-            order.Items = new List<HMS.Basket.API.Model.BasketItem>()
-            {
-                new HMS.Basket.API.Model.BasketItem()
-                {
-                    Id = "1",
-                    ProductName = "ProductName",
-                    ProductId = "1",
-                    UnitPrice = 10,
-                    Quantity = 1
-                }
-            };
-            return JsonConvert.SerializeObject(order);
+			CustomerBasket order = new CustomerBasket("9e3163b9-1ae6-4652-9dc6-7898ab7b7a00")
+			{
+				Items = new List<BasketItem>()
+				{
+					new BasketItem()
+					{
+						Id = "1",
+						ProductName = "ProductName",
+						ProductId = "1",
+						UnitPrice = 10,
+						Quantity = 1
+					}
+				}
+			};
+			return JsonConvert.SerializeObject(order);
         }
 
         string BuildCancelOrder(string orderId)

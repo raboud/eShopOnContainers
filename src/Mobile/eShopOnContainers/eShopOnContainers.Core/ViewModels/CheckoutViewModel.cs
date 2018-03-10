@@ -7,6 +7,7 @@ using HMS.Core.Services.Order;
 using HMS.Core.Services.Settings;
 using HMS.Core.Services.User;
 using HMS.Core.ViewModels.Base;
+using HMS.IntegrationEvents;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -77,13 +78,13 @@ namespace HMS.Core.ViewModels
             {
                 IsBusy = true;
 
-                // Get navigation data
-                var orderItems = ((ObservableCollection<BasketItem>)navigationData);
+				// Get navigation data
+				ObservableCollection<BasketItem> orderItems = ((ObservableCollection<BasketItem>)navigationData);
 
                 OrderItems = orderItems;
 
-                var authToken = _settingsService.AuthAccessToken;
-                var userInfo = await _userService.GetUserInfoAsync(authToken);
+				string authToken = _settingsService.AuthAccessToken;
+				UserInfo userInfo = await _userService.GetUserInfoAsync(authToken);
 
                 // Create Shipping Address
                 ShippingAddress = new Address
@@ -96,8 +97,8 @@ namespace HMS.Core.ViewModels
                     City = userInfo?.Address
                 };
 
-                // Create Payment Info
-                var paymentInfo = new PaymentInfo
+				// Create Payment Info
+				PaymentInfo paymentInfo = new PaymentInfo
                 {
                     CardNumber = userInfo?.CardNumber,
                     CardHolderName = userInfo?.CardHolder,
@@ -127,8 +128,8 @@ namespace HMS.Core.ViewModels
 
                 if (_settingsService.UseMocks)
                 {
-                    // Get number of orders
-                    var orders = await _orderService.GetOrdersAsync(authToken);
+					// Get number of orders
+					ObservableCollection<Order> orders = await _orderService.GetOrdersAsync(authToken);
 
                     // Create the OrderNumber
                     Order.OrderNumber = orders.Count + 1;
@@ -143,9 +144,9 @@ namespace HMS.Core.ViewModels
         {
             try
             {
-                var authToken = _settingsService.AuthAccessToken;
+				string authToken = _settingsService.AuthAccessToken;
 
-                var basket = _orderService.MapOrderToBasket(Order);
+				BasketCheckout basket = _orderService.MapOrderToBasket(Order);
                 basket.RequestId = Guid.NewGuid();
 
                 // Create basket checkout
@@ -159,8 +160,8 @@ namespace HMS.Core.ViewModels
                 // Clean Basket
                 await _basketService.ClearBasketAsync(_shippingAddress.Id.ToString(), authToken);
 
-                // Reset Basket badge
-                var basketViewModel = ViewModelLocator.Resolve<BasketViewModel>();
+				// Reset Basket badge
+				BasketViewModel basketViewModel = ViewModelLocator.Resolve<BasketViewModel>();
                 basketViewModel.BadgeCount = 0;
 
                 // Navigate to Orders
@@ -179,9 +180,9 @@ namespace HMS.Core.ViewModels
 
         private List<OrderItem> CreateOrderItems(ObservableCollection<BasketItem> basketItems)
         {
-            var orderItems = new List<OrderItem>();
+			List<OrderItem> orderItems = new List<OrderItem>();
 
-            foreach (var basketItem in basketItems)
+            foreach (BasketItem basketItem in basketItems)
             {
                 if (!string.IsNullOrEmpty(basketItem.ProductName))
                 {
@@ -204,7 +205,7 @@ namespace HMS.Core.ViewModels
         {
             decimal total = 0;
 
-            foreach (var orderItem in orderItems)
+            foreach (OrderItem orderItem in orderItems)
             {
                 total += (orderItem.Quantity * orderItem.UnitPrice);
             }

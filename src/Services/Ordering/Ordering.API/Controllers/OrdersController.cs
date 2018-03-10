@@ -36,7 +36,7 @@ namespace HMS.Ordering.API.Controllers
             bool commandResult = false;
             if (Guid.TryParse(requestId, out Guid guid) && guid != Guid.Empty)
             {
-                var requestCancelOrder = new IdentifiedCommand<CancelOrderCommand, bool>(command, guid);
+				IdentifiedCommand<CancelOrderCommand, bool> requestCancelOrder = new IdentifiedCommand<CancelOrderCommand, bool>(command, guid);
                 commandResult = await _mediator.Send(requestCancelOrder);
             }
            
@@ -53,7 +53,7 @@ namespace HMS.Ordering.API.Controllers
             bool commandResult = false;
             if (Guid.TryParse(requestId, out Guid guid) && guid != Guid.Empty)
             {
-                var requestShipOrder = new IdentifiedCommand<ShipOrderCommand, bool>(command, guid);
+				IdentifiedCommand<ShipOrderCommand, bool> requestShipOrder = new IdentifiedCommand<ShipOrderCommand, bool>(command, guid);
                 commandResult = await _mediator.Send(requestShipOrder);
             }
 
@@ -69,7 +69,7 @@ namespace HMS.Ordering.API.Controllers
         {
             try
             {
-                var order = await _orderQueries
+				Order order = await _orderQueries
                     .GetOrderAsync(orderId);
 
                 return Ok(order);
@@ -85,7 +85,7 @@ namespace HMS.Ordering.API.Controllers
         [ProducesResponseType(typeof(IEnumerable<OrderSummary>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetOrders()
         {
-            var orders = await _orderQueries.GetOrdersAsync();
+			IEnumerable<OrderSummary> orders = await _orderQueries.GetOrdersAsync();
 
             return Ok(orders);
         }
@@ -95,7 +95,7 @@ namespace HMS.Ordering.API.Controllers
         [ProducesResponseType(typeof(IEnumerable<CardType>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetCardTypes()
         {
-            var cardTypes = await _orderQueries
+			IEnumerable<CardType> cardTypes = await _orderQueries
                 .GetCardTypesAsync();
 
             return Ok(cardTypes);

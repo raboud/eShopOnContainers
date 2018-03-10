@@ -1,7 +1,7 @@
-﻿namespace HMS.Payment.API.IntegrationEvents.Events
-{
-    using Microsoft.BuildingBlocks.EventBus.Events;
+﻿using Microsoft.BuildingBlocks.EventBus.Events;
 
+namespace HMS.IntegrationEvents.Events
+{
     public class OrderPaymentSuccededIntegrationEvent : IntegrationEvent
     {
         public int OrderId { get; }

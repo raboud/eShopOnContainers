@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using HMS.Core.Services.Settings;
+using HMS.IntegrationEvents;
 
 namespace HMS.Core.Services.FixUri
 {
@@ -33,15 +34,15 @@ namespace HMS.Core.Services.FixUri
                 if (!ViewModelLocator.UseMockService
                     && _settingsService.UrlBase != GlobalSetting.DefaultEndpoint)
                 {
-                    foreach (var catalogItem in catalogItems)
+                    foreach (CatalogItem catalogItem in catalogItems)
                     {
                         MatchCollection serverResult = IpRegex.Matches(catalogItem.PictureUri);
                         MatchCollection localResult = IpRegex.Matches(_settingsService.UrlBase);
 
                         if (serverResult.Count != -1 && localResult.Count != -1)
                         {
-                            var serviceIp = serverResult[0].Value;
-                            var localIp = localResult[0].Value;
+							string serviceIp = serverResult[0].Value;
+							string localIp = localResult[0].Value;
 
                             catalogItem.PictureUri = catalogItem.PictureUri.Replace(serviceIp, localIp);
                         }
@@ -66,15 +67,15 @@ namespace HMS.Core.Services.FixUri
                 if (!ViewModelLocator.UseMockService
                     && _settingsService.UrlBase != GlobalSetting.DefaultEndpoint)
                 {
-                    foreach (var basketItem in basketItems)
+                    foreach (BasketItem basketItem in basketItems)
                     {
                         MatchCollection serverResult = IpRegex.Matches(basketItem.PictureUrl);
                         MatchCollection localResult = IpRegex.Matches(_settingsService.UrlBase);
 
                         if (serverResult.Count != -1 && localResult.Count != -1)
                         {
-                            var serviceIp = serverResult[0].Value;
-                            var localIp = localResult[0].Value;
+							string serviceIp = serverResult[0].Value;
+							string localIp = localResult[0].Value;
                             basketItem.PictureUrl = basketItem.PictureUrl.Replace(serviceIp, localIp);
                         }
                     }
@@ -98,15 +99,15 @@ namespace HMS.Core.Services.FixUri
                 if (!ViewModelLocator.UseMockService
                     && _settingsService.UrlBase != GlobalSetting.DefaultEndpoint)
                 {
-                    foreach (var campaignItem in campaignItems)
+                    foreach (CampaignItem campaignItem in campaignItems)
                     {
                         MatchCollection serverResult = IpRegex.Matches(campaignItem.PictureUri);
                         MatchCollection localResult = IpRegex.Matches(_settingsService.UrlBase);
 
                         if (serverResult.Count != -1 && localResult.Count != -1)
                         {
-                            var serviceIp = serverResult[0].Value;
-                            var localIp = localResult[0].Value;
+							string serviceIp = serverResult[0].Value;
+							string localIp = localResult[0].Value;
 
                             campaignItem.PictureUri = campaignItem.PictureUri.Replace(serviceIp, localIp);
                         }

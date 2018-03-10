@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using HMS.IntegrationEvents;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 using System.Collections.Generic;
@@ -28,14 +29,14 @@ namespace HMS.Basket.API.Model
 
         public IEnumerable<string> GetUsers()
         {
-            var server = GetServer();          
-            var data = server.Keys();
+			IServer server = GetServer();
+			IEnumerable<RedisKey> data = server.Keys();
             return data?.Select(k => k.ToString());
         }
 
         public async Task<CustomerBasket> GetBasketAsync(string customerId)
         {
-            var data = await _database.StringGetAsync(customerId);
+			RedisValue data = await _database.StringGetAsync(customerId);
             if (data.IsNullOrEmpty)
             {
                 return null;
@@ -46,7 +47,7 @@ namespace HMS.Basket.API.Model
 
         public async Task<CustomerBasket> UpdateBasketAsync(CustomerBasket basket)
         {
-            var created = await _database.StringSetAsync(basket.BuyerId, JsonConvert.SerializeObject(basket));
+			bool created = await _database.StringSetAsync(basket.BuyerId, JsonConvert.SerializeObject(basket));
             if (!created)
             {
                 _logger.LogInformation("Problem occur persisting the item.");
@@ -60,7 +61,7 @@ namespace HMS.Basket.API.Model
 
         private IServer GetServer()
         {
-            var endpoint = _redis.GetEndPoints();
+			System.Net.EndPoint[] endpoint = _redis.GetEndPoints();
             return _redis.GetServer(endpoint.First());
         }
     }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace HMS.Basket.API.Model
+namespace HMS.IntegrationEvents
 {
     public class CustomerBasket
     {

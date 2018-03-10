@@ -1,14 +1,14 @@
-﻿using System;
+﻿using HMS.IntegrationEvents.Events;
+using HMS.Ordering.API.Application.Commands;
 using MediatR;
 using Microsoft.BuildingBlocks.EventBus.Abstractions;
-using System.Threading.Tasks;
-using HMS.Ordering.API.Application.Commands;
 using Microsoft.Extensions.Logging;
-using HMS.Ordering.API.Application.IntegrationEvents.Events;
+using System;
+using System.Threading.Tasks;
 
 namespace HMS.Ordering.API.Application.IntegrationEvents.EventHandling
 {
-    public class UserCheckoutAcceptedIntegrationEventHandler : IIntegrationEventHandler<UserCheckoutAcceptedIntegrationEvent>
+	public class UserCheckoutAcceptedIntegrationEventHandler : IIntegrationEventHandler<UserCheckoutAcceptedIntegrationEvent>
     {
         private readonly IMediator _mediator;
         private readonly ILoggerFactory _logger;

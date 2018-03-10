@@ -1,12 +1,13 @@
-﻿namespace HMS.Ordering.API.Application.IntegrationEvents.EventHandling
-{
-    using Microsoft.BuildingBlocks.EventBus.Abstractions;
-    using System.Threading.Tasks;
-    using Events;
-    using System.Linq;
-    using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
+﻿using Microsoft.BuildingBlocks.EventBus.Abstractions;
+using System.Threading.Tasks;
+using System.Linq;
+using HMS.Ordering.Domain.AggregatesModel.OrderAggregate;
+using HMS.IntegrationEvents.Events;
 
-    public class OrderStockRejectedIntegrationEventHandler : IIntegrationEventHandler<OrderStockRejectedIntegrationEvent>
+namespace HMS.Ordering.API.Application.IntegrationEvents.EventHandling
+{
+
+	public class OrderStockRejectedIntegrationEventHandler : IIntegrationEventHandler<OrderStockRejectedIntegrationEvent>
     {
         private readonly IOrderRepository _orderRepository;
 
@@ -17,9 +18,9 @@
 
         public async Task Handle(OrderStockRejectedIntegrationEvent @event)
         {
-            var orderToUpdate = await _orderRepository.GetAsync(@event.OrderId);
+			Order orderToUpdate = await _orderRepository.GetAsync(@event.OrderId);
 
-            var orderStockRejectedItems = @event.OrderStockItems
+			System.Collections.Generic.IEnumerable<int> orderStockRejectedItems = @event.OrderStockItems
                 .FindAll(c => !c.HasStock)
                 .Select(c => c.ProductId);
 
