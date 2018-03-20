@@ -209,10 +209,9 @@ namespace HMS.Marketing.API
                .UseSwaggerUI(c =>
                {
                    c.SwaggerEndpoint($"{ (!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty) }/swagger/v1/swagger.json", "Marketing.API V1");
-				   //                   c.ConfigureOAuth2("marketingswaggerui", "", "", "Marketing Swagger UI");
-				   c.OAuthClientId("marketingswaggerui");
-				   c.OAuthAppName("Marketing Swagger UI");
-			   });            
+                   c.OAuthClientId("marketingswaggerui");
+                   c.OAuthAppName("Marketing Swagger UI");
+               });            
 
             ConfigureEventBus(app);
         }
